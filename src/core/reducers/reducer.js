@@ -6,7 +6,7 @@ const initialState = {
     sort:'distance'
 };
 
-export default function ui(state = initialState, action) {
+export default (state = initialState, action)=>{
     switch (action.type) {
 
         case actionTypes.ACTION_TYPE:
