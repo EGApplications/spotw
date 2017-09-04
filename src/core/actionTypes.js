@@ -6,11 +6,11 @@ const asyncActionNames = name =>({
     });
 
 export default {
-    ACTION_TYPE : 'ACTION_TYPE',
+    MAP_VIEW:"MAP_VIEW",
 
     //async actions
-    ...asyncActionNames('EVENTS'),
-    ...asyncActionNames('GET_ACTION')
+    ...asyncActionNames("EVENTS"),
+    ...asyncActionNames("GET_ACTION")
 };
 
 

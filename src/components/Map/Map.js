@@ -7,25 +7,38 @@ import './Map.css';
 
 class MapLeaf extends Component {
 
-    mapClick = evt => {
-        console.log(evt, 'map click');
-    }
-
-    onViewportChanged = viewport => {
-        console.log('view port change');
-    }
+    renderTooltip = ( {id,coords,src,title,description,startTime,endTime} )=>(
+        <Card>
+            {src && <Image src={src}/>}
+            <Card.Content>
+                <Card.Header>
+                    {title}
+                </Card.Header>
+                <Card.Meta>
+                <span className='date'>
+                    {startTime}
+                    {endTime}
+                </span>
+                </Card.Meta>
+                <Card.Description>
+                    {description}
+                </Card.Description>
+            </Card.Content>
+            <Card.Content extra>
+                <a><Icon name='user'/>22 Friends</a>
+            </Card.Content>
+        </Card>
+    )
 
     renderMarker = marker =>
         <Popup {...marker}>
             <Marker key={marker.id} position={marker.coords}>
-                <Tooltip direction="top">{renderTooltip(marker)}</Tooltip>
+                <Tooltip direction="top">{this.renderTooltip(marker)}</Tooltip>
             </Marker>
         </Popup>
 
     render() {
-        const center = [55.67846550322208,37.63229754602618];
-        const zoom =8;
-        const {events} = this.props;
+        const {events, center, zoom} = this.props;
         return (
             <Map center={center}
                  zoom={zoom}
@@ -43,33 +56,15 @@ class MapLeaf extends Component {
 }
 
 const mapState = state =>({
-    events: state.request.events
-});
+        events: state.request.events,
+        zoom: state.map.zoom,
+        center: state.map.center
+    })
+
 
 export default connect(mapState,()=>{})(MapLeaf)
 
-const renderTooltip = ( {id,coords,src,title,description,startTime,endTime} )=>(
-    <Card>
-        {src && <Image src={src}/>}
-        <Card.Content>
-            <Card.Header>
-                {title}
-            </Card.Header>
-            <Card.Meta>
-                <span className='date'>
-                    {startTime}
-                    {endTime}
-                </span>
-            </Card.Meta>
-            <Card.Description>
-                {description}
-            </Card.Description>
-        </Card.Content>
-        <Card.Content extra>
-            <a><Icon name='user'/>22 Friends</a>
-        </Card.Content>
-    </Card>
-)
+
 
 
 

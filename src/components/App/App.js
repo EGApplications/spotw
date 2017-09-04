@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import './App.css';
-import * as actions from '../../core/actions/actions'
+import * as actions from '../../core/actions'
 import Map from '../Map'
 import Header from '../Header'
 import News from '../News'

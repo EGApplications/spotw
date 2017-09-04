@@ -5,7 +5,7 @@ export default class Popup extends Component{
     render(){
         const {src, children} = this.props;
         return (
-            <Modal trigger={children}>
+            <Modal trigger={children} closeIcon>
                 <Modal.Header>Profile Picture</Modal.Header>
                 <Modal.Content image>
                     <Image wrapped size='medium' src={src}/>
