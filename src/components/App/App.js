@@ -9,6 +9,12 @@ import Header from '../Header'
 import News from '../News'
 
 class App extends Component {
+
+    componentDidMount(){
+        const {getEvents} = this.props.actions;
+        getEvents();
+    }
+
     render = () => (
         <div className="App">
             <Map/>

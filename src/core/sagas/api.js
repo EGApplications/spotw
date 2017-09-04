@@ -1,8 +1,10 @@
+import Parse from "parse";
 
-export const asyncAction = async function(){
-  return new Promise((resolve,reject)=>{
-      setTimeout(()=>{
-          console.log('done');
-          resolve('done')}, 5000)
-    })
-}
+
+Parse.initialize("spotwolrdappid");
+Parse.serverURL = 'https://spotworld.dimkk.ru/parse';
+
+
+export const getEvents = payload => new Parse.Query("Event").find();
+
+

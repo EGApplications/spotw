@@ -1,13 +1,13 @@
 import { put, call } from 'redux-saga/effects';
-import { asyncAction } from './api';
-import * as actionTypes from '../constants';
+import { getEvents } from './api';
+import types from '../actionTypes';
 
 export function* sagaGenFunction({ payload }) {
   try {
-    const result = yield call(asyncAction, 'some param');
-    yield put({ type: actionTypes.GET_ACTION_OK, payload:result });
+    const result = yield call(getEvents, payload);
+    yield put({ type: types.EVENTS_OK, payload:result });
   } catch (error) {
-    yield put({ type: actionTypes.GET_ACTION_ERR, error });
+    yield put({ type: types.EVENTS_ERR, error });
   }
 }
 

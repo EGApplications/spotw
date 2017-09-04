@@ -1,19 +1,20 @@
 //@flow
 import React, {Component} from 'react'
 import './News.css'
-import {  Image as ImageComponent, Item, Label } from 'semantic-ui-react'
+import moment from 'moment'
+import {  Item, Label } from 'semantic-ui-react'
 import { connect } from 'react-redux';
 
-const renderItem = ({src,header,meta,description,tags})=>(
+const renderItem = ({src,title,description,tags,startTime,endTime})=>(
     <Item>
-        <Item.Image src={src} />
+        <Item.Image  src={src} />
         <Item.Content>
-            <Item.Header as='a'>{header}</Item.Header>
+            <Item.Header as='a'>{title}</Item.Header>
             <Item.Meta>
-                <span className='cinema'>{meta}</span>
+                <span className='cinema'>{`${moment(startTime).format("DD.MM HH:mm")}`}</span>
             </Item.Meta>
             <Item.Description>
-                <ImageComponent src='https://react.semantic-ui.com/assets/images/wireframe/short-paragraph.png' />
+                {description}
             </Item.Description>
             <Item.Extra>
                 {tags.map(tag=><Label>{tag}</Label>)}
@@ -24,7 +25,8 @@ const renderItem = ({src,header,meta,description,tags})=>(
 
 class News extends Component {
     render() {
-        const { events } = this.props.request;
+        const { events } = this.props;
+        console.log(events);
         return (
             <Item.Group divided className="news">
                 {events.map(renderItem)}
@@ -32,9 +34,9 @@ class News extends Component {
     }
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-    }
-}
-export default connect( state=>state, mapDispatchToProps )( News )
+const mapState = state =>({
+    events: state.request.events
+});
+
+export default connect( mapState, ()=>{} )( News )
 

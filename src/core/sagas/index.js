@@ -1,11 +1,11 @@
 import { fork } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga/effects';
-import * as actionTypes from '../constants';
+import types from '../actionTypes';
 import { sagaGenFunction } from './request';
 
 
 function* watchGetRequest() {
-  yield takeEvery(actionTypes.GET_ACTION_REQ, sagaGenFunction);
+  yield takeEvery(types.EVENTS_REQ, sagaGenFunction);
   //next watcher for async actions
   // yield takeEvery(types.GET_COUNTRY_REQUEST, getCountriesSaga);
 }

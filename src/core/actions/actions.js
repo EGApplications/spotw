@@ -1,9 +1,9 @@
 
-import * as actionTypes from '../constants';
+import types from '../actionTypes';
 
 
-export const action = (payload) => ({
-  type: actionTypes.GET_ACTION_REQ,
+export const getEvents = payload => ({
+  type: types.EVENTS_REQ,
   payload
 });
 

@@ -1,10 +1,10 @@
 //@flow
 import React from 'react'
-import {Input, Menu, Button, Sticky} from 'semantic-ui-react'
+import {Input, Menu, Button } from 'semantic-ui-react'
+import './Header.css'
 
 export default () => (
-    <Sticky offset="1">
-        <Menu size="small" >
+        <Menu size="small" className="header-container">
             <Menu.Item>
                 <Input className='icon' icon='search' placeholder='Search...'/>
             </Menu.Item>
@@ -14,5 +14,4 @@ export default () => (
                 <Button attached='right'>Log-in</Button>
             </Menu.Item>
         </Menu>
-    </Sticky>
 )
