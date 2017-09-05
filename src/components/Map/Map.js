@@ -1,4 +1,4 @@
-import { Map, Marker, TileLayer, Tooltip } from 'react-leaflet';
+import { Map, Marker, TileLayer, Tooltip, ZoomControl } from 'react-leaflet';
 import { Card, Icon, Image } from 'semantic-ui-react'
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
@@ -48,6 +48,7 @@ class MapLeaf extends Component {
                     url='https://api.mapbox.com/styles/v1/mapbox/streets-v10/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGFmb2VkIiwiYSI6ImNqMHA2MHk5ODAwMDgzMnFxamQyNmVha3IifQ.8r9fW0pPDrNW7iwBqkVhhg'
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 />
+                <ZoomControl position={"bottomright"}/>
                 {events.map(this.renderMarker)}
             </Map>
 

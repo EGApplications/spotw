@@ -2,7 +2,7 @@
 import React, {Component} from 'react'
 import './News.css'
 import moment from 'moment'
-import {  Item, Label, Button, Icon, } from 'semantic-ui-react'
+import {  Item, Label, Button, Icon, Rating} from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../core/actions'
@@ -19,7 +19,10 @@ class News extends Component {
         <Item>
             <Item.Image  src={src} />
             <Item.Content>
-                <Item.Header as='a'>{title}</Item.Header>
+                <Item.Header>
+                    <span>{title}</span>
+                    <Button compact circular icon onClick={this.locationClick.bind(this,coords)}><Icon name='location arrow' /></Button>
+                </Item.Header>
                 <Item.Meta>
                     <span className='cinema'>{`${moment(startTime).format("DD.MM HH:mm")}`}</span>
                 </Item.Meta>
@@ -27,10 +30,12 @@ class News extends Component {
                     {description}
                 </Item.Description>
                 <Item.Extra>
-                    {tags.map(tag=><Label>{tag}</Label>)}
-                    <Button compact label={{ content: '2,048' }} icon='heart' content='Like' labelPosition='left' />
-                    <Button compact icon onClick={this.locationClick.bind(this,coords)}><Icon name='location arrow' /></Button>
+                    {tags.map(tag=><Label size="small">{tag}</Label>)}
                 </Item.Extra>
+                <Item.Extra className="extra-like">
+                    <Rating icon='heart' className="like" size="huge" defaultRating={0} maxRating={1} />
+                </Item.Extra>
+
             </Item.Content>
         </Item>
 
