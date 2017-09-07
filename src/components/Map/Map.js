@@ -31,11 +31,12 @@ class MapLeaf extends Component {
     )
 
     renderMarker = marker =>
-        <Popup {...marker}>
+        <Popup {...marker} trigger={
             <Marker key={marker.id} position={marker.coords}>
                 <Tooltip direction="top">{this.renderTooltip(marker)}</Tooltip>
             </Marker>
-        </Popup>
+        }/>
+
 
     render() {
         const {events, center, zoom} = this.props;

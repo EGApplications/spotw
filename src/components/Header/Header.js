@@ -1,6 +1,7 @@
 //@flow
 import React from 'react'
-import {Input, Menu, Button } from 'semantic-ui-react'
+import {Input, Menu, Button, Icon } from 'semantic-ui-react'
+import Login from '../Login'
 import './Header.css'
 
 export default () => (
@@ -10,8 +11,9 @@ export default () => (
             </Menu.Item>
 
             <Menu.Item position="right">
-                <Button attached='left' primary>Sign up</Button>
-                <Button attached='right'>Log-in</Button>
+                <Login trigger={
+                    <Button compact content='Log-in'><Icon name="sign in" size="large"/>Log-in</Button>
+                }/>
             </Menu.Item>
         </Menu>
 )

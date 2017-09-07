@@ -3,9 +3,9 @@ import { Button, Header, Icon, Image, Modal } from 'semantic-ui-react'
 
 export default class Popup extends Component{
     render(){
-        const {src, children} = this.props;
+        const {src, trigger} = this.props;
         return (
-            <Modal trigger={children} closeIcon>
+            <Modal trigger={trigger} dimmer="blurring" closeIcon>
                 <Modal.Header>Profile Picture</Modal.Header>
                 <Modal.Content image>
                     <Image wrapped size='medium' src={src}/>

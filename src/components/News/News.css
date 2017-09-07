@@ -5,9 +5,11 @@
     position:absolute;
     left:20px;
     top:0px;
+    min-width:400px;
     margin-top:45px;
     background-color:rgba(250,250,250,0.9);
 }
+
 
 .news .item:hover{
     background-color: rgba(59, 127, 206, 0.3);
