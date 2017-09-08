@@ -10,4 +10,15 @@ export const setMapView = payload => ({
   payload
 });
 
+export const getUserCoords = payload => ({
+  type: types.USER_COORDS_REQ,
+  payload
+});
+
+export const initApp = payload => ({
+  type: types.INIT_APP_REQ,
+  payload
+});
+
+
 

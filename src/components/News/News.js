@@ -11,9 +11,7 @@ import * as actions from '../../core/actions'
 
 class News extends Component {
 
-    locationClick = (coords)=>{
-        this.props.actions.setMapView({center:coords, zoom:14})
-    }
+    locationClick = (coords) => this.props.actions.setMapView( {center:{latitude:coords[0],longitude:coords[1]-0.08}, zoom:12} );
 
     renderItem = ({src,title,description,tags,startTime,endTime,coords})=>
         <Item>
@@ -35,14 +33,12 @@ class News extends Component {
                 <Item.Extra className="extra-like">
                     <Rating icon='heart' className="like" size="huge" defaultRating={0} maxRating={1} />
                 </Item.Extra>
-
             </Item.Content>
         </Item>
 
 
     render() {
         const { events } = this.props;
-        console.log(events);
         return (
             <Item.Group divided className="news">
                 {events.map(this.renderItem)}

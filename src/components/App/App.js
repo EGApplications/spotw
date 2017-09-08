@@ -11,8 +11,7 @@ import News from '../News'
 class App extends Component {
 
     componentDidMount(){
-        const {getEvents} = this.props.actions;
-        getEvents();
+        this.props.actions.initApp();
     }
 
     render = () => (

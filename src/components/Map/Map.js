@@ -3,12 +3,13 @@ import { Card, Icon, Image } from 'semantic-ui-react'
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import Popup from '../Popup'
+import moment from 'moment'
 import './Map.css';
 
 class MapLeaf extends Component {
 
     renderTooltip = ( {id,coords,src,title,description,startTime,endTime} )=>(
-        <Card>
+        <Card key={id}>
             {src && <Image src={src}/>}
             <Card.Content>
                 <Card.Header>
@@ -16,8 +17,8 @@ class MapLeaf extends Component {
                 </Card.Header>
                 <Card.Meta>
                 <span className='date'>
-                    {startTime}
-                    {endTime}
+                    {`${moment(startTime).format("DD.MM HH:mm")} -
+                    ${moment(endTime).format("DD.MM HH:mm")}`}
                 </span>
                 </Card.Meta>
                 <Card.Description>
@@ -25,7 +26,7 @@ class MapLeaf extends Component {
                 </Card.Description>
             </Card.Content>
             <Card.Content extra>
-                <a><Icon name='user'/>22 Friends</a>
+                <a><Icon name='user'/>22 Участника</a>
             </Card.Content>
         </Card>
     )
@@ -37,12 +38,21 @@ class MapLeaf extends Component {
             </Marker>
         }/>
 
+    onViewportChanged(coords ) {
+        console.log(this.refs);
+        //console.log(this.refs.map.getBounds())
+    }
 
     render() {
         const {events, center, zoom} = this.props;
         return (
-            <Map center={center}
+            <Map
+                 ref='map'
                  zoom={zoom}
+                 bounds={[
+                     [40.712, -74.227],
+                     [40.774, -74.125]
+                 ]}
                  onViewportChanged={this.onViewportChanged}
                  onClick={this.mapClick}>
                 <TileLayer
@@ -57,11 +67,17 @@ class MapLeaf extends Component {
     }
 }
 
-const mapState = state =>({
-        events: state.request.events,
-        zoom: state.map.zoom,
-        center: state.map.center
-    })
+const mapState = ( {
+                       request:{ events },
+                       map:{
+                           center:{ latitude, longitude },
+                           zoom
+                       }
+                   } )=>({
+    events,
+    zoom:zoom,
+    center:[latitude, longitude]
+})
 
 
 export default connect(mapState,()=>{})(MapLeaf)

@@ -1,11 +1,20 @@
-import { fork } from 'redux-saga/effects';
-import { takeEvery } from 'redux-saga/effects';
+import { fork, takeEvery,all,call } from 'redux-saga/effects';
 import types from '../actionTypes';
-import { sagaGenFunction } from './request';
+import { getEventsSaga } from './request';
+import { userCoordsSaga } from './map';
 
 
 function* watchGetRequest() {
-  yield takeEvery(types.EVENTS_REQ, sagaGenFunction);
+  yield takeEvery(types.EVENTS_REQ, getEventsSaga);
+  yield takeEvery(types.USER_COORDS_REQ, userCoordsSaga);
+  yield takeEvery(types.INIT_APP_REQ, function*(){
+      console.log('run all')
+      yield all([
+          call(getEventsSaga,{}),
+          call(userCoordsSaga,{})
+      ])
+  });
+
   //next watcher for async actions
   // yield takeEvery(types.GET_COUNTRY_REQUEST, getCountriesSaga);
 }

@@ -7,10 +7,13 @@ const asyncActionNames = name =>({
 
 export default {
     MAP_VIEW:"MAP_VIEW",
+    NEWS_HOVER:"NEWS_HOVER",
+    NEWS_LEAVE:"NEWS_LEAVE",
 
     //async actions
     ...asyncActionNames("EVENTS"),
-    ...asyncActionNames("GET_ACTION")
+    ...asyncActionNames("INIT_APP"),
+    ...asyncActionNames("USER_COORDS"),
 };
 
 

@@ -12,7 +12,7 @@ export default () => (
 
             <Menu.Item position="right">
                 <Login trigger={
-                    <Button compact content='Log-in'><Icon name="sign in" size="large"/>Log-in</Button>
+                    <Button compact><Icon name="sign in" size="large"/>Log-in</Button>
                 }/>
             </Menu.Item>
         </Menu>
