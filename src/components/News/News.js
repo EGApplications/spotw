@@ -13,8 +13,8 @@ class News extends Component {
 
     locationClick = (coords) => this.props.actions.setMapView( {center:{latitude:coords[0],longitude:coords[1]-0.08}, zoom:12} );
 
-    renderItem = ({src,title,description,tags,startTime,endTime,coords})=>
-        <Item>
+    renderItem = ({id,src,title,description,tags,startTime,endTime,coords})=>
+        <Item key={id}>
             <Item.Image  src={src} />
             <Item.Content>
                 <Item.Header>
@@ -28,7 +28,7 @@ class News extends Component {
                     {description}
                 </Item.Description>
                 <Item.Extra>
-                    {tags.map(tag=><Label size="small">{tag}</Label>)}
+                    {tags.map((tag,i)=><Label key={i} size="small">{tag}</Label>)}
                 </Item.Extra>
                 <Item.Extra className="extra-like">
                     <Rating icon='heart' className="like" size="huge" defaultRating={0} maxRating={1} />

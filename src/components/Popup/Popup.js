@@ -13,13 +13,6 @@ export default class Popup extends Component{
                         <Header>Modal Header</Header>
                         <p>This is an example of expanded content that will cause the modal's dimmer to scroll</p>
                         <Image src='https://react.semantic-ui.com/assets/images/wireframe/paragraph.png'/>
-                        <Image src='https://react.semantic-ui.com/assets/images/wireframe/paragraph.png'/>
-                        <Image src='https://react.semantic-ui.com/assets/images/wireframe/paragraph.png'/>
-                        <Image src='https://react.semantic-ui.com/assets/images/wireframe/paragraph.png'/>
-                        <Image src='https://react.semantic-ui.com/assets/images/wireframe/paragraph.png'/>
-                        <Image src='https://react.semantic-ui.com/assets/images/wireframe/paragraph.png'/>
-                        <Image src='https://react.semantic-ui.com/assets/images/wireframe/paragraph.png'/>
-                        <Image src='https://react.semantic-ui.com/assets/images/wireframe/paragraph.png'/>
                     </Modal.Description>
                 </Modal.Content>
                 <Modal.Actions>
