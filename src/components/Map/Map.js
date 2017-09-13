@@ -5,14 +5,16 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Popup from '../Popup'
 import moment from 'moment'
+import _ from 'lodash';
 import './Map.css';
 import * as actions from '../../core/actions'
 
 class MapLeaf extends Component {
 
-    componentDidUpdate(){
-        //const bounds = this.refs.map.leafletElement.getBounds();
-        //console.log(bounds);
+    shouldComponentUpdate(nextProps, nextState){
+        //TODO if no new events return false
+        //return !(this.props.events.length === nextProps.events.length)
+        return true;
     }
 
 
