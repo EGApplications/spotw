@@ -2,6 +2,7 @@
 
 import types from '../actionTypes'
 import moment from 'moment'
+import _ from 'lodash'
 
 export default (state, action)=> {
     switch (action.type) {
@@ -17,7 +18,7 @@ export default (state, action)=> {
                     startTime: moment(event.get('startTime')).format(),
                     endTime: moment(event.get('endTime')).format()
             }));
-            return {...state, events:events }
+            return {...state, events: _.uniqBy(state.events.concat(events),'id') }
         }
 
         default:

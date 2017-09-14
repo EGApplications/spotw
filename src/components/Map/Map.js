@@ -12,9 +12,11 @@ import * as actions from '../../core/actions'
 class MapLeaf extends Component {
 
     shouldComponentUpdate(nextProps, nextState){
-        //TODO if no new events return false
-        //return !(this.props.events.length === nextProps.events.length)
-        return true;
+        const prevEvents = this.props.events;
+        const nextEvents = nextProps.events;
+        const isFirstRender = nextEvents.length === 0 && prevEvents.length === 0;
+        const isNewItemsUploads = !!_.differenceBy( nextEvents, prevEvents, "id" ).length;
+        return isFirstRender || isNewItemsUploads
     }
 
 
@@ -50,11 +52,13 @@ class MapLeaf extends Component {
         }/>
 
     onViewportChanged(coords) {
+        console.log('viewport changed');
         const bounds = this.refs.map.leafletElement.getBounds();
         this.props.actions.getEvents({bounds});
     }
 
     render() {
+        console.log('render map');
         const {events, center, zoom} = this.props;
         return (
             <Map

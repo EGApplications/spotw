@@ -1,4 +1,4 @@
-import { fork, takeEvery,all,call, takeLatest } from 'redux-saga/effects';
+import { takeEvery, all, call, takeLatest } from 'redux-saga/effects';
 import types from '../actionTypes';
 import { getEventsSaga } from './request';
 import { userCoordsSaga } from './map';
