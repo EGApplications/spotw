@@ -12,6 +12,7 @@
     "parse": "^1.9.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-file-input": "^0.2.5",
     "react-leaflet": "^1.6.5",
     "react-redux": "^5.0.6",
     "react-scripts": "1.0.12",
