@@ -8,7 +8,10 @@ const asyncActionNames = name =>({
 export default {
     MAP_VIEW:"MAP_VIEW",
     NEWS_HOVER:"NEWS_HOVER",
-    NEWS_LEAVE:"NEWS_LEAVE",
+    BOUNDS_CHANGED:"BOUNDS_CHANGED",
+    CREATE_MARKER_CLICK:"CREATE_MARKER_CLICK",
+    CHANGE_CURSOR:"CHANGE_CURSOR",
+    MAP_CLICK:"MAP_CLICK",
 
     //async actions
     ...asyncActionNames("EVENTS"),

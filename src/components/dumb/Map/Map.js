@@ -1,24 +1,16 @@
 import { Map, Marker, TileLayer, Tooltip, ZoomControl } from 'react-leaflet';
 import { Card, Icon, Image } from 'semantic-ui-react'
 import React, {Component} from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import Popup from '../Popup'
+import Popup from '../../Popup'
 import moment from 'moment'
-import _ from 'lodash';
+import _ from 'lodash'
 import './Map.css';
-import * as actions from '../../core/actions'
 
-class MapLeaf extends Component {
 
-    shouldComponentUpdate(nextProps, nextState){
-        const prevEvents = this.props.events;
-        const nextEvents = nextProps.events;
-        const isFirstRender = nextEvents.length === 0 && prevEvents.length === 0;
-        const isNewItemsUploads = !!_.differenceBy( nextEvents, prevEvents, "id" ).length;
-        return isFirstRender || isNewItemsUploads
-    }
+export default class MapLeaf extends Component {
 
+    //if the same props, no render (functions can't be compare)
+    shouldComponentUpdate = prevProps => !_.isEqual(_.omitBy(prevProps, _.isFunction),_.omitBy(this.props, _.isFunction));
 
     renderTooltip = ( {id,coords,src,title,description,startTime,endTime} )=>(
         <Card>
@@ -51,22 +43,21 @@ class MapLeaf extends Component {
             </Marker>
         }/>
 
-    onViewportChanged(coords) {
-        console.log('viewport changed');
-        const bounds = this.refs.map.leafletElement.getBounds();
-        this.props.actions.getEvents({bounds});
+    onViewportChanged =coords=>{
+        this.props.onBoundsChanged(this.refs.map.leafletElement.getBounds());
     }
 
     render() {
-        console.log('render map');
-        const {events, center, zoom} = this.props;
+        console.log('rerender map');
+        const { events, center, zoom, onClick, cursor } = this.props;
         return (
             <Map
-                 ref='map'
-                 zoom={zoom}
-                 center={center}
-                 onViewportChanged={this.onViewportChanged.bind(this)}
-                 onClick={this.mapClick}>
+                ref='map'
+                style={{cursor:cursor}}
+                zoom={zoom}
+                center={center}
+                onViewportChanged={this.onViewportChanged}
+                onClick={onClick}>
                 <TileLayer
                     url='https://api.mapbox.com/styles/v1/mapbox/streets-v10/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGFmb2VkIiwiYSI6ImNqMHA2MHk5ODAwMDgzMnFxamQyNmVha3IifQ.8r9fW0pPDrNW7iwBqkVhhg'
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -78,27 +69,10 @@ class MapLeaf extends Component {
     }
 }
 
-const mapState = ( {
-                       request:{ events },
-                       map:{
-                           center:{ latitude, longitude },
-                           zoom
-                       }
-                   } )=>({
-    events,
-    zoom:zoom,
-    center:[latitude, longitude]
-})
 
 
-function mapDispatchToProps(dispatch) {
-    return {
-        actions:{
-            ...bindActionCreators(actions, dispatch),
-        }
-    }
-}
-export default connect(mapState, mapDispatchToProps)(MapLeaf)
+
+
 
 
 

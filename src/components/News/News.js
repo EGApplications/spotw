@@ -50,11 +50,8 @@ const mapState = state =>({
     events: state.request.events
 });
 
-const mapActions = dispatch =>({
-    actions:{
-        ...bindActionCreators(actions, dispatch),
-    }
-})
+
+const mapActions = dispatch => ({ actions:{ ...bindActionCreators(actions, dispatch), } });
 
 export default connect( mapState, mapActions )( News )
 

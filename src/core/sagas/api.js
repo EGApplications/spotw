@@ -6,9 +6,9 @@ Parse.serverURL = 'https://spotworld.dimkk.ru/parse';
 export const getEvents = payload => {
     const { bounds } = payload;
     const query = new Parse.Query("Event");
-    //if bounds
-    if ( bounds ) { query.withinGeoBox("location", ParseGeoPoint(bounds._southWest), ParseGeoPoint(bounds._northEast)) }
-    return query.find();
+    return query
+        .withinGeoBox("location", ParseGeoPoint(bounds._southWest), ParseGeoPoint(bounds._northEast))
+        .find()
 };
 
 function ParseGeoPoint(coordsObj){

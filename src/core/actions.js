@@ -20,5 +20,29 @@ export const initApp = payload => ({
   payload
 });
 
+export const newsHover = payload => ({
+  type: types.NEWS_HOVER,
+  payload
+});
+
+export const boundsChanged = payload => ({
+  type: types.BOUNDS_CHANGED,
+  payload
+});
+
+export const createMarkerClick = payload => ({
+  type: types.CREATE_MARKER_CLICK,
+  payload
+});
+
+export const changeCursor = payload => ({
+  type: types.CHANGE_CURSOR,
+  payload
+});
+export const mapClick = payload => ({
+  type: types.MAP_CLICK,
+  payload
+});
+
 
 
