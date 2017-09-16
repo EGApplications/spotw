@@ -11,6 +11,13 @@ export const getEvents = payload => {
         .find()
 };
 
+export const saveEvent = payload => {
+    const Event = Parse.Object.extend("Event");
+    const newEvent = new Event(payload);
+    return newEvent.save();
+};
+
+
 function ParseGeoPoint(coordsObj){
     const {lat,lng} = coordsObj;
     return new Parse.GeoPoint(lat, lng)

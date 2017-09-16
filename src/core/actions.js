@@ -1,7 +1,7 @@
 import types from './actionTypes';
 
 export const getEvents = payload => ({
-  type: types.EVENTS_REQ,
+  type: types.GET_EVENTS_REQ,
   payload
 });
 
@@ -11,7 +11,7 @@ export const setMapView = payload => ({
 });
 
 export const getUserCoords = payload => ({
-  type: types.USER_COORDS_REQ,
+  type: types.GET_USER_COORDS_REQ,
   payload
 });
 
@@ -35,8 +35,8 @@ export const createMarkerClick = payload => ({
   payload
 });
 
-export const changeCursor = payload => ({
-  type: types.CHANGE_CURSOR,
+export const editorSubmit = payload => ({
+  type: types.SAVE_EVENT_REQ,
   payload
 });
 export const mapClick = payload => ({

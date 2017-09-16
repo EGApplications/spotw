@@ -11,14 +11,14 @@ export default (state, action)=> {
             return { ...state, center, zoom:zoom }
         }
 
-        case types.USER_COORDS_OK:{
+        case types.GET_USER_COORDS_OK:{
             const {latitude, longitude} = action.payload;
             return { ...state, userCoords:{ latitude , longitude}}
         }
 
         case types.BOUNDS_CHANGED: return { ...state, bounds:action.payload};
 
-        case types.CHANGE_CURSOR: return { ...state, cursor:action.payload};
+        case types.CURSOR_CHANGE: return { ...state, cursor:action.payload};
 
 
         default:

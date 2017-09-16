@@ -6,7 +6,7 @@ import moment from 'moment'
 export default (state, action)=> {
     switch (action.type) {
 
-        case types.EVENTS_OK:{
+        case types.GET_EVENTS_OK:{
             const events = action.payload.map(event=>({
                     coords:[ event.get('location').latitude, event.get('location').longitude ],
                     title: event.get('title'),
