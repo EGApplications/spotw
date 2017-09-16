@@ -17,9 +17,10 @@ export function* newMarkerSaga(){
 
 export function* editorSubmitSaga(payload){
     console.log(payload);
+
     yield all( [
         put({ type: types.SAVE_EVENT_REQ, payload }),
-        put({ type: types.EDITOR_CLOSE, payload })
+        put({ type: types.EDITOR_TOGGLE, payload })
     ] )
 }
 

@@ -43,6 +43,10 @@ export const mapClick = payload => ({
   type: types.MAP_CLICK,
   payload
 });
+export const editorToggle = payload => ({
+  type: types.EDITOR_TOGGLE,
+  payload
+});
 
 
 

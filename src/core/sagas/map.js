@@ -18,6 +18,8 @@ export function* userCoordsSaga({ payload }) {
 
 export function* mapClickSaga({ payload }) {
     console.log(payload);
+    yield put( { type:types.SAVE_LAST_CLICK, payload} );
+    yield put( { type:types.EDITOR_TOGGLE } );
     yield console.log('map click saga');
 }
 

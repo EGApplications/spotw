@@ -1,25 +1,28 @@
 import React, {Component} from 'react'
 import { Modal, Form } from 'semantic-ui-react'
-import './MarkerEditor.css'
+import './Editor.css'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../core/actions'
 
-class MarkerEditor extends Component{
+class Editor extends Component{
 
-    state={title:'',description:''}
+    state = {title: '', description: '', file: null};
 
-    fileInputChange = console.log;
+    fileInputChange = ({target: {files:[file]}}) => this.setState({file:file});
 
-    handleChange = (e, { name, value }) => this.setState({ [name]: value })
+    handleChange = (e, {name, value}) => this.setState({[name]: value});
 
-    handleSubmit = () => this.props.actions.editorSubmit(this.state);
+    handleSubmit = () => {
+        const {location} = this.props;
+        this.props.actions.editorSubmit({...this.state, location});
+    }
 
     render(){
-        const {title,description} = this.state;
-        const {isOpen} = this.props;
+        const { title, description } = this.state;
+        const { isOpen } = this.props;
         return (
-            <Modal open={isOpen}>
+            <Modal open={ isOpen } onClose={this.props.actions.editorToggle}>
                 <Modal.Header>Marker Editor</Modal.Header>
                 <Modal.Content>
                     <Form onSubmit={this.handleSubmit}>
@@ -36,6 +39,7 @@ class MarkerEditor extends Component{
 
 
 const mapActions = dispatch => ({ actions:{ ...bindActionCreators(actions, dispatch), } });
-const mapProps = state => ({isOpen:false});
 
-export default connect( mapProps, mapActions )( MarkerEditor )
+const mapProps = ({ui:{editorOpen}, map:{lastClick:{latlng}}}) => ({ isOpen:editorOpen, location:latlng });
+
+export default connect( mapProps, mapActions )( Editor )

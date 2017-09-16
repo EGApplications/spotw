@@ -8,9 +8,13 @@ export default {
         zoom:10,
         userCoords:null,
         bounds:null,
+        lastClick:{
+            latlng:null
+        },
         cursor: "default" //"url(/img/marker-pointer.png), auto"
     },
     ui:{
         newsHoveredItem:null,
+        editorOpen:false,
     }
 }

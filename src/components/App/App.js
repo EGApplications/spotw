@@ -8,7 +8,7 @@ import Map from '../MapWrap'
 import Header from '../Header'
 import News from '../News'
 import Footbar from '../Footbar'
-import MarkerEditor from '../MarkerEditor'
+import Editor from '../Editor'
 
 class App extends Component {
 
@@ -22,7 +22,7 @@ class App extends Component {
             <News/>
             <Header/>
             <Footbar/>
-            <MarkerEditor/>
+            <Editor/>
         </div>
     )
 }

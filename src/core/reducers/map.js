@@ -20,6 +20,7 @@ export default (state, action)=> {
 
         case types.CURSOR_CHANGE: return { ...state, cursor:action.payload};
 
+        case types.SAVE_LAST_CLICK: return { ...state, lastClick:action.payload};
 
         default:
             return {...state}

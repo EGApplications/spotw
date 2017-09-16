@@ -14,6 +14,7 @@ function* mapSagas(){
     yield takeEvery( types.GET_USER_COORDS_REQ, map.userCoordsSaga );
     yield takeEvery( types.MAP_CLICK, map.mapClickSaga );
 }
+
 function* uiSagas(){
     yield takeEvery( types.CREATE_MARKER_CLICK, ui.newMarkerSaga );
     yield takeEvery( types.EDITOR_SUBMIT, ui.editorSubmitSaga );
