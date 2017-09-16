@@ -1,9 +1,10 @@
 //@flow
 
 import { combineReducers } from 'redux'
-import reducer from './reducer'
 import request from './request'
+import map from './map'
+import ui from './ui'
 
 export default combineReducers({
-    reducer, request
+    request, map, ui
 })

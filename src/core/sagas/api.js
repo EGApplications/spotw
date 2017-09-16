@@ -1,8 +1,18 @@
+import Parse from "parse";
 
-export const asyncAction = async function(){
-  return new Promise((resolve,reject)=>{
-      setTimeout(()=>{
-          console.log('done');
-          resolve('done')}, 5000)
-    })
+Parse.initialize("spotwolrdappid");
+Parse.serverURL = 'https://spotworld.dimkk.ru/parse';
+
+export const getEvents = payload => {
+    const { bounds } = payload;
+    const query = new Parse.Query("Event");
+    return query
+        .withinGeoBox("location", ParseGeoPoint(bounds._southWest), ParseGeoPoint(bounds._northEast))
+        .find()
+};
+
+function ParseGeoPoint(coordsObj){
+    const {lat,lng} = coordsObj;
+    return new Parse.GeoPoint(lat, lng)
 }
+
