@@ -18,6 +18,8 @@ export default {
 
     //async actions
     ...asyncActionNames("GET_EVENTS"),
+    ...asyncActionNames("LOGIN_LOCAL"),
+    ...asyncActionNames("SIGNIN_LOCAL"),
     ...asyncActionNames("SAVE_EVENT"),
     ...asyncActionNames("INIT_APP"),
     ...asyncActionNames("GET_USER_COORDS"),

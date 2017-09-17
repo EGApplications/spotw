@@ -39,12 +39,22 @@ export const editorSubmit = payload => ({
   type: types.EDITOR_SUBMIT,
   payload
 });
+
 export const mapClick = payload => ({
   type: types.MAP_CLICK,
   payload
 });
+
 export const editorToggle = payload => ({
   type: types.EDITOR_TOGGLE,
+  payload
+});
+export const loginLocal = payload => ({
+  type: types.LOGIN_LOCAL_REQ,
+  payload
+});
+export const signinLocal = payload => ({
+  type: types.SIGNIN_LOCAL_REQ,
   payload
 });
 

@@ -8,6 +8,8 @@ function* requestSagas(){
     yield takeLatest( types.GET_EVENTS_REQ, request.getEventsSaga );
     yield takeEvery( types.SAVE_EVENT_REQ, request.saveEventSaga );
     yield takeEvery( types.SAVE_EVENT_OK, request.saveEventOkSaga );
+    yield takeEvery( types.LOGIN_LOCAL_REQ, request.loginLocalSaga );
+    yield takeEvery( types.SIGNIN_LOCAL_REQ, request.signinLocalSaga );
 }
 
 function* mapSagas(){

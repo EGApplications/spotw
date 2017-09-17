@@ -9,7 +9,6 @@ class Editor extends Component{
 
     state = {title: '', description: '', file: null};
 
-
     fileInputChange = ({target: {files:[file]}}) => this.setState({file:file});
 
     handleChange = (e, {name, value}) => this.setState({[name]: value});

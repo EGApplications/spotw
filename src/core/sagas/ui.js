@@ -1,6 +1,7 @@
 import { call, all, put } from 'redux-saga/effects';
 import * as map from './map.js'
 import types from '../actionTypes'
+import { currentUser } from './api';
 
 
 export function* initAppSaga(){

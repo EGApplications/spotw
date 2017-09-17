@@ -1,7 +1,7 @@
 //@flow
 import React from 'react'
 import {Input, Menu, Button, Icon } from 'semantic-ui-react'
-import Login from '../Login'
+import Authorize from '../Authorize'
 import './Header.css'
 
 export default () => (
@@ -11,8 +11,8 @@ export default () => (
             </Menu.Item>
 
             <Menu.Item position="right">
-                <Login trigger={
-                    <Button compact><Icon name="sign in" size="large"/>Log-in</Button>
+                <Authorize trigger={
+                    <Button compact><Icon name="sign in" size="large"/>Sign-in</Button>
                 }/>
             </Menu.Item>
         </Menu>

@@ -24,6 +24,22 @@ export const saveEvent = payload => {
 
 };
 
+export const signinLocal = ({username, password, email}) => {
+    return new Parse.User({
+        username: username,
+        password: password,
+        email: email
+    }).signUp();
+}
+
+export const loginLocal = ({email, password}) => {
+    return Parse.User.logIn(email, password);
+}
+
+export const currentUser = () => Parse.User.current();
+
+export const logout = () => Parse.User.logOut();
+
 
 function ParseGeoPoint(coordsObj){
     const {lat,lng} = coordsObj;

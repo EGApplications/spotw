@@ -24,6 +24,10 @@ export default (state, action)=> {
         case types.SAVE_EVENT_REQ:{ return {...state, saveEventPending:true} }
         case types.SAVE_EVENT_ERR:{ return {...state, saveEventPending:false} }
 
+        case types.LOGIN_LOCAL_OK:{ return {...state, user:action.payload} }
+
+        case types.SIGNIN_LOCAL_OK:{ return {...state, user:action.payload} }
+
         default:
             return {...state}
     }
