@@ -44,8 +44,8 @@ class News extends Component {
     }
 }
 
-const mapState = state =>({
-    events: state.request.events
+const mapState = ({ request: { events } }) =>({
+    events
 });
 
 

@@ -7,6 +7,7 @@ import * as ui from './ui';
 function* requestSagas(){
     yield takeLatest( types.GET_EVENTS_REQ, request.getEventsSaga );
     yield takeEvery( types.SAVE_EVENT_REQ, request.saveEventSaga );
+    yield takeEvery( types.SAVE_EVENT_OK, request.saveEventOkSaga );
 }
 
 function* mapSagas(){

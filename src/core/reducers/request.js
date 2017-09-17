@@ -20,6 +20,10 @@ export default (state, action)=> {
             return {...state, events: events }
         }
 
+        case types.SAVE_EVENT_OK:{ return {...state, saveEventPending:false} }
+        case types.SAVE_EVENT_REQ:{ return {...state, saveEventPending:true} }
+        case types.SAVE_EVENT_ERR:{ return {...state, saveEventPending:false} }
+
         default:
             return {...state}
     }

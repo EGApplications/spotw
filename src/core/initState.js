@@ -1,7 +1,8 @@
 //@flow
 export default {
     request:{
-        events:[]
+        events:[],
+        saveEventPending:false
     },
     map:{
         center:{latitude:55.67846550322208,longitude:37.63229754602618},

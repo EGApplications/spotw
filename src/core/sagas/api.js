@@ -14,7 +14,6 @@ export const getEvents = payload => {
 export const saveEvent = payload => {
 
     const Event = Parse.Object.extend("Event");
-
     payload.location = new Parse.GeoPoint({latitude: payload.location.lat, longitude: payload.location.lng});
 
     return getBase64(payload.file).then( fileBase64=>{

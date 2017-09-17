@@ -11,17 +11,12 @@ export function* initAppSaga(){
 
 export function* newMarkerSaga(){
     yield all( [
-        put({ type: types.CURSOR_CHANGE, payload:"url(/img/marker-pointer.png), auto" })
+        put({ type: types.CURSOR_CHANGE, payload:"url(/img/marker-cursor.png), auto" })
     ] )
 }
 
-export function* editorSubmitSaga(payload){
-    console.log(payload);
-
-    yield all( [
-        put({ type: types.SAVE_EVENT_REQ, payload }),
-        put({ type: types.EDITOR_TOGGLE, payload })
-    ] )
+export function* editorSubmitSaga({payload}){
+    yield put({ type: types.SAVE_EVENT_REQ, payload });
 }
 
 

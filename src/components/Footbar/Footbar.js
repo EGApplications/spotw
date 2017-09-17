@@ -16,7 +16,7 @@ class Footbar extends Component {
             <Menu className="main" compact icon='labeled'>
                 <Menu.Item name='add marker' onClick={this.handleItemClick}>
                     <Icon name='add circle' />
-                    Games
+                    Add event
                 </Menu.Item>
             </Menu>
         )
