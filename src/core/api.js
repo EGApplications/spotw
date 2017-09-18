@@ -26,20 +26,25 @@ export const saveEvent = payload => {
 };
 
 export const signinLocal = ({username, password, email}) => {
-    return new Parse.User({
+    return new Promise( (resolve,reject)=>new Parse.User({
         username: username,
         password: password,
         email: email
-    }).signUp();
+    }).signUp().then(user=>resolve(user.toJSON()),reject) );
 }
 
-export const loginLocal = ({email, password}) => {
-    return Parse.User.logIn(email, password);
+export const loginLocal = ({username, password}) => {
+    return new Promise( (resolve,reject)=>Parse.User.logIn(username, password).then(user=>resolve(user.toJSON()),reject) );
 }
 
-export const currentUser = () => Parse.User.current();
+export const currentUser = () => {
+    const user = Parse.User.current();
+    return user ? user.toJSON() : null
+}
 
-export const logout = () => Parse.User.logOut();
+
+export const logout = () => new Promise( (resolve,reject)=>Parse.User.logOut().then(resolve,reject) );
+
 
 
 function ParseGeoPoint(coordsObj){

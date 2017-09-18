@@ -12,8 +12,8 @@ export function* userCoordsSaga({ payload }) {
         yield put({ type: types.GET_USER_COORDS_OK, payload:{latitude,longitude} });
         yield put({ type: types.MAP_VIEW, payload:{ center:{latitude,longitude:longitude-0.165}, zoom:11 } });
 
-    } catch (error) {
-        yield put({ type: types.GET_USER_COORDS_ERR, error });
+    } catch ({message}) {
+        yield put({ type: types.GET_USER_COORDS_ERR, message });
     }
 }
 
@@ -21,7 +21,7 @@ export function* mapClickSaga({payload}) {
     const cursor = yield getFromStore('map.cursor');
     const isMarkerPointerCursor = !!~cursor.indexOf('marker-cursor.png');
 
-    console.log(payload);
+    console.log( 'click data', payload );
 
     yield put({type: types.SAVE_LAST_CLICK, payload});
 

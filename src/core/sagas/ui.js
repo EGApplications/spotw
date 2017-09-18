@@ -1,14 +1,5 @@
-import { call, all, put } from 'redux-saga/effects';
-import * as map from './map.js'
+import { all, put } from 'redux-saga/effects';
 import types from '../actionTypes'
-import { currentUser } from './api';
-
-
-export function* initAppSaga(){
-    yield all( [
-        call( map.userCoordsSaga, {} )
-    ] )
-}
 
 export function* newMarkerSaga(){
     yield all( [

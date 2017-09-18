@@ -1,6 +1,6 @@
 //@flow
 import React, { Component } from 'react';
-import { Header, Modal,  Tab, } from 'semantic-ui-react';
+import { Header, Modal,  Tab, Button, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../core/actions'
@@ -21,14 +21,13 @@ class Authorize extends Component{
     ]
 
     render(){
-        const { trigger } = this.props;
         return (
-            <Modal trigger={trigger} size="tiny" dimmer="blurring">
+            <Modal trigger={<Button compact><Icon name="sign in" size="large"/>Sign-in</Button>} size="tiny" dimmer="blurring">
                 <Modal.Content>
                     <Modal.Description>
                         <Tab panes={this.panes}/>
                         <Header size="small" textAlign='center'>Быстрый вход</Header>
-                        <SocialEnter/>
+                        <SocialEnter loginWith={this.props.actions.loginWith} />
                     </Modal.Description>
                 </Modal.Content>
             </Modal>

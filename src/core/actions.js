@@ -53,9 +53,16 @@ export const loginLocal = payload => ({
   type: types.LOGIN_LOCAL_REQ,
   payload
 });
+export const userLogout = payload => ({
+  type: types.USER_LOGOUT_REQ,
+  payload
+});
 export const signinLocal = payload => ({
   type: types.SIGNIN_LOCAL_REQ,
   payload
+});
+export const loginWith = actionNamePart => ({
+  type: types[`LOGIN_WITH_${actionNamePart}_REQ`]
 });
 
 

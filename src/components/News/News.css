@@ -4,9 +4,8 @@
     width:37vw;
     position:absolute;
     left:20px;
-    top:0px;
+    top:45px;
     min-width:400px;
-    margin-top: 50px;
     background-color:rgba(250,250,250,0.9);
 }
 
@@ -26,9 +25,4 @@
     padding-right: 5px;
 }
 
-.ui.items>.item>.content>.header{
-    display: flex;
-    justify-content: space-between;
-    padding-right:10px;
-}
 

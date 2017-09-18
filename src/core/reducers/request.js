@@ -28,6 +28,10 @@ export default (state, action)=> {
 
         case types.SIGNIN_LOCAL_OK:{ return {...state, user:action.payload} }
 
+        case types.USER_LOGOUT_OK:{ return {...state, user:null} }
+
+        case types.GET_CURRENT_USER_OK:{ return {...state, user:action.payload} }
+
         default:
             return {...state}
     }

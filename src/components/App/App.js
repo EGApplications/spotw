@@ -16,23 +16,21 @@ class App extends Component {
         this.props.actions.initApp();
     }
 
-    render = () => (
-        <div className="App">
-            <Map/>
-            <News/>
-            <Header/>
-            <Footbar/>
-            <Editor/>
-        </div>
-    )
-}
-
-
-function mapDispatchToProps(dispatch) {
-    return {
-        actions:{
-            ...bindActionCreators(actions, dispatch),
-        }
+    render(){
+        const { user } = this.props;
+        return(
+            <div className="App">
+                <Map/>
+                <News/>
+                <Header/>
+                { !!user && <Footbar/> }
+                <Editor/>
+            </div>
+        )
     }
 }
-export default connect( state=>state, mapDispatchToProps )( App )
+
+
+const mapAction = (dispatch)=>( { actions: {...bindActionCreators (actions, dispatch) } } );
+const mapProps = ({request:{user}})=>( { user } );
+export default connect( mapProps, mapAction )( App )

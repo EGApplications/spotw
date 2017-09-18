@@ -1,19 +1,22 @@
 
 import React, {Component} from 'react'
 import { Button, Header, Icon, Image, Modal, Label, Dropdown } from 'semantic-ui-react'
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actions from '../../core/actions'
 
-export default class User extends Component{
+class User extends Component{
+
+    logout=()=>this.props.actions.userLogout();
+
     render(){
-        console.log(this.props);
         const src = 'https://react.semantic-ui.com/assets/images/avatar/small/joe.jpg';
         const { username }= this.props;
         return (
-            <Dropdown trigger={<Label color={"blue"}><Image avatar spaced='right' src={src}/>{username}</Label>} icon={null}>
+            <Dropdown compact={true} trigger={<Label color={"blue"}><Image avatar spaced='right' src={src}/>{username}</Label>} icon={null}>
                 <Dropdown.Menu>
-                    <Dropdown.Header icon='tags' content='Filter by tag'/>
-                    <Dropdown.Divider/>
                     <Modal
-                        trigger={<Dropdown.Item>Important</Dropdown.Item>}
+                        trigger={<Dropdown.Item icon="setting" text="Settings" key="setting"/>}
                         dimmer="blurring"
                         closeIcon
                     >
@@ -34,12 +37,21 @@ export default class User extends Component{
                             </Button>
                         </Modal.Actions>
                     </Modal>
-                    <Dropdown.Item>Announcement</Dropdown.Item>
-                    <Dropdown.Item>Discussion</Dropdown.Item>
+                    <Dropdown.Item onClick={this.logout} icon="log out" text="Logout" key="logout"/>
                 </Dropdown.Menu>
             </Dropdown>
 
         )
     }
 }
+
+
+const mapState = ({ request: { user } }) =>({
+    user
+});
+
+const mapActions = dispatch => ({ actions:{ ...bindActionCreators(actions, dispatch), } });
+
+export default connect( mapState, mapActions )( User )
+
 

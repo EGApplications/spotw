@@ -18,11 +18,17 @@ export default {
 
     //async actions
     ...asyncActionNames("GET_EVENTS"),
-    ...asyncActionNames("LOGIN_LOCAL"),
-    ...asyncActionNames("SIGNIN_LOCAL"),
     ...asyncActionNames("SAVE_EVENT"),
     ...asyncActionNames("INIT_APP"),
     ...asyncActionNames("GET_USER_COORDS"),
+
+    ...asyncActionNames("GET_CURRENT_USER"),
+    ...asyncActionNames("USER_LOGOUT"),
+    ...asyncActionNames("LOGIN_LOCAL"),
+    ...asyncActionNames("SIGNIN_LOCAL"),
+    ...asyncActionNames("LOGIN_WITH_FB"),
+    ...asyncActionNames("LOGIN_WITH_VK"),
+    ...asyncActionNames("LOGIN_WITH_GP"),
 };
 
 

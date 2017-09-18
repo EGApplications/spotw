@@ -2,14 +2,12 @@
 import React, {Component} from 'react'
 import './News.css'
 import moment from 'moment'
-import {  Item, Label, Button, Icon, Rating} from 'semantic-ui-react'
+import {  Item, Label, Rating} from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../core/actions'
 
 class News extends Component {
-
-    locationClick = coords => this.props.actions.setMapView( {center:{latitude:coords[0],longitude:coords[1]-0.08}, zoom:12} );
 
     renderItem = ({id,src,title,description,tags,startTime,endTime,coords})=>
         <Item key={id}>
@@ -17,7 +15,6 @@ class News extends Component {
             <Item.Content>
                 <Item.Header>
                     <span>{title}</span>
-                    <Button compact circular icon onClick={this.locationClick.bind(this,coords)}><Icon name='location arrow' /></Button>
                 </Item.Header>
                 <Item.Meta>
                     <span className='cinema'>{`${moment(startTime).format("DD.MM HH:mm")}`}</span>
@@ -47,7 +44,6 @@ class News extends Component {
 const mapState = ({ request: { events } }) =>({
     events
 });
-
 
 const mapActions = dispatch => ({ actions:{ ...bindActionCreators(actions, dispatch), } });
 

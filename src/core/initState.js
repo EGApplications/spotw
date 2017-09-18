@@ -2,7 +2,8 @@
 export default {
     request:{
         events:[],
-        saveEventPending:false
+        saveEventPending:false,
+        user:null,
     },
     map:{
         center:{latitude:55.67846550322208,longitude:37.63229754602618},
@@ -16,6 +17,6 @@ export default {
     },
     ui:{
         newsHoveredItem:null,
-        editorOpen:false,
+        editorOpen:false
     }
 }

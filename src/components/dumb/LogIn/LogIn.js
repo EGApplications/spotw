@@ -4,7 +4,7 @@ import { Button, Form} from 'semantic-ui-react';
 
 export default class SignIn extends Component{
 
-    state={ email:'', password:'' };
+    state={ username:'', password:'' };
 
     handleChange = (e, {name, value}) => this.setState({[name]: value});
 
@@ -13,10 +13,10 @@ export default class SignIn extends Component{
     }
 
     render(){
-        const {email, password} = this.state;
+        const {username, password} = this.state;
         return (
             <Form onSubmit={this.handleSubmit}>
-                <Form.Input label='email' placeholder='email' name="email" value={email}
+                <Form.Input label='username' placeholder='username' name="username" value={username}
                             onChange={this.handleChange} required/>
                 <Form.Input label='password' placeholder='password' name="password" value={password}
                             onChange={this.handleChange} required/>
