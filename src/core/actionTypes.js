@@ -10,13 +10,19 @@ export default {
     NEWS_HOVER:"NEWS_HOVER",
     BOUNDS_CHANGED:"BOUNDS_CHANGED",
     CREATE_MARKER_CLICK:"CREATE_MARKER_CLICK",
-    CHANGE_CURSOR:"CHANGE_CURSOR",
+    CURSOR_CHANGE:"CURSOR_CHANGE",
+    EDITOR_SUBMIT:"EDITOR_SUBMIT",
+    EDITOR_TOGGLE:"EDITOR_TOGGLE",
     MAP_CLICK:"MAP_CLICK",
+    SAVE_LAST_CLICK:"SAVE_LAST_CLICK",
 
     //async actions
-    ...asyncActionNames("EVENTS"),
+    ...asyncActionNames("GET_EVENTS"),
+    ...asyncActionNames("LOGIN_LOCAL"),
+    ...asyncActionNames("SIGNIN_LOCAL"),
+    ...asyncActionNames("SAVE_EVENT"),
     ...asyncActionNames("INIT_APP"),
-    ...asyncActionNames("USER_COORDS"),
+    ...asyncActionNames("GET_USER_COORDS"),
 };
 
 

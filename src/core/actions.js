@@ -1,7 +1,7 @@
 import types from './actionTypes';
 
 export const getEvents = payload => ({
-  type: types.EVENTS_REQ,
+  type: types.GET_EVENTS_REQ,
   payload
 });
 
@@ -11,7 +11,7 @@ export const setMapView = payload => ({
 });
 
 export const getUserCoords = payload => ({
-  type: types.USER_COORDS_REQ,
+  type: types.GET_USER_COORDS_REQ,
   payload
 });
 
@@ -35,12 +35,26 @@ export const createMarkerClick = payload => ({
   payload
 });
 
-export const changeCursor = payload => ({
-  type: types.CHANGE_CURSOR,
+export const editorSubmit = payload => ({
+  type: types.EDITOR_SUBMIT,
   payload
 });
+
 export const mapClick = payload => ({
   type: types.MAP_CLICK,
+  payload
+});
+
+export const editorToggle = payload => ({
+  type: types.EDITOR_TOGGLE,
+  payload
+});
+export const loginLocal = payload => ({
+  type: types.LOGIN_LOCAL_REQ,
+  payload
+});
+export const signinLocal = payload => ({
+  type: types.SIGNIN_LOCAL_REQ,
   payload
 });
 

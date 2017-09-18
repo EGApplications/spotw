@@ -1,6 +1,7 @@
 import { call, all, put } from 'redux-saga/effects';
 import * as map from './map.js'
 import types from '../actionTypes'
+import { currentUser } from './api';
 
 
 export function* initAppSaga(){
@@ -9,10 +10,14 @@ export function* initAppSaga(){
     ] )
 }
 
-export function* createMarkerSaga(){
+export function* newMarkerSaga(){
     yield all( [
-        put({ type: types.CHANGE_CURSOR, payload:"url(/img/marker-pointer.png), auto" })
+        put({ type: types.CURSOR_CHANGE, payload:"url(/img/marker-cursor.png), auto" })
     ] )
+}
+
+export function* editorSubmitSaga({payload}){
+    yield put({ type: types.SAVE_EVENT_REQ, payload });
 }
 
 

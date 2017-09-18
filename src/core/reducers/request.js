@@ -6,8 +6,8 @@ import moment from 'moment'
 export default (state, action)=> {
     switch (action.type) {
 
-        case types.EVENTS_OK:{
-            const events = action.payload.map(event=>({
+        case types.GET_EVENTS_OK:{
+            const events = action.payload.map( event=>({
                     coords:[ event.get('location').latitude, event.get('location').longitude ],
                     title: event.get('title'),
                     tags: event.get('tags'),
@@ -16,9 +16,17 @@ export default (state, action)=> {
                     id: event.id,
                     startTime: moment(event.get('startTime')).format(),
                     endTime: moment(event.get('endTime')).format()
-            }));
+            }) );
             return {...state, events: events }
         }
+
+        case types.SAVE_EVENT_OK:{ return {...state, saveEventPending:false} }
+        case types.SAVE_EVENT_REQ:{ return {...state, saveEventPending:true} }
+        case types.SAVE_EVENT_ERR:{ return {...state, saveEventPending:false} }
+
+        case types.LOGIN_LOCAL_OK:{ return {...state, user:action.payload} }
+
+        case types.SIGNIN_LOCAL_OK:{ return {...state, user:action.payload} }
 
         default:
             return {...state}

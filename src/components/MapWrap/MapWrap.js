@@ -8,8 +8,14 @@ import Map from '../dumb/Map'
 class MapWrap extends Component {
 
     onBoundsChanged(bounds){
-        this.props.actions.boundsChanged( {bounds} );
+        this.props.actions.boundsChanged( bounds );
     }
+
+    mapClick = ({latlng,layerPoint}) => {
+        console.log(arguments);
+        this.props.actions.mapClick({latlng,layerPoint});
+    }
+
 
     render() {
         const {events, center, zoom, cursor} = this.props;
@@ -18,7 +24,7 @@ class MapWrap extends Component {
             center = {center}
             cursor = {cursor}
             zoom = {zoom}
-            onClick={this.props.actions.mapClick}
+            onClick={this.mapClick}
             isUpdateRequired={true}
             onBoundsChanged={this.onBoundsChanged.bind(this)}
         />

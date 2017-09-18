@@ -5,16 +5,22 @@ import * as map from './map';
 import * as ui from './ui';
 
 function* requestSagas(){
-    yield takeLatest( types.EVENTS_REQ, request.getEventsSaga );
+    yield takeLatest( types.GET_EVENTS_REQ, request.getEventsSaga );
+    yield takeEvery( types.SAVE_EVENT_REQ, request.saveEventSaga );
+    yield takeEvery( types.SAVE_EVENT_OK, request.saveEventOkSaga );
+    yield takeEvery( types.LOGIN_LOCAL_REQ, request.loginLocalSaga );
+    yield takeEvery( types.SIGNIN_LOCAL_REQ, request.signinLocalSaga );
 }
 
 function* mapSagas(){
     yield takeLatest( types.BOUNDS_CHANGED, map.boundsChangeSaga );
-    yield takeEvery( types.USER_COORDS_REQ, map.userCoordsSaga );
+    yield takeEvery( types.GET_USER_COORDS_REQ, map.userCoordsSaga );
     yield takeEvery( types.MAP_CLICK, map.mapClickSaga );
 }
+
 function* uiSagas(){
-    yield takeEvery( types.CREATE_MARKER_CLICK, ui.createMarkerSaga );
+    yield takeEvery( types.CREATE_MARKER_CLICK, ui.newMarkerSaga );
+    yield takeEvery( types.EDITOR_SUBMIT, ui.editorSubmitSaga );
     yield takeEvery( types.INIT_APP_REQ, ui.initAppSaga);
 }
 
