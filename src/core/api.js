@@ -20,6 +20,7 @@ export const saveEvent = payload => {
         delete payload.file;
         payload.mainImage = new Parse.File("Image.png", { base64: fileBase64 });
         const newEvent = new Event(payload);
+        newEvent.set("createdBy", Parse.User.current());
         return newEvent.save();
     });
 
