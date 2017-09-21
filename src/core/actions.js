@@ -61,6 +61,10 @@ export const signinLocal = payload => ({
   type: types.SIGNIN_LOCAL_REQ,
   payload
 });
+export const filterChanged = payload => ({
+  type: types.FILTER_CHANGED,
+  payload
+});
 export const loginWith = actionNamePart => ({
   type: types[`LOGIN_WITH_${actionNamePart}_REQ`]
 });

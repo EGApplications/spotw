@@ -16,7 +16,9 @@ export default (state, action)=> {
             return { ...state, userCoords:{ latitude , longitude}}
         }
 
-        case types.BOUNDS_CHANGED: return { ...state, bounds:action.payload};
+        case types.BOUNDS_CHANGED:
+            const {bounds} = action.payload;
+            return { ...state, bounds};
 
         case types.CURSOR_CHANGE: return { ...state, cursor:action.payload};
 

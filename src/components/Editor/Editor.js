@@ -7,7 +7,7 @@ import * as actions from '../../core/actions'
 
 class Editor extends Component{
 
-    state = {title: '', description: '', file: null};
+    state = {title: '', description: '', file: null, startTime:new Date(), endTime:new Date()};
 
     fileInputChange = ({target: {files:[file]}}) => this.setState({file:file});
 
@@ -23,16 +23,18 @@ class Editor extends Component{
     }
 
     render(){
-        const { title, description } = this.state;
+        const { title, description, startTime, endTime } = this.state;
         const { isOpen, isEventUploading } = this.props;
         return (
             <Modal open={ isOpen } onClose={this.onClose}>
-                <Modal.Header>Marker Editor</Modal.Header>
+                <Modal.Header>Создание нового события</Modal.Header>
                 <Modal.Content>
                     <Form onSubmit={this.handleSubmit} loading={isEventUploading}>
                         <Form.Input label='Title' placeholder='Event name' name="title" value={title} onChange={this.handleChange} required/>
-                        <Form.TextArea label='Description' name="description" value={description} onChange={this.handleChange} placeholder='Tell us more about you...'/>
-                        <Form.Input type="file" onChange={this.fileInputChange}/>
+                        <Form.TextArea label='Description' name="description" value={description} onChange={this.handleChange} placeholder='Tell us more about you...' required/>
+                        <Form.Input label='Start' placeholder='Event name' type="datetime-local" name="startTime" value={startTime} onChange={this.handleChange} required/>
+                        <Form.Input label='End' placeholder='Event name' type="datetime-local" name="endTime" value={endTime} onChange={this.handleChange} required/>
+                        <Form.Input type="file" onChange={this.fileInputChange} required/>
                         <Form.Button content='Submit' label="Create"/>
                     </Form>
                 </Modal.Content>

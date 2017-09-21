@@ -8,7 +8,7 @@ import Map from '../dumb/Map'
 class MapWrap extends Component {
 
     onBoundsChanged(bounds){
-        this.props.actions.boundsChanged( bounds );
+        this.props.actions.boundsChanged( {bounds} );
     }
 
     mapClick = ({latlng,layerPoint}) => {

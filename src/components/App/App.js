@@ -20,6 +20,7 @@ class App extends Component {
         const { user } = this.props;
         return(
             <div className="App">
+                <div className="red">red</div>
                 <Map/>
                 <News/>
                 <Header/>

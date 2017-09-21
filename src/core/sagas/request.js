@@ -24,7 +24,7 @@ export function* saveEventSaga({ payload }) {
 export function* saveEventOkSaga({ payload }) {
   const isEditorOpen = yield getFromStore('ui.editorOpen');
   const bounds = yield getFromStore('map.bounds');
-  yield put( { type:types.GET_EVENTS_REQ, payload:bounds } );
+  yield put( { type:types.GET_EVENTS_REQ, payload:{bounds} } );
 
   if (isEditorOpen) yield put({type:types.EDITOR_TOGGLE});
 }
@@ -64,14 +64,14 @@ export function* logoutUserSaga({ payload }) {
 
 export function* loginWithGpSaga({ payload }) {
     try {
-        throw(new Error('TODO:google plus login'))
+        throw (new Error('TODO:google plus login'))
     } catch ({message}) {
         yield put({ type: types.LOGIN_WITH_GP_ERR, message });
     }
 }
 export function* loginWithFbSaga({ payload }) {
     try {
-        throw(new Error('TODO:facebook login'))
+        throw (new Error('TODO:facebook login'))
     } catch ({message}) {
         yield put({ type: types.LOGIN_WITH_FB_ERR, message });
     }

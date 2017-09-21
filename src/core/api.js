@@ -3,24 +3,30 @@ import Parse from "parse";
 Parse.initialize("spotwolrdappid");
 Parse.serverURL = 'https://spotworld.dimkk.ru/parse';
 
-export const getEvents = payload => {
-    const  bounds  = payload;
-    const query = new Parse.Query("Event");
+
+
+export const getEvents = ({bounds,filter}) =>{
+    const query = new Parse.Query( "Event" );
+    if (filter){
+        console.log(filter);
+    }
     return query
-        .withinGeoBox("location", ParseGeoPoint(bounds._southWest), ParseGeoPoint(bounds._northEast))
+        .withinGeoBox( "location", ParseGeoPoint( bounds._southWest ), ParseGeoPoint( bounds._northEast ) )
         .find()
-};
+}
 
-export const saveEvent = payload => {
-
+export const saveEvent = ({title,description,file,startTime,endTime,location}) => {
     const Event = Parse.Object.extend("Event");
-    payload.location = new Parse.GeoPoint({latitude: payload.location.lat, longitude: payload.location.lng});
-
-    return getBase64(payload.file).then( fileBase64=>{
-        delete payload.file;
-        payload.mainImage = new Parse.File("Image.png", { base64: fileBase64 });
-        const newEvent = new Event(payload);
-        newEvent.set("createdBy", Parse.User.current());
+    const newEvent = new Event({
+        title,
+        description,
+        startTime:new Date(startTime),
+        endTime:new Date(endTime),
+        createdBy: Parse.User.current(),
+        location: new Parse.GeoPoint({latitude: location.lat, longitude: location.lng})
+    });
+    return getBase64(file).then( fileBase64=>{
+        newEvent.set("mainImage", new Parse.File("Image.png", { base64: fileBase64 }));
         return newEvent.save();
     });
 

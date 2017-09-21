@@ -15,6 +15,7 @@ export default {
     EDITOR_TOGGLE:"EDITOR_TOGGLE",
     MAP_CLICK:"MAP_CLICK",
     SAVE_LAST_CLICK:"SAVE_LAST_CLICK",
+    FILTER_CHANGED:"FILTER_CHANGED",
 
     //async actions
     ...asyncActionNames("GET_EVENTS"),

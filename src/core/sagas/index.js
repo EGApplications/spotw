@@ -26,6 +26,7 @@ function* mapSagas(){
 function* uiSagas(){
     yield takeEvery( types.CREATE_MARKER_CLICK, ui.newMarkerSaga );
     yield takeEvery( types.EDITOR_SUBMIT, ui.editorSubmitSaga );
+    yield takeEvery( types.FILTER_CHANGED, ui.filterChangedSaga );
 }
 
 function* initSaga(){
