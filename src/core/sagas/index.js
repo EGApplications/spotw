@@ -1,4 +1,4 @@
-import { takeEvery, takeLatest, fork, call, all, } from 'redux-saga/effects';
+import { takeEvery, takeLatest, fork, call, all} from 'redux-saga/effects';
 import types from '../actionTypes';
 import * as request from './request';
 import * as map from './map';
@@ -26,7 +26,7 @@ function* mapSagas(){
 function* uiSagas(){
     yield takeEvery( types.CREATE_MARKER_CLICK, ui.newMarkerSaga );
     yield takeEvery( types.EDITOR_SUBMIT, ui.editorSubmitSaga );
-    yield takeEvery( types.FILTER_CHANGED, ui.filterChangedSaga );
+    yield takeLatest( types.FILTER_CHANGED, ui.filterChangedSaga );
 }
 
 function* initSaga(){

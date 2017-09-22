@@ -16,6 +16,7 @@ export default {
     MAP_CLICK:"MAP_CLICK",
     SAVE_LAST_CLICK:"SAVE_LAST_CLICK",
     FILTER_CHANGED:"FILTER_CHANGED",
+    SAVE_FILTER:"SAVE_FILTER",
 
     //async actions
     ...asyncActionNames("GET_EVENTS"),

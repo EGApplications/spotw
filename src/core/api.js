@@ -1,15 +1,14 @@
 import Parse from "parse";
+import _ from 'lodash';
 
 Parse.initialize("spotwolrdappid");
 Parse.serverURL = 'https://spotworld.dimkk.ru/parse';
 
-
-
-export const getEvents = ({bounds,filter}) =>{
+export const getEvents = ({bounds, filter}) =>{
     const query = new Parse.Query( "Event" );
-    if (filter){
-        console.log(filter);
-    }
+    //TOFO filter for related query
+    if (filter) _.flatMap(filter, ({method,value},key)=>query[method](key, value) );
+    if (filter) _.flatMap(filter, console.log.bind(null, 'filter data') );
     return query
         .withinGeoBox( "location", ParseGeoPoint( bounds._southWest ), ParseGeoPoint( bounds._northEast ) )
         .find()
@@ -29,7 +28,6 @@ export const saveEvent = ({title,description,file,startTime,endTime,location}) =
         newEvent.set("mainImage", new Parse.File("Image.png", { base64: fileBase64 }));
         return newEvent.save();
     });
-
 };
 
 export const signinLocal = ({username, password, email}) => {

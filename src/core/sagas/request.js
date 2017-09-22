@@ -3,13 +3,14 @@ import { getEvents, saveEvent, loginLocal, signinLocal, currentUser, logout } fr
 import types from '../actionTypes'
 import { getFromStore } from "./selectors"
 
-export function* getEventsSaga({ payload }) {
-  try {
-    const result = yield call(getEvents, payload);
-    yield put({ type: types.GET_EVENTS_OK, payload:result });
-  } catch ({message}) {
-    yield put({ type: types.GET_EVENTS_ERR, message });
-  }
+export function* getEventsSaga( { payload:{ bounds } } ){
+    try {
+        const filter = yield getFromStore( 'ui.filter' );
+        const result = yield call( getEvents, { bounds, filter } );
+        yield put( { type:types.GET_EVENTS_OK, payload:result } );
+    } catch ( { message } ){
+        yield put( { type:types.GET_EVENTS_ERR, message } );
+    }
 }
 
 export function* saveEventSaga({ payload }) {

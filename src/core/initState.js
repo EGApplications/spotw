@@ -17,6 +17,7 @@ export default {
     },
     ui:{
         newsHoveredItem:null,
-        editorOpen:false
+        editorOpen:false,
+        filter:{}
     }
 }
