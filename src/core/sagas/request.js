@@ -33,7 +33,7 @@ export function* saveEventOkSaga({ payload }) {
 export function* loginLocalSaga({ payload }) {
     try {
         const result = yield call(loginLocal, payload);
-        yield put({ type: types.LOGIN_LOCAL_OK, payload:result });
+        yield put({ type: types.SAVE_USER_IN_STORE, payload:result });
     } catch ({message}) {
         yield put({ type: types.LOGIN_LOCAL_ERR, message });
     }
@@ -42,7 +42,7 @@ export function* loginLocalSaga({ payload }) {
 export function* signinLocalSaga({ payload }) {
     try {
         const result = yield call(signinLocal, payload);
-        yield put({ type: types.SIGNIN_LOCAL_OK, payload:result });
+        yield put({ type: types.SAVE_USER_IN_STORE, payload:result });
     } catch ({message}) {
         yield put({ type: types.SIGNIN_LOCAL_ERR, message });
     }
@@ -50,16 +50,16 @@ export function* signinLocalSaga({ payload }) {
 
 export function* getCurrentUserSaga({ payload }) {
     const user = currentUser();
-    if (user) yield put({ type: types.GET_CURRENT_USER_OK, payload:user });
+    if (user) yield put({ type: types.SAVE_USER_IN_STORE, payload:user });
     else yield put({ type: types.GET_CURRENT_USER_ERR, message:'no current user save' })
 }
 
 export function* logoutUserSaga({ payload }) {
     try {
         const result = yield call(logout, payload);
-        yield put({ type: types.USER_LOGOUT_OK, payload:result });
+        yield put({ type: types.DELETE_USER_FROM_STORE, payload:result });
     } catch ({message}) {
-        yield put({ type: types.USER_LOGOUT_ERR, message });
+        yield put({ type: types.DELETE_USER_FROM_STORE, message });
     }
 }
 

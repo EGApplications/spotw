@@ -1,12 +1,12 @@
 import Parse from "parse";
-import _ from 'lodash';
+import _ from "lodash";
 
 Parse.initialize("spotwolrdappid");
 Parse.serverURL = 'https://spotworld.dimkk.ru/parse';
 
 export const getEvents = ({bounds, filter}) =>{
     const query = new Parse.Query( "Event" );
-    //TOFO filter for related query
+    //TODO filter for related query
     if (filter) _.flatMap(filter, ({method,value},key)=>query[method](key, value) );
     if (filter) _.flatMap(filter, console.log.bind(null, 'filter data') );
     return query

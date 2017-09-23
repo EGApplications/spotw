@@ -1,6 +1,6 @@
 //@flow
 import React, { Component } from 'react';
-import {  Button, Checkbox, Form  } from 'semantic-ui-react';
+import {  Button, Checkbox, Form, Message, Icon } from 'semantic-ui-react';
 
 export default class SignIn extends Component{
 
@@ -15,19 +15,25 @@ export default class SignIn extends Component{
     render() {
         const {username, password, email} = this.state;
         return (
+            <div>
 
+                <Message attached='top' error>
+                    <Icon name='warning sign' />
+                    here we can show error message
+                </Message>
             <Form onSubmit={this.handleSubmit}>
-                <Form.Input label='username' placeholder='username' name="username" value={username}
+                <Form.Input label='username' placeholder='username' type="text" autoComplete="username" name="username" value={username}
                             onChange={this.handleChange} required/>
-                <Form.Input label='password' placeholder='password' name="password" value={password}
+                <Form.Input label='password' placeholder='password' name="password" type="password" autoComplete="password" value={password}
                             onChange={this.handleChange} required/>
-                <Form.Input label='email' placeholder='email' name="email" value={email} onChange={this.handleChange}
+                <Form.Input label='email' placeholder='email' type="email" name="email" autoComplete="email" value={email} onChange={this.handleChange}
                             required/>
                 <Form.Field required>
                     <Checkbox label='I agree to the Terms and Conditions'/>
                 </Form.Field>
                 <Button fluid type='submit'>Зарегистрироваться</Button>
             </Form>
+            </div>
 
         )
     }

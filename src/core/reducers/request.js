@@ -20,17 +20,14 @@ export default (state, action)=> {
             return {...state, events: events }
         }
 
+        //TODO more semantic refact this
         case types.SAVE_EVENT_OK:{ return {...state, saveEventPending:false} }
         case types.SAVE_EVENT_REQ:{ return {...state, saveEventPending:true} }
         case types.SAVE_EVENT_ERR:{ return {...state, saveEventPending:false} }
 
-        case types.LOGIN_LOCAL_OK:{ return {...state, user:action.payload} }
 
-        case types.SIGNIN_LOCAL_OK:{ return {...state, user:action.payload} }
-
-        case types.USER_LOGOUT_OK:{ return {...state, user:null} }
-
-        case types.GET_CURRENT_USER_OK:{ return {...state, user:action.payload} }
+        case types.SAVE_USER_IN_STORE:{ return { ...state, user:action.payload} }
+        case types.DELETE_USER_FROM_STORE:{ return { ...state, user:null} }
 
         default:
             return {...state}
