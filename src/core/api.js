@@ -30,7 +30,7 @@ export const saveEvent = ({title,description,file,startTime,endTime,location}) =
         location: new Parse.GeoPoint({latitude: location.lat, longitude: location.lng})
     });
     return getBase64(file).then( fileBase64=>{
-        newEvent.set("mainImage", new Parse.File("Image.png", { base64: fileBase64 }));
+        if ( fileBase64 ) newEvent.set("mainImage", new Parse.File("Image.png", { base64: fileBase64 }));
         return newEvent.save();
     });
 };
@@ -62,6 +62,7 @@ function ParseGeoPoint(coordsObj){
 }
 
 function getBase64(file) {
+    if ( !file ) return Promise.resolve();
     return new Promise((resolve,reject)=>{
         var reader = new FileReader();
         reader.readAsDataURL(file);

@@ -34,7 +34,7 @@ class Editor extends Component{
                         <Form.TextArea label='Description' name="description" value={description} onChange={this.handleChange} placeholder='Tell us more about you...' required/>
                         <Form.Input label='Start' placeholder='Event name' type="datetime-local" name="startTime" value={startTime} onChange={this.handleChange} required/>
                         <Form.Input label='End' placeholder='Event name' type="datetime-local" name="endTime" value={endTime} onChange={this.handleChange} required/>
-                        <Form.Input type="file" onChange={this.fileInputChange} required/>
+                        <Form.Input type="file" onChange={this.fileInputChange}/>
                         <Form.Button content='Submit' label="Create"/>
                     </Form>
                 </Modal.Content>
