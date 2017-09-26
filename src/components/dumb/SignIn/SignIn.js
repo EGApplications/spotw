@@ -1,6 +1,6 @@
 //@flow
 import React, { Component } from 'react';
-import {  Button, Checkbox, Form, Message, Icon } from 'semantic-ui-react';
+import {  Button, Checkbox, Form } from 'semantic-ui-react';
 
 export default class SignIn extends Component{
 
@@ -17,10 +17,6 @@ export default class SignIn extends Component{
         return (
             <div>
 
-                <Message attached='top' error>
-                    <Icon name='warning sign' />
-                    here we can show error message
-                </Message>
             <Form onSubmit={this.handleSubmit}>
                 <Form.Input label='username' placeholder='username' type="text" autoComplete="username" name="username" value={username}
                             onChange={this.handleChange} required/>

@@ -1,6 +1,5 @@
 //@flow
 
-
 import types from '../actionTypes'
 import _ from 'lodash'
 

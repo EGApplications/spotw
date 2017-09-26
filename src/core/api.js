@@ -50,7 +50,7 @@ export const currentUser = () => {
 
 export const logout = () => new Promise( (resolve,reject)=>Parse.User.logOut().then(resolve,reject) );
 
-
+export const resetPassword = (email) => Parse.User.requestPasswordReset(email);
 
 function ParseGeoPoint(coordsObj){
     const {lat,lng} = coordsObj;

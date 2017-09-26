@@ -49,4 +49,4 @@ class Header extends Component{
     }
 }
 
-export default connect( ({request:{user}})=>({user}), {filterChanged:actions.filterChanged} )( Header )
+export default connect( ({auth:{user}})=>({user}), {filterChanged:actions.filterChanged} )( Header )

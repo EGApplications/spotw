@@ -1,7 +1,7 @@
 import { Map, Marker, TileLayer, Tooltip, ZoomControl } from 'react-leaflet';
 import { Card, Icon, Image } from 'semantic-ui-react'
 import React, {Component} from 'react';
-import Popup from '../../Popup'
+import Popup from '../Popup'
 import moment from 'moment'
 import _ from 'lodash'
 import './Map.css';

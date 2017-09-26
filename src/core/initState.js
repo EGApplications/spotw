@@ -3,7 +3,10 @@ export default {
     request:{
         events:[],
         saveEventPending:false,
+    },
+    auth:{
         user:null,
+        msg:null
     },
     map:{
         center:{latitude:55.67846550322208,longitude:37.63229754602618},

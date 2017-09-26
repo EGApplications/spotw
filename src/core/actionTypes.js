@@ -19,6 +19,7 @@ export default {
     SAVE_FILTER:"SAVE_FILTER",
     SAVE_USER_IN_STORE:"SAVE_USER_IN_STORE",
     DELETE_USER_FROM_STORE:"DELETE_USER_FROM_STORE",
+    SAVE_AUTH_MSG:"SAVE_AUTH_MSG",
 
     //async actions
     ...asyncActionNames("GET_EVENTS"),
@@ -27,6 +28,7 @@ export default {
     ...asyncActionNames("GET_USER_COORDS"),
 
     ...asyncActionNames("GET_CURRENT_USER"),
+    ...asyncActionNames("RESET_PASSWORD"),
     ...asyncActionNames("USER_LOGOUT"),
     ...asyncActionNames("LOGIN_LOCAL"),
     ...asyncActionNames("SIGNIN_LOCAL"),

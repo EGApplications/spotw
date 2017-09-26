@@ -65,6 +65,10 @@ export const filterChanged = payload => ({
   type: types.FILTER_CHANGED,
   payload
 });
+export const resetPassword = payload => ({
+  type: types.RESET_PASSWORD_REQ,
+  payload
+});
 export const loginWith = actionNamePart => ({
   type: types[`LOGIN_WITH_${actionNamePart}_REQ`]
 });

@@ -20,7 +20,6 @@ class App extends Component {
         const { user } = this.props;
         return(
             <div className="App">
-                <div className="red">red</div>
                 <Map/>
                 <News/>
                 <Header/>
@@ -33,5 +32,5 @@ class App extends Component {
 
 
 const mapAction = (dispatch)=>( { actions: {...bindActionCreators (actions, dispatch) } } );
-const mapProps = ({request:{user}})=>( { user } );
+const mapProps = ({auth:{user}})=>( { user } );
 export default connect( mapProps, mapAction )( App )
