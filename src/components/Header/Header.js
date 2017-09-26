@@ -9,31 +9,27 @@ import * as actions from '../../core/actions'
 import './Header.css'
 
 const options = [
-    { key: 'tags', text: 'by tags', value:'tags', additionalData:{method:"equalTo"} },
-    { key: 'description', text: 'by description', value:'description', additionalData:{method:"contains"} },
-    { key: 'createdBy', text: 'by users', value:'createdBy', additionalData:{method:"equalTo"} }
+    { key: 'tags', text: 'by tags', value:'tags' },
+    { key: 'description', text: 'by description', value:'description' },
+    { key: 'createdBy', text: 'by users', value:'createdBy'}
 ]
 
 class Header extends Component{
-    state={ filterValue:'tags' }
+    state={ filterName:'tags' }
 
-    filterInput=({target:{value}})=>{
-        const name = this.state.filterValue;
-        const {additionalData} = options.find(item=>name===item.value);
-        this.props.filterChanged({[name]:{value, ...additionalData}});
-    }
+    filterInput=({target})=>this.props.filterChanged({[this.state.filterName]:target.value});
 
-    filterChange=(event, {value:filterValue})=>this.setState({filterValue})
+    filterChange=(event, {value:filterName})=>this.setState({filterName})
 
     render(){
         const {user} = this.props;
-        const { filterValue } = this.state;
+        const { filterName } = this.state;
         const opt = options.map(opt=>_.pick(opt,['key', 'text', 'value']))
         return (
             <Menu size="small" className="header-container">
                 <Menu.Item>
                     <Input
-                        action={<Dropdown onChange={this.filterChange} button basic floating options={opt} value={filterValue} />}
+                        action={<Dropdown onChange={this.filterChange} button basic floating options={opt} value={filterName} />}
                         icon='search'
                         onChange={this.filterInput}
                         iconPosition='left'

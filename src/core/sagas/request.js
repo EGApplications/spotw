@@ -5,7 +5,7 @@ import { getFromStore } from "./selectors"
 
 export function* getEventsSaga( { payload:{ bounds } } ){
     try {
-        const filter = yield getFromStore( 'ui.filter' );
+        const filter = yield getFromStore( 'ui.filterEvents' );
         const result = yield call( getEvents, { bounds, filter } );
         yield put( { type:types.GET_EVENTS_OK, payload:result } );
     } catch ( { message } ){

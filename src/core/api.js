@@ -4,12 +4,17 @@ import _ from "lodash";
 Parse.initialize("spotwolrdappid");
 Parse.serverURL = 'https://spotworld.dimkk.ru/parse';
 
+const eventFilter = [
+    { key: 'tags', method:"equalTo", field:'tags' },
+    { key: 'description',  method:"contains", field:"description" },
+    { key: 'createdBy', method:"matchesQuery", field:"createdBy", innerQuery:val=>new Parse.Query("User").contains('username', val)}
+]
+
 export const getEvents = ({bounds, filter}) =>{
     const query = new Parse.Query( "Event" );
-    //TODO filter for related query
-    if (filter) _.flatMap(filter, ({method,value},key)=>query[method](key, value) );
-    if (filter) _.flatMap(filter, console.log.bind(null, 'filter data') );
+    if ( !_.isEmpty(filter) ) addFilter( query, filter );
     return query
+        .include("createdBy")
         .withinGeoBox( "location", ParseGeoPoint( bounds._southWest ), ParseGeoPoint( bounds._northEast ) )
         .find()
 }
@@ -47,7 +52,6 @@ export const currentUser = () => {
     return user ? user.toJSON() : null
 }
 
-
 export const logout = () => new Promise( (resolve,reject)=>Parse.User.logOut().then(resolve,reject) );
 
 export const resetPassword = (email) => Parse.User.requestPasswordReset(email);
@@ -65,5 +69,18 @@ function getBase64(file) {
         reader.onerror = reject
     })
 
+}
+
+function addFilter(query, filter){
+    if ( _.isEmpty( filter ) ) return query;
+
+    //add filters from eventFilter const
+    _.forEach( filter, ( value, key )=>{
+        if (!value) return;
+        const { method, field, innerQuery } = _.find( eventFilter, ['key', key] );
+        query[method]( field, innerQuery ? innerQuery( value ) : value )
+    } );
+
+    return query
 }
 

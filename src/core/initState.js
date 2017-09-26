@@ -21,6 +21,6 @@ export default {
     ui:{
         newsHoveredItem:null,
         editorOpen:false,
-        filter:{}
+        filterEvents:{}
     }
 }

@@ -9,7 +9,7 @@ import * as actions from '../../core/actions'
 
 class News extends Component {
 
-    renderItem = ({id,src,title,description,tags,startTime,endTime,coords})=>
+    renderItem = ({id,src,title,description,tags,startTime,endTime,coords, user})=>
         <Item key={id}>
             <Item.Image  src={src} />
             <Item.Content>
@@ -24,6 +24,9 @@ class News extends Component {
                 </Item.Description>
                 <Item.Extra>
                     {tags && tags.map((tag,i)=><Label key={i} size="small">{tag}</Label>)}
+                </Item.Extra>
+                <Item.Extra>
+                    Created by {user}
                 </Item.Extra>
                 <Item.Extra className="extra-like">
                     <Rating icon='heart' className="like" size="huge" defaultRating={0} maxRating={1} />

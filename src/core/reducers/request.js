@@ -8,6 +8,7 @@ export default (state, action)=> {
 
         case types.GET_EVENTS_OK:{
             const events = action.payload.map( event=>({
+                    user: event.get('createdBy').get('username'),
                     coords:[ event.get('location').latitude, event.get('location').longitude ],
                     title: event.get('title'),
                     tags: event.get('tags'),
