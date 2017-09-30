@@ -1,3 +1,4 @@
+//@flow
 import { takeEvery, takeLatest, fork, call, all} from 'redux-saga/effects';
 import types from '../actionTypes';
 import * as request from './request';

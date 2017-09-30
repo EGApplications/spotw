@@ -1,3 +1,4 @@
+//@flow
 import { put, call } from 'redux-saga/effects';
 import { getEvents, saveEvent } from '../api';
 import types from '../actionTypes'

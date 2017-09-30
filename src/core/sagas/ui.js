@@ -1,3 +1,5 @@
+//@flow
+
 import { all, put } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import types from '../actionTypes'

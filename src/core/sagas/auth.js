@@ -1,3 +1,4 @@
+//@flow
 import { put, call } from 'redux-saga/effects';
 import { loginLocal, signinLocal, currentUser, logout, resetPassword } from '../api';
 import types from '../actionTypes';

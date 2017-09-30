@@ -1,3 +1,4 @@
+//@flow
 import { put, call, all } from 'redux-saga/effects';
 import types from '../actionTypes';
 import { getFromStore } from './selectors'
