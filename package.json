@@ -2,7 +2,7 @@
   "name": "spotw",
   "version": "0.1.0",
   "private": true,
-  "homepage":"http://Lafoed.github.io",
+  "homepage":"http://lafoed.github.io/spotw",
   "dependencies": {
     "antd": "^2.12.8",
     "flow": "^0.2.3",
