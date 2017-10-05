@@ -22,7 +22,7 @@ class Authorize extends Component{
     ]
 
     render(){
-        const { msg } = this.props;
+        const { msg, loginWithFb, loginWithVk, loginWithGp, loginWithFbErr } = this.props;
         return (
             <Modal trigger={<Button compact><Icon name="sign in" size="large"/>Sign-in</Button>} size="tiny" dimmer="blurring">
                 <Modal.Content>
@@ -30,7 +30,12 @@ class Authorize extends Component{
                         {msg && <Message color={msg.color} content={msg.text}/>}
                         <Tab panes={this.panes}/>
                         <Header size="small" textAlign='center'>Быстрый вход</Header>
-                        <SocialEnter loginWith={this.props.loginWith} />
+                        <SocialEnter
+                            loginWithFb={loginWithFb}
+                            loginWithVk={loginWithVk}
+                            loginWithGp={loginWithGp}
+                            loginWithFbErr={loginWithFbErr}
+                        />
                     </Modal.Description>
                 </Modal.Content>
             </Modal>

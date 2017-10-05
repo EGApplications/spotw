@@ -1,5 +1,6 @@
 import Parse from "parse";
 import _ from "lodash";
+import createHash from 'create-hash'
 
 Parse.initialize("spotwolrdappid");
 Parse.serverURL = 'https://spotworld.dimkk.ru/parse';
@@ -50,6 +51,51 @@ export const loginLocal = ({username, password}) => {
 export const currentUser = () => {
     const user = Parse.User.current();
     return user ? user.toJSON() : null
+}
+
+export const loginWithFb = ({profile, tokenDetail}) => {
+    const authDataQuery = new Parse.Query( "AuthData" );
+    return authDataQuery.equalTo("fbID", profile.id).first().then(
+        userAuthData=>{
+            if (userAuthData){
+                debugger;
+                //login user that find
+                return Parse.User.logIn(profile.name, userAuthData.swID)
+            } else {
+                //create new auth data and user
+                console.log(createHash());
+                debugger;
+                const AuthData = Parse.Object.extend("AuthData");
+                const authData = new AuthData({
+                    username:profile.name,
+                    fbID:profile.id,
+                    fbToken:tokenDetail.accessToken,
+                    swID:createHash(),
+                    authBy:"FB",
+
+                });
+                Parse.save(authData).then(
+                    authD=>{
+                        console.log(authD);
+                        debugger;
+                        var user = new Parse.User({
+                            'userfield':'field'
+                        });
+                        user.signUp(null, {
+                            success: function(user) {
+                                console.log(user);
+                            },
+                            error: function(user, error) {
+                                console.log(user, error)
+                            }
+                        });
+                    }
+                )
+            }
+
+        }
+    )
+
 }
 
 export const logout = () => new Promise( (resolve,reject)=>Parse.User.logOut().then(resolve,reject) );
