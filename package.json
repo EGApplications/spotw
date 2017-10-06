@@ -23,7 +23,8 @@
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
     "redux-saga": "^0.15.6",
-    "semantic-ui-react": "^0.72.0"
+    "semantic-ui-react": "^0.72.0",
+    "sha.js": "^2.4.9"
   },
   "scripts": {
     "start": "react-scripts start",

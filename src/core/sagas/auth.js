@@ -50,7 +50,6 @@ export function* loginWithGpSaga({ payload }) {
 export function* loginWithFbSaga({ payload }) {
     try {
         const user = yield loginWithFb(payload);
-        debugger;
         yield put({ type: types.SAVE_USER_IN_STORE, payload:user });
     } catch ({message}) {
         yield put({ type: types.LOGIN_WITH_FB_ERR, message });

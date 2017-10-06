@@ -1,6 +1,7 @@
 import Parse from "parse";
 import _ from "lodash";
-import createHash from 'create-hash'
+import shajs from 'sha.js';
+import moment from 'moment';
 
 Parse.initialize("spotwolrdappid");
 Parse.serverURL = 'https://spotworld.dimkk.ru/parse';
@@ -55,47 +56,34 @@ export const currentUser = () => {
 
 export const loginWithFb = ({profile, tokenDetail}) => {
     const authDataQuery = new Parse.Query( "AuthData" );
-    return authDataQuery.equalTo("fbID", profile.id).first().then(
-        userAuthData=>{
-            if (userAuthData){
-                debugger;
-                //login user that find
-                return Parse.User.logIn(profile.name, userAuthData.swID)
-            } else {
-                //create new auth data and user
-                console.log(createHash());
-                debugger;
-                const AuthData = Parse.Object.extend("AuthData");
-                const authData = new AuthData({
-                    username:profile.name,
-                    fbID:profile.id,
-                    fbToken:tokenDetail.accessToken,
-                    swID:createHash(),
-                    authBy:"FB",
-
-                });
-                Parse.save(authData).then(
-                    authD=>{
-                        console.log(authD);
-                        debugger;
-                        var user = new Parse.User({
-                            'userfield':'field'
-                        });
-                        user.signUp(null, {
-                            success: function(user) {
-                                console.log(user);
-                            },
-                            error: function(user, error) {
-                                console.log(user, error)
-                            }
-                        });
-                    }
+    return authDataQuery
+        .equalTo("fbID", profile.id)
+        .first()
+        .then(userAuthData=>{
+            if (userAuthData) return Parse.User.logIn(profile.name, userAuthData.get('swID')).then(user => user.toJSON());
+            //create new auth data and user
+            const AuthData = Parse.Object.extend("AuthData");
+            return new AuthData({
+                username: profile.name,
+                fbID: profile.id,
+                fbToken: tokenDetail.accessToken,
+                swID: shajs('sha256').digest('hex'),
+                swToken: shajs('sha256').digest('hex'),
+                fbTokenExpirationDate: moment().add(tokenDetail.expiresIn, 's').toDate(),
+                swTokenExpirationDate: moment().add(60, 'd').toDate(),
+                authBy: "FB"
+            })
+                .save()
+                .then( AuthData => new Parse.User({
+                        AuthData,
+                        username: AuthData.get('username'),
+                        password: AuthData.get('swID')
+                    })
+                    .save()
+                    .then(User => User.toJSON())
                 )
-            }
-
         }
     )
-
 }
 
 export const logout = () => new Promise( (resolve,reject)=>Parse.User.logOut().then(resolve,reject) );

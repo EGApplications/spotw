@@ -17,7 +17,7 @@ export default class SocialEnter extends Component {
                         <Login
                             scope="public_profile,email"
                             onResponse={loginWithFb}
-                            onError={loginWithFbErr}
+                            onError={({message})=>loginWithFbErr(message) }
                         >
                             <Button fluid size="large" color='facebook'>
                                 <Icon name='facebook'/> Facebook
