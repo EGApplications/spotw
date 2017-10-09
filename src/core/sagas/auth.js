@@ -3,6 +3,7 @@ import { put, call } from 'redux-saga/effects';
 import { loginLocal, signinLocal, currentUser, logout, resetPassword, loginWithFb } from '../api';
 import types from '../actionTypes';
 
+
 export function* loginLocalSaga({ payload }) {
     try {
         const result = yield call(loginLocal, payload);
@@ -56,14 +57,17 @@ export function* loginWithFbSaga({ payload }) {
         yield put({ type: types.SAVE_AUTH_MSG, payload:{color:'red', text:message} });
     }
 }
+
 export function* loginWithVkSaga({ payload }) {
     try {
+        debugger;
         throw(new Error('TODO:vkontakte login'))
     } catch ({message}) {
         yield put({ type: types.LOGIN_WITH_VK_ERR, message });
         yield put({ type: types.SAVE_AUTH_MSG, payload:{color:'red', text:message} });
     }
 }
+
 export function* resetPasswordSaga({ payload }) {
     try {
         const result = yield call(resetPassword, payload);

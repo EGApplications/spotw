@@ -60,6 +60,7 @@ export const loginWithFb = ({profile, tokenDetail}) => {
         .equalTo("fbID", profile.id)
         .first()
         .then(userAuthData=>{
+            debugger;
             if (userAuthData) return Parse.User.logIn(profile.name, userAuthData.get('swID')).then(user => user.toJSON());
             //create new auth data and user
             const AuthData = Parse.Object.extend("AuthData");
