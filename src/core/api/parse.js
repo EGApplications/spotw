@@ -60,17 +60,17 @@ export const loginWithFb = ({profile, tokenDetail}) => {
         .equalTo("fbID", profile.id)
         .first()
         .then(userAuthData=>{
-            debugger;
-            if (userAuthData) return Parse.User.logIn(profile.name, userAuthData.get('swID')).then(user => user.toJSON());
+            if (userAuthData) return Parse.User.logIn(profile.email, userAuthData.get('swID'));
             //create new auth data and user
             const AuthData = Parse.Object.extend("AuthData");
             return new AuthData({
-                username: profile.name,
+                username: profile.email,
+                fbName: profile.name,
                 fbID: profile.id,
                 fbToken: tokenDetail.accessToken,
+                fbTokenExpirationDate: moment().add(tokenDetail.expiresIn, 's').toDate(),
                 swID: shajs('sha256').digest('hex'),
                 swToken: shajs('sha256').digest('hex'),
-                fbTokenExpirationDate: moment().add(tokenDetail.expiresIn, 's').toDate(),
                 swTokenExpirationDate: moment().add(60, 'd').toDate(),
                 authBy: "FB"
             })
@@ -81,10 +81,43 @@ export const loginWithFb = ({profile, tokenDetail}) => {
                         password: AuthData.get('swID')
                     })
                     .save()
-                    .then(User => User.toJSON())
                 )
-        }
-    )
+        } )
+        .then( User => User.toJSON() )
+}
+
+export const loginWithVk = async ({access_token,email,expires_in,user_id, first_name, last_name}) => {
+
+
+
+    const authDataById = new Parse.Query( "AuthData" ).equalTo("vkID", user_id);
+    return authDataById
+        .first()
+        .then(userAuthData=>{
+            if (userAuthData) return Parse.User.logIn(email, userAuthData.get('swID'));
+            //create new auth data and user
+            const AuthData = Parse.Object.extend("AuthData");
+            return new AuthData({
+                username: email,
+                vkID: user_id,
+                vkToken: access_token,
+                vkName: first_name+" "+last_name,
+                vkTokenExpirationDate: moment().add(expires_in, 's').toDate(),
+                swID: shajs('sha256').digest('hex'),
+                swToken: shajs('sha256').digest('hex'),
+                swTokenExpirationDate: moment().add(60, 'd').toDate(),
+                authBy: "VK"
+            })
+                .save()
+                .then( AuthData => new Parse.User({
+                        AuthData,
+                        username: AuthData.get('username'),
+                        password: AuthData.get('swID')
+                    })
+                        .save()
+                )
+        } )
+        .then( User => User.toJSON() )
 }
 
 export const logout = () => new Promise( (resolve,reject)=>Parse.User.logOut().then(resolve,reject) );

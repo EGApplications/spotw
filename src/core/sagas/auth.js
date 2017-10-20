@@ -1,6 +1,7 @@
 //@flow
 import { put, call } from 'redux-saga/effects';
-import { loginLocal, signinLocal, currentUser, logout, resetPassword, loginWithFb } from '../api';
+import { loginLocal, signinLocal, currentUser, logout, resetPassword, loginWithFb, loginWithVk } from '../api/parse';
+import { getUserInfo } from '../api/vk'
 import types from '../actionTypes';
 
 
@@ -48,6 +49,7 @@ export function* loginWithGpSaga({ payload }) {
         yield put({ type: types.SAVE_AUTH_MSG, payload:{color:'red', text:message} });
     }
 }
+
 export function* loginWithFbSaga({ payload }) {
     try {
         const user = yield loginWithFb(payload);
@@ -58,12 +60,14 @@ export function* loginWithFbSaga({ payload }) {
     }
 }
 
+
 export function* loginWithVkSaga({ payload }) {
     try {
-        debugger;
-        throw(new Error('TODO:vkontakte login'))
+        const userData = yield getUserInfo({user_ids:payload.user_id, fields:""});
+        const user = yield loginWithVk({...payload, ...userData});
+        yield put({ type: types.SAVE_USER_IN_STORE, payload:user });
     } catch ({message}) {
-        yield put({ type: types.LOGIN_WITH_VK_ERR, message });
+        yield put({ type: types.LOGIN_WITH_FB_ERR, message });
         yield put({ type: types.SAVE_AUTH_MSG, payload:{color:'red', text:message} });
     }
 }

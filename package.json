@@ -5,6 +5,7 @@
   "homepage": "http://lafoed.github.io/spotw",
   "dependencies": {
     "antd": "^2.12.8",
+    "axios": "^0.16.2",
     "create-hash": "^1.1.3",
     "flow": "^0.2.3",
     "flow-bin": "^0.54.0",
@@ -25,8 +26,7 @@
     "redux-devtools-extension": "^2.13.2",
     "redux-saga": "^0.15.6",
     "semantic-ui-react": "^0.72.0",
-    "sha.js": "^2.4.9",
-    "vksdk": "^5.3.2"
+    "sha.js": "^2.4.9"
   },
   "scripts": {
     "start": "react-scripts start",

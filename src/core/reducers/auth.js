@@ -11,6 +11,7 @@ export default (state, action)=> {
 
         case types.SAVE_AUTH_MSG:{ return { ...state, msg:action.payload} }
 
+
         default:
             return {...state}
     }

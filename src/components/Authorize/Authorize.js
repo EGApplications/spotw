@@ -8,9 +8,20 @@ import LogIn from '../dumb/LogIn'
 import SignIn from '../dumb/SignIn'
 import ForgotPassword from '../dumb/ForgotPassword'
 import SocialEnter from '../dumb/SocialEnter'
-
+import config from '../../config'
 
 class Authorize extends Component{
+
+    componentDidMount(){
+        //vk authorization
+        const hashParams = new URLSearchParams(window.location.hash.slice(1));
+        if (hashParams.has('access_token')){
+            const params = {};
+            hashParams.forEach((value,key)=>params[key]=value);
+            this.props.loginWithVk(params);
+        }
+    }
+
     panes = [
         { menuItem:'Войти', render:()=> <Tab.Pane>
             <LogIn onSubmit={this.props.loginLocal}/>
@@ -21,8 +32,10 @@ class Authorize extends Component{
         </Tab.Pane>}
     ]
 
+    redirectToVk=()=>window.location.replace(`https://oauth.vk.com/authorize?client_id=${config.vk.client_id}&display=page&redirect_uri=${config.vk.redirect_uri}&scope=${config.vk.scope}&response_type=token&v=${config.vk.v}`);
+
     render(){
-        const { msg, loginWithFb, loginWithVk, loginWithGp, loginWithFbErr } = this.props;
+        const { msg, loginWithFb, loginWithFbErr } = this.props;
         return (
             <Modal trigger={<Button compact><Icon name="sign in" size="large"/>Sign-in</Button>} size="tiny" dimmer="blurring">
                 <Modal.Content>
@@ -32,9 +45,8 @@ class Authorize extends Component{
                         <Header size="small" textAlign='center'>Быстрый вход</Header>
                         <SocialEnter
                             loginWithFb={loginWithFb}
-                            loginWithVk={loginWithVk}
-                            loginWithGp={loginWithGp}
                             loginWithFbErr={loginWithFbErr}
+                            redirectToVk={this.redirectToVk}
                         />
                     </Modal.Description>
                 </Modal.Content>
