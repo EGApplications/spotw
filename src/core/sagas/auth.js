@@ -64,8 +64,14 @@ export function* loginWithFbSaga({ payload }) {
 export function* loginWithVkSaga({ payload }) {
     try {
         const userData = yield getUserInfo({user_ids:payload.user_id, fields:""});
-        const user = yield loginWithVk({...payload, ...userData});
+        const user = yield loginWithVk({
+            ...payload,
+            ...userData,
+            name:userData.first_name+" "+userData.last_name,
+            authBy:"vk"
+        });
         yield put({ type: types.SAVE_USER_IN_STORE, payload:user });
+        window.location.hash='';
     } catch ({message}) {
         yield put({ type: types.LOGIN_WITH_FB_ERR, message });
         yield put({ type: types.SAVE_AUTH_MSG, payload:{color:'red', text:message} });
