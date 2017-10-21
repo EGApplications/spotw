@@ -26,7 +26,6 @@ export default {
     ...asyncActionNames("SAVE_EVENT"),
     ...asyncActionNames("INIT_APP"),
     ...asyncActionNames("GET_USER_COORDS"),
-
     ...asyncActionNames("GET_CURRENT_USER"),
     ...asyncActionNames("RESET_PASSWORD"),
     ...asyncActionNames("USER_LOGOUT"),
@@ -34,7 +33,6 @@ export default {
     ...asyncActionNames("SIGNIN_LOCAL"),
     ...asyncActionNames("LOGIN_WITH_FB"),
     ...asyncActionNames("LOGIN_WITH_VK"),
-    ...asyncActionNames("LOGIN_WITH_GP"),
 };
 
 

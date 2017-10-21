@@ -1,6 +1,6 @@
 //@flow
 import { put, call } from 'redux-saga/effects';
-import { loginLocal, signinLocal, currentUser, logout, resetPassword, loginWithFb, loginWithVk } from '../api/parse';
+import { loginLocal, signinLocal, currentUser, logout, resetPassword,  socialLogin } from '../api/parse';
 import { getUserInfo } from '../api/vk'
 import types from '../actionTypes';
 
@@ -41,18 +41,9 @@ export function* logoutUserSaga({ payload }) {
     }
 }
 
-export function* loginWithGpSaga({ payload }) {
+export function* loginWithFbSaga({ payload:{profile:{email,name,id},tokenDetail:{accessToken:token, expiresIn:expires}} }) {
     try {
-        throw (new Error('TODO:google plus login'))
-    } catch ({message}) {
-        yield put({ type: types.LOGIN_WITH_GP_ERR, message });
-        yield put({ type: types.SAVE_AUTH_MSG, payload:{color:'red', text:message} });
-    }
-}
-
-export function* loginWithFbSaga({ payload }) {
-    try {
-        const user = yield loginWithFb(payload);
+        const user = yield socialLogin({authBy:"fb",email,name,id,expires,token});
         yield put({ type: types.SAVE_USER_IN_STORE, payload:user });
     } catch ({message}) {
         yield put({ type: types.LOGIN_WITH_FB_ERR, message });
@@ -61,15 +52,10 @@ export function* loginWithFbSaga({ payload }) {
 }
 
 
-export function* loginWithVkSaga({ payload }) {
+export function* loginWithVkSaga({payload:{access_token:token, email,user_id:id,expires_in:expires}} ) {
     try {
-        const userData = yield getUserInfo({user_ids:payload.user_id, fields:""});
-        const user = yield loginWithVk({
-            ...payload,
-            ...userData,
-            name:userData.first_name+" "+userData.last_name,
-            authBy:"vk"
-        });
+        const {first_name,last_name} = yield getUserInfo({user_ids:id, fields:""});
+        const user = yield socialLogin({token, email, id, expires, name:`${first_name} ${last_name}`, authBy:"vk"});
         yield put({ type: types.SAVE_USER_IN_STORE, payload:user });
         window.location.hash='';
     } catch ({message}) {

@@ -30,7 +30,6 @@ function* authSagas(){
     yield takeEvery( types.GET_CURRENT_USER_REQ, auth.getCurrentUserSaga );
     yield takeEvery( types.USER_LOGOUT_REQ, auth.logoutUserSaga );
     yield takeEvery( types.LOGIN_WITH_VK_REQ, auth.loginWithVkSaga );
-    yield takeEvery( types.LOGIN_WITH_GP_REQ, auth.loginWithGpSaga);
     yield takeEvery( types.LOGIN_WITH_FB_REQ, auth.loginWithFbSaga );
     yield takeEvery( types.RESET_PASSWORD_REQ, auth.resetPasswordSaga );
 }

@@ -69,10 +69,6 @@ export const resetPassword = payload => ({
   type: types.RESET_PASSWORD_REQ,
   payload
 });
-export const loginWithGp = payload => ({
-  type: types.LOGIN_WITH_GP_REQ,
-  payload
-});
 export const loginWithFb = payload => ({
   type: types.LOGIN_WITH_FB_REQ,
   payload

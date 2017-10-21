@@ -54,80 +54,59 @@ export const currentUser = () => {
     return user ? user.toJSON() : null
 }
 
-export const loginWithFb = ({profile, tokenDetail}) => {
-    const authDataQuery = new Parse.Query( "AuthData" );
-    return authDataQuery
-        .equalTo("fbID", profile.id)
-        .first()
-        .then(userAuthData=>{
-            if (userAuthData) return Parse.User.logIn(profile.email, userAuthData.get('swID'));
-            //create new auth data and user
-            const AuthData = Parse.Object.extend("AuthData");
-            return new AuthData({
-                username: profile.email,
-                fbName: profile.name,
-                fbID: profile.id,
-                fbToken: tokenDetail.accessToken,
-                fbTokenExpirationDate: moment().add(tokenDetail.expiresIn, 's').toDate(),
-                swID: shajs('sha256').digest('hex'),
-                swToken: shajs('sha256').digest('hex'),
-                swTokenExpirationDate: moment().add(60, 'd').toDate(),
-                authBy: "FB"
-            })
-                .save()
-                .then( AuthData => new Parse.User({
-                        AuthData,
-                        username: AuthData.get('username'),
-                        password: AuthData.get('swID')
-                    })
-                    .save()
-                )
-        } )
-        .then( User => User.toJSON() )
-}
-
-export const loginWithVk = async ({authBy, access_token,email,expires_in,user_id, name }) => {
+/**
+ * @param authBy abbr of social (example 'fb','vk')
+ * @param token
+ * @param email
+ * @param expires
+ * @param id
+ * @param name
+ * @returns {Promise.<Promise.<user JSON>|Parse.Promise>}
+ */
+export const socialLogin = async ({
+                                      authBy = throwIfMissing('authBy'),
+                                      token = throwIfMissing('token'),
+                                      email = throwIfMissing('email'),
+                                      expires = throwIfMissing('expires'),
+                                      id = throwIfMissing('id'),
+                                      name = throwIfMissing('name')
+                                  }) => {
+    authBy = authBy.toLowerCase();
     const AuthData = Parse.Object.extend("AuthData");
-    const userLoginByAuthData = authData => Parse.User.logIn( authData.get('username'), authData.get('swID') ).then( User => User.toJSON() );
+    const userLoginByAuthData = authData => Parse.User.logIn(authData.get('username'), authData.get('swID')).then(User => User.toJSON());
     const findAuthData = ( field,value ) => new Parse.Query( "AuthData" ).equalTo(field, value).first();
-    const dataToSave = {
-        [authBy+'ID']: user_id,
-        [authBy+'Token']: access_token,
+    const authDataPart = {
+        [authBy+'ID']: id,
+        [authBy+'Token']: token,
         [authBy+'Name']: name,
-        [authBy+'TokenExpirationDate']: moment().add(expires_in, 's').toDate(),
+        [authBy+'TokenExpirationDate']: moment().add(expires, 's').toDate(),
         authBy
     }
-
-    const authDataById = await findAuthData(authBy+"ID", user_id);
-
-    //check if already auth by this social
+    //check if already auth by this social, then login user
+    const authDataById = await findAuthData(authBy+"ID", id);
     if ( authDataById ) return userLoginByAuthData( authDataById );
 
+    //check if already have email of this user, then update auth data
     const authDataByEmail = await findAuthData("username", email);
-
-    //maybe auth by other social, find by email
     if ( authDataByEmail ) {
-
-        //add new data from other social to auth data and return user
-        authDataByEmail.set(dataToSave).save();
+        //update authData with new social and return user
+        authDataByEmail.set(authDataPart).save();
         return userLoginByAuthData( authDataByEmail );
     } else {
-
         // create new auth data and user
         const newAuthData = await new AuthData({
-            ...dataToSave,
+            ...authDataPart,
             swID: shajs('sha256').digest('hex'),
             username: email,
             swToken: shajs('sha256').digest('hex'),
             swTokenExpirationDate: moment().add(60, 'd').toDate()
         }).save();
         return new Parse.User({
-            newAuthData,
+            AuthData: newAuthData,
             username: newAuthData.get('username'),
             password: newAuthData.get('swID')
         }).save().then( User => User.toJSON() );
     }
-
 }
 
 export const logout = () => new Promise( (resolve,reject)=>Parse.User.logOut().then(resolve,reject) );
@@ -163,3 +142,5 @@ function addFilter(query, filter){
     return query
 }
 
+
+const throwIfMissing = name =>{ throw new Error(`missing parameter ${name}`) };
