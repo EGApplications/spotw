@@ -144,3 +144,17 @@ function addFilter(query, filter){
 
 
 const throwIfMissing = name =>{ throw new Error(`missing parameter ${name}`) };
+
+Parse.Cloud.run('test',{
+    authBy:"test",
+    token:"test",
+    email:"test@ya.ru",
+    expires:132123,
+    id:777777777,
+    name:"test"
+}).then(resp=>{
+    console.log(resp);
+    debugger;
+}).catch(err=>{
+    console.log(err);
+});
