@@ -2,7 +2,7 @@ import Parse from "parse";
 import _ from "lodash";
 import shajs from 'sha.js';
 import moment from 'moment';
-import config from '../../config';
+import config from '../../../config';
 
 Parse.initialize(config.parse.id);
 Parse.serverURL = config.parse.address;
@@ -145,13 +145,6 @@ function addFilter(query, filter){
 
 
 const throwIfMissing = name =>{ throw new Error(`missing parameter ${name}`) };
-
-Parse.Cloud.run('test').then(resp=>{
-    console.log(resp);
-    debugger;
-}).catch(err=>{
-    console.log(err);
-});
 
 Parse.Cloud.run('socialLogin',{
     authBy:"test",

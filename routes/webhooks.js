@@ -2,10 +2,11 @@ const express = require('express');
 const router = express.Router();
 const moment = require('moment');
 const shajs = require('sha.js');
-
 const Parse = require('parse/node');
-Parse.initialize(process.env.PARSE_ID);
-Parse.serverURL = process.env.PARSE_ADDRESS;
+const config = require('../config');
+
+Parse.initialize(config.parse.id);
+Parse.serverURL = config.parse.address;
 
 const successResponse = (res, data=true) =>res.status(200).send({ "success" : data });
 
@@ -14,7 +15,7 @@ const errorResponse = (res, message=true)=>res.status(500).send({ "error" : mess
 const missingArgument = (res, name) =>{ errorResponse(res,`missing parameter ${name}`) };
 
 router.post('/socialLogin', async ( req, res )=>{
-    try {
+    //try {
         let {
           authBy = missingArgument( res, 'authBy' ),
           token = missingArgument( res, 'token' ),
@@ -66,8 +67,7 @@ router.post('/socialLogin', async ( req, res )=>{
                 .then( User=>User.toJSON() )
                 .then( userData=>successResponse(res,userData));
         }
-    }
-    catch ( {message} ) { errorResponse( res, message ) }
+    //} catch ( {message} ) { errorResponse( res, message ) }
 });
 
 module.exports = router;
