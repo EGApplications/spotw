@@ -16,7 +16,7 @@ const missingArgument = (res, name) =>{ errorResponse(res,`missing parameter ${n
 
 router.post('/socialLogin', async ( req, res )=>{
     //try {
-        successResponse(res, req.body);
+        return successResponse(res, req.body);
         let {
           authBy = missingArgument( res, 'authBy' ),
           token = missingArgument( res, 'token' ),
