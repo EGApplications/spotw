@@ -3,24 +3,26 @@
 import types from '../actionTypes'
 import moment from 'moment'
 
-export default (state, action)=> {
-    switch (action.type) {
+export default ( state, action )=>{
+    switch ( action.type ){
 
         case types.GET_EVENTS_OK:{
-            const events = action.payload.map( event=>{
-                return ({
-                    //user: event.get('createdBy').get('username'),
-                    coords:[ event.get('location').latitude, event.get('location').longitude ],
-                    title: event.get('title'),
-                    tags: event.get('tags'),
-                    src: event.get('mainImage') && event.get('mainImage').url(),
-                    description: event.get('description'),
-                    id: event.id,
-                    startTime: moment(event.get('startTime')).format(),
-                    endTime: moment(event.get('endTime')).format()
-                })
-            } );
-            return {...state, events: events }
+            const events = action.payload
+                .filter( ( { createdBy } )=>!!createdBy )
+                .map( ( {
+                            location:{ latitude, longitude },
+                            mainImage:{ url:src },
+                            createdBy:user,
+                            title, tags, description, id, startTime, endTime
+                        } )=>{
+                    return ({
+                        user, title, tags, src, description, id,
+                        coords:[latitude, longitude],
+                        startTime:moment( startTime ).format(),
+                        endTime:moment( endTime ).format()
+                    })
+                } );
+            return { ...state, events:events }
         }
 
         //TODO more semantic refact this

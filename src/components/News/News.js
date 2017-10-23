@@ -26,7 +26,7 @@ class News extends Component {
                     {tags && tags.map((tag,i)=><Label key={i} size="small">{tag}</Label>)}
                 </Item.Extra>
                 <Item.Extra>
-                    Created by {user}
+                    Created by {user && user.displayName}
                 </Item.Extra>
                 <Item.Extra className="extra-like">
                     <Rating icon='heart' className="like" size="huge" defaultRating={0} maxRating={1} />

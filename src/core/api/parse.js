@@ -18,6 +18,7 @@ export const getEvents = ({bounds, filter}) =>{
         .include("createdBy")
         .withinGeoBox( "location", ParseGeoPoint( bounds._southWest ), ParseGeoPoint( bounds._northEast ) )
         .find()
+        .then(events=>events.map(event => event.toJSON()));
 }
 
 export const saveEvent = ({title,description,file,startTime,endTime,location}) => {
