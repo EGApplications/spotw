@@ -1,6 +1,6 @@
 //@flow
 import { put, call } from 'redux-saga/effects';
-import { loginLocal, signinLocal, currentUser, logout, resetPassword,  socialLogin } from '../api/parse';
+import { loginLocal, signinLocal, currentUser, logout, resetPassword,  socialLogin, userLogin } from '../api/parse';
 import { getUserInfo } from '../api/vk'
 import types from '../actionTypes';
 
@@ -44,7 +44,8 @@ export function* logoutUserSaga({ payload }) {
 export function* loginWithFbSaga({ payload:{profile:{email,name,id},tokenDetail:{accessToken:token, expiresIn:expires}} }) {
     try {
         const user = yield socialLogin({authBy:"fb",email,name,id,expires,token});
-        yield put({ type: types.SAVE_USER_IN_STORE, payload:user });
+        const loggedUser = yield userLogin(user);
+        yield put({ type: types.SAVE_USER_IN_STORE, payload:loggedUser });
     } catch ({message}) {
         yield put({ type: types.LOGIN_WITH_FB_ERR, message });
         yield put({ type: types.SAVE_AUTH_MSG, payload:{color:'red', text:message} });
