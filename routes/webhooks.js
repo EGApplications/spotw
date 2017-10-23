@@ -67,7 +67,7 @@ router.post('/socialLogin', async ( req, res )=>{
                 .then( userData=>successResponse(res,userData));
         }
     }
-    catch ( err ) { errorResponse( res, err ) }
+    catch ( {message} ) { errorResponse( res, message ) }
 });
 
 module.exports = router;
