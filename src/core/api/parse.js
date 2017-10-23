@@ -64,7 +64,7 @@ export const socialLogin = ({
 
 export const userLogin = async (User)=>{
     //TODO get swID from authData
-    console.log(User.AuthData.attributes.swID);
+    //console.log(User.AuthData.attributes.swID);
     debugger;
     return User.logIn( User.username, 'password' )
 }

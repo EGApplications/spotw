@@ -36,8 +36,8 @@ router.post('/socialLogin', async ( req, res )=>{
         const User = await new Parse.Query(Parse.User).equalTo( 'username', email ).first();
         if ( User ){
            //update auth data and return user
-            const updatedUser = await User.get('AuthData').set( authDataPart ).save();
-            return successResponse(res, updatedUser)
+            await User.get('AuthData').set( authDataPart ).save();
+            return successResponse(res, User)
         } else {
             // new auth data and user
             const newAuthData = await new AuthData( Object.assign(
