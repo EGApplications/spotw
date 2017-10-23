@@ -15,8 +15,7 @@ const errorResponse = (res, message=true)=>res.status(500).send({ "error" : mess
 const missingArgument = (res, name) =>{ errorResponse(res,`missing parameter ${name}`) };
 
 router.post('/socialLogin', async ( req, res )=>{
-    //try {
-        return successResponse(res, req.body);
+    try {
         let {
           authBy = missingArgument( res, 'authBy' ),
           token = missingArgument( res, 'token' ),
@@ -68,7 +67,7 @@ router.post('/socialLogin', async ( req, res )=>{
                 .then( User=>User.toJSON() )
                 .then( userData=>successResponse(res,userData));
         }
-    //} catch ( {message} ) { errorResponse( res, message ) }
+    } catch ( {message} ) { errorResponse( res, message ) }
 });
 
 module.exports = router;
