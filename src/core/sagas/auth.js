@@ -44,6 +44,7 @@ export function* logoutUserSaga({ payload }) {
 export function* loginWithFbSaga({ payload:{profile:{email,name,id},tokenDetail:{accessToken:token, expiresIn:expires}} }) {
     try {
         const user = yield socialLogin({authBy:"fb",email,name,id,expires,token});
+        debugger;
         yield put({ type: types.SAVE_USER_IN_STORE, payload:user });
     } catch ({message}) {
         yield put({ type: types.LOGIN_WITH_FB_ERR, message });
@@ -56,6 +57,7 @@ export function* loginWithVkSaga({payload:{access_token:token, email,user_id:id,
     try {
         const {first_name,last_name} = yield getUserInfo({user_ids:id, fields:""});
         const user = yield socialLogin({token, email, id, expires, name:`${first_name} ${last_name}`, authBy:"vk"});
+        debugger;
         yield put({ type: types.SAVE_USER_IN_STORE, payload:user });
         window.location.hash='';
     } catch ({message}) {

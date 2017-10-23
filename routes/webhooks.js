@@ -4,6 +4,7 @@ const moment = require('moment');
 const shajs = require('sha.js');
 const Parse = require('parse/node');
 require('dotenv').config();
+
 Parse.initialize(process.env.PARSE_ID);
 Parse.serverURL = process.env.PARSE_ADDRESS;
 
@@ -15,6 +16,7 @@ const missingArgument = (res, name) =>{ errorResponse(res,`missing parameter ${n
 
 router.post('/socialLogin', async ( req, res )=>{
     //try {
+        successResponse(req.body);
         let {
           authBy = missingArgument( res, 'authBy' ),
           token = missingArgument( res, 'token' ),
