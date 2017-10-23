@@ -53,15 +53,6 @@ export const currentUser = () => {
     return user ? user.toJSON() : null
 }
 
-/**
- * @param authBy abbr of social (example 'fb','vk')
- * @param token
- * @param email
- * @param expires
- * @param id
- * @param name
- * @returns {Promise.<Promise.<user JSON>|Parse.Promise>}
- */
 export const socialLogin = ({
                                 authBy = throwIfMissing('authBy'),
                                 token = throwIfMissing('token'),

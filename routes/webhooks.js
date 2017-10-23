@@ -14,6 +14,64 @@ const errorResponse = (res, message=true)=>res.status(500).send({ "error" : mess
 
 const missingArgument = (res, name) =>{ errorResponse(res,`missing parameter ${name}`) };
 
+//router.post('/socialLogin', async ( req, res )=>{
+//    try {
+//        let {
+//          authBy = missingArgument( res, 'authBy' ),
+//          token = missingArgument( res, 'token' ),
+//          email = missingArgument( res, 'email' ),
+//          expires = missingArgument( res, 'expires' ),
+//          id = missingArgument( res, 'id' ),
+//          name = missingArgument( res, 'name' )
+//        } = req.body.params;
+//        authBy = authBy.toLowerCase();
+//        const AuthData = Parse.Object.extend( "AuthData" );
+//        const userLoginByAuthData = authData=>Parse.User
+//            .logIn( authData.get( 'username' ), authData.get( 'swID' ) )
+//            .then( User=>successResponse(res,User));
+//        const findAuthData = ( field, value )=>new Parse.Query( "AuthData" ).equalTo( field, value ).first();
+//        const authDataPart = {
+//            [authBy + 'ID']:id,
+//            [authBy + 'Token']:token,
+//            [authBy + 'Name']:name,
+//            [authBy + 'TokenExpirationDate']:moment().add( expires, 's' ).toDate(),
+//            authBy
+//        };
+//        //check if already auth by this social, then login user
+//        const authDataById = await findAuthData( authBy + "ID", id );
+//        if ( authDataById ) {
+//            //update authData with new social and return user
+//            authDataById.set( authDataPart ).save();
+//            return userLoginByAuthData( authDataById );
+//        }
+//
+//        //check if already have email of this user, then update auth data
+//        const authDataByEmail = await findAuthData( "username", email );
+//        if ( authDataByEmail ){
+//            //update authData with new social and return user
+//            authDataByEmail.set( authDataPart ).save();
+//            return userLoginByAuthData( authDataByEmail );
+//        } else {
+//            // create new auth data and user
+//            const newAuthData = await new AuthData( Object.assign(
+//                authDataPart,
+//                {
+//                swID:shajs( 'sha256' ).digest( 'hex' ),
+//                username:email,
+//                swToken:shajs( 'sha256' ).digest( 'hex' ),
+//                swTokenExpirationDate:moment().add( 60, 'd' ).toDate()
+//            }) ).save();
+//            return new Parse.User( {
+//                AuthData:newAuthData,
+//                username:newAuthData.get( 'username' ),
+//                password:newAuthData.get( 'swID' )
+//            } )
+//                .save()
+//                .then( User=>successResponse(res,User));
+//        }
+//    } catch ( {message} ) { errorResponse( res, message ) }
+//});
+
 router.post('/socialLogin', async ( req, res )=>{
     try {
         let {
@@ -26,10 +84,6 @@ router.post('/socialLogin', async ( req, res )=>{
         } = req.body.params;
         authBy = authBy.toLowerCase();
         const AuthData = Parse.Object.extend( "AuthData" );
-        const userLoginByAuthData = authData=>Parse.User
-            .logIn( authData.get( 'username' ), authData.get( 'swID' ) )
-            .then( User=>successResponse(res,User));
-        const findAuthData = ( field, value )=>new Parse.Query( "AuthData" ).equalTo( field, value ).first();
         const authDataPart = {
             [authBy + 'ID']:id,
             [authBy + 'Token']:token,
@@ -37,33 +91,26 @@ router.post('/socialLogin', async ( req, res )=>{
             [authBy + 'TokenExpirationDate']:moment().add( expires, 's' ).toDate(),
             authBy
         };
-        //check if already auth by this social, then login user
-        const authDataById = await findAuthData( authBy + "ID", id );
-        if ( authDataById ) return userLoginByAuthData( authDataById );
-
-        //check if already have email of this user, then update auth data
-        const authDataByEmail = await findAuthData( "username", email );
-        if ( authDataByEmail ){
-            //update authData with new social and return user
-            authDataByEmail.set( authDataPart ).save();
-            return userLoginByAuthData( authDataByEmail );
+        const User = await new Parse.Query(Parse.User).equalTo( 'username', email ).first();
+        if ( User ){
+           //update auth data and return user
+            User.get('AuthData').set( authDataPart ).save();
+            return successResponse(res, User)
         } else {
-            // create new auth data and user
+            // new auth data and user
             const newAuthData = await new AuthData( Object.assign(
-                authDataPart,
-                {
-                swID:shajs( 'sha256' ).digest( 'hex' ),
-                username:email,
-                swToken:shajs( 'sha256' ).digest( 'hex' ),
-                swTokenExpirationDate:moment().add( 60, 'd' ).toDate()
-            }) ).save();
-            return new Parse.User( {
+                authDataPart, {
+                    swID:shajs( 'sha256' ).digest( 'hex' ),
+                    username:email,
+                    swToken:shajs( 'sha256' ).digest( 'hex' ),
+                    swTokenExpirationDate:moment().add( 60, 'd' ).toDate()
+                }) ).save();
+            const NewUser = await new Parse.User( {
                 AuthData:newAuthData,
                 username:newAuthData.get( 'username' ),
                 password:newAuthData.get( 'swID' )
-            } )
-                .save()
-                .then( User=>successResponse(res,User));
+            } ).save();
+            return successResponse(res, NewUser);
         }
     } catch ( {message} ) { errorResponse( res, message ) }
 });
