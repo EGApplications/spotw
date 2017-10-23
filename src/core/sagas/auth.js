@@ -74,18 +74,6 @@ export function* resetPasswordSaga({ payload }) {
         yield put({ type: types.SAVE_AUTH_MSG, payload:{color:'red', text:message} });
     }
 }
-//
-//Данный метод предназначен для авторизации через любую соц. сеть, если есть соответствующие параметры в теле запроса
-//{token:str, email:str, id:str, expires:int, name:str, authBy:str}
-//token - токен соц сети,
-//id - id пользователя соц сети,
-//authBy - аббревиатура из 2х букв соцсети (vk, fb),
-//expires - время действия токена соц сети, в секундах
-//name - полное имя пользователя
-//
-//Работа метода: проверяет по id на существование AuthData в базе, если да находит по ней User
-//
-//
-//метод возвращает сущность пользователя в формате json
+
 
 
