@@ -7,15 +7,15 @@ set HOST "185.98.87.26"
 set PASSWORD "epidemicpassword"
 
 spawn ssh $USER@$HOST;
-expect "PavelN@185.98.87.26's password:";
-send "cd $PASSWORD\r";
-expect "$*";
+expect "assword:";
+send "$PASSWORD\r";
+expect "#*";
 send "cd $PATH\r";
-expect "$*";
+expect "#*";
 send "git pull\r";
-expect "$*";
-send "forever restart app.js";
-expect "$*";
+expect "#*";
+send "forever restart app.js\r";
+expect "#*";
 send "exit\n"
 
 
