@@ -62,14 +62,7 @@ export const socialLogin = ({
                                 name = throwIfMissing('name') })=>Parse.Cloud
     .run('socialLogin',{ authBy, token, email, expires, id, name });
 
-export const userLogin = async (User)=>{
-    //TODO get swID from authData
-    console.log(User.AuthData.attributes.swID);
-    debugger;
-    return User.logIn( User.username, User.AuthData.attributes.swID )
-}
-
-
+export const userLogin = async (User)=>Parse.User.logIn( User.username, User.AuthData.get('swID') ).then(user=>user.toJSON());
 
 export const logout = () => new Promise( (resolve,reject)=>Parse.User.logOut().then(resolve,reject) );
 

@@ -49,6 +49,7 @@ router.post('/socialLogin', async ( req, res )=>{
                 }) ).save();
             const NewUser = await new Parse.User( {
                 AuthData:newAuthData,
+                displayName: name,
                 username:newAuthData.get( 'username' ),
                 password:newAuthData.get( 'swID' )
             } ).save();

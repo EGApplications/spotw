@@ -57,7 +57,8 @@ export function* loginWithVkSaga({payload:{access_token:token, email,user_id:id,
     try {
         const {first_name,last_name} = yield getUserInfo({user_ids:id, fields:""});
         const user = yield socialLogin({token, email, id, expires, name:`${first_name} ${last_name}`, authBy:"vk"});
-        yield put({ type: types.SAVE_USER_IN_STORE, payload:user });
+        const loggedUser = yield userLogin(user);
+        yield put({ type: types.SAVE_USER_IN_STORE, payload:loggedUser });
         window.location.hash='';
     } catch ({message}) {
         yield put({ type: types.LOGIN_WITH_FB_ERR, message });

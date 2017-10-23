@@ -38,7 +38,7 @@ class Header extends Component{
                 </Menu.Item>
 
                 <Menu.Item position="right">
-                    {user ? <User username={user.username}/> : <Authorize/>}
+                    {user ? <User username={user.displayName}/> : <Authorize/>}
                 </Menu.Item>
             </Menu>
         )
