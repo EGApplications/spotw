@@ -33,7 +33,7 @@ router.post('/socialLogin', async ( req, res )=>{
             [authBy + 'TokenExpirationDate']:moment().add( expires, 's' ).toDate(),
             authBy
         };
-        const User = await new Parse.Query(Parse.User).equalTo( 'username', email ).include("AuthData").first();
+        const User = await new Parse.Query(Parse.User).include("AuthData").equalTo( 'username', email ).first();
         if ( User ){
            //update auth data and return user
             User.get('AuthData').set( authDataPart ).save();

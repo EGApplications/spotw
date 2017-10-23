@@ -63,7 +63,7 @@ export const socialLogin = ({
     .run('socialLogin',{ authBy, token, email, expires, id, name });
 
 export const userLogin = async (User)=>{
-    let ad = await User.AuthData.get('swID');
+    //TODO get swID from authData
     debugger;
     return User.logIn( User.username, User.get('AuthData').get('swID') )
 }
