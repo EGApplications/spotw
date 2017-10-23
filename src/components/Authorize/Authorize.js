@@ -32,14 +32,7 @@ class Authorize extends Component{
         </Tab.Pane>}
     ]
 
-    redirectToVk=()=>window.location.replace( `https://oauth.vk.com/authorize
-      ?client_id=${config.vk.client_id}
-      &display=page
-      &redirect_uri=${config.vk.redirect_uri}
-      &scope=${config.vk.scope}
-      &response_type=token
-      &v=${config.vk.v}`
-    );
+    redirectToVk=()=>window.location.replace( `https://oauth.vk.com/authorize?client_id=${config.vk.client_id}&display=page&redirect_uri=${config.vk.redirect_uri}&scope=${config.vk.scope}&response_type=token&v=${config.vk.v}`);
 
     render(){
         const { msg, loginWithFb, loginWithFbErr } = this.props;

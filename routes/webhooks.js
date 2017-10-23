@@ -28,8 +28,7 @@ router.post('/socialLogin', async ( req, res )=>{
         const AuthData = Parse.Object.extend( "AuthData" );
         const userLoginByAuthData = authData=>Parse.User
             .logIn( authData.get( 'username' ), authData.get( 'swID' ) )
-            .then( User=>User.toJSON() )
-            .then( userData=>successResponse(res,userData));
+            .then( User=>successResponse(res,User));
         const findAuthData = ( field, value )=>new Parse.Query( "AuthData" ).equalTo( field, value ).first();
         const authDataPart = {
             [authBy + 'ID']:id,
@@ -64,8 +63,7 @@ router.post('/socialLogin', async ( req, res )=>{
                 password:newAuthData.get( 'swID' )
             } )
                 .save()
-                .then( User=>User.toJSON() )
-                .then( userData=>successResponse(res,userData));
+                .then( User=>successResponse(res,User));
         }
     } catch ( {message} ) { errorResponse( res, message ) }
 });
