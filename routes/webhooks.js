@@ -16,14 +16,7 @@ const missingArgument = (res, name) =>{ errorResponse(res,`missing parameter ${n
 
 router.post('/socialLogin', async ( req, res )=>{
     try {
-        let {
-          authBy = missingArgument( res, 'authBy' ),
-          token = missingArgument( res, 'token' ),
-          email = missingArgument( res, 'email' ),
-          expires = missingArgument( res, 'expires' ),
-          id = missingArgument( res, 'id' ),
-          name = missingArgument( res, 'name' )
-        } = req.body;
+        let {authBy, token, email, expires, id, name} = req.body;
         authBy = authBy.toLowerCase();
         const AuthData = Parse.Object.extend( "AuthData" );
         const userLoginByAuthData = authData=>Parse.User
