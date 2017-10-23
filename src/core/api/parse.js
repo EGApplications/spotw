@@ -69,8 +69,8 @@ export const socialLogin = ({
                                 expires = throwIfMissing('expires'),
                                 id = throwIfMissing('id'),
                                 name = throwIfMissing('name') })=>Parse.Cloud
-    .run('socialLogin',{ authBy, token, email, expires, id, name })
-    .then( User=>User.toJSON() );
+    .run('socialLogin',{ authBy, token, email, expires, id, name });
+
 
 
 export const logout = () => new Promise( (resolve,reject)=>Parse.User.logOut().then(resolve,reject) );
