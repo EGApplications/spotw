@@ -33,11 +33,15 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "server-deploy": "npm run build && serve -s build -p 443",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "react-redux": "^5.0.6"
+    "git:add": "git add .",
+    "git:commit": "git commit -m 'auto-commit'",
+    "git:push": "git push prime master",
+    "git": "npm run git:add && npm run git:commit && npm run git:push",
+    "server-deploy": "npm run git && bash -c './deploy.sh'",
+    "build-deploy": "npm run build && npm run server-deploy"
   }
 }

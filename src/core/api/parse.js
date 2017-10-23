@@ -2,9 +2,10 @@ import Parse from "parse";
 import _ from "lodash";
 import shajs from 'sha.js';
 import moment from 'moment';
+import config from '../../config';
 
-Parse.initialize(process.env.PARSE_ID);
-Parse.serverURL = process.env.PARSE_ADDRESS;
+Parse.initialize(config.parse.id);
+Parse.serverURL = config.parse.address;
 
 const eventFilter = [
     { key: 'tags', method:"equalTo", field:'tags' },
@@ -143,7 +144,16 @@ function addFilter(query, filter){
 }
 
 
-Parse.Cloud.run('test',{
+const throwIfMissing = name =>{ throw new Error(`missing parameter ${name}`) };
+
+Parse.Cloud.run('test').then(resp=>{
+    console.log(resp);
+    debugger;
+}).catch(err=>{
+    console.log(err);
+});
+
+Parse.Cloud.run('socialLogin',{
     authBy:"test",
     token:"test",
     email:"test@ya.ru",
