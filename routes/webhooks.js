@@ -11,7 +11,7 @@ const successResponse = (res, data=true) =>res.status(200).send({ "success" : da
 
 const errorResponse = (res, message=true)=>res.status(500).send({ "error" : message });
 
-const missingArgument = (res, name) =>{ errorResponse(`missing parameter ${name}`) };
+const missingArgument = (res, name) =>{ errorResponse(res,`missing parameter ${name}`) };
 
 router.post('/socialLogin', async ( req, res )=>{
     try {
