@@ -1,6 +1,7 @@
 const express = require('express');
-const parseWebhooks = require('./parseWebhooks');
+const webhooks = require('./webhooks');
 const router = express.Router();
-router.use('/parseWebhooks', parseWebhooks);
+
+router.use('/webhooks', webhooks);
 
 module.exports = router;

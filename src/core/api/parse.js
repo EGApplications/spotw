@@ -3,8 +3,8 @@ import _ from "lodash";
 import shajs from 'sha.js';
 import moment from 'moment';
 
-Parse.initialize("spotwolrdappid");
-Parse.serverURL = 'https://spotworld.dimkk.ru/parse';
+Parse.initialize(process.env.PARSE_ID);
+Parse.serverURL = process.env.PARSE_ADDRESS;
 
 const eventFilter = [
     { key: 'tags', method:"equalTo", field:'tags' },
@@ -142,8 +142,6 @@ function addFilter(query, filter){
     return query
 }
 
-
-const throwIfMissing = name =>{ throw new Error(`missing parameter ${name}`) };
 
 Parse.Cloud.run('test',{
     authBy:"test",

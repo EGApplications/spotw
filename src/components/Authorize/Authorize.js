@@ -8,7 +8,6 @@ import LogIn from '../dumb/LogIn'
 import SignIn from '../dumb/SignIn'
 import ForgotPassword from '../dumb/ForgotPassword'
 import SocialEnter from '../dumb/SocialEnter'
-import config from '../../config'
 
 class Authorize extends Component{
 
@@ -32,7 +31,14 @@ class Authorize extends Component{
         </Tab.Pane>}
     ]
 
-    redirectToVk=()=>window.location.replace(`https://oauth.vk.com/authorize?client_id=${config.vk.client_id}&display=page&redirect_uri=${config.vk.redirect_uri}&scope=${config.vk.scope}&response_type=token&v=${config.vk.v}`);
+    redirectToVk=()=>window.location.replace( `https://oauth.vk.com/authorize
+      ?client_id=${process.env.VK_CLIENT_ID}
+      &display=page
+      &redirect_uri=${process.env.VK_REDIRECT_URL}
+      &scope=${process.env.VK_SCOPE}
+      &response_type=token
+      &v=${process.env.VK_VERSION_API}`
+    );
 
     render(){
         const { msg, loginWithFb, loginWithFbErr } = this.props;

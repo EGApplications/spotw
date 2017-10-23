@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-const Parse = require('parse').Parse;
+const Parse = require('parse/node');
+Parse.initialize(process.env.PARSE_ID);
+Parse.serverURL = process.env.PARSE_ADDRESS;
 
 function successResponse(res, data) {
     data = data || true;
@@ -17,11 +19,22 @@ router.post('/test', (req,res,next)=>{
     successResponse(res, "success  test post!");
 });
 
-router.post('/socialLogin', (req,res,next)=>{
+router.post('/socialLogin', async (req,res,next)=>{
     console.log(req.body);
+    try{
+        let result = await wait();
+        console.log(result);
+        function wait (){
+            return new Promise((resolve,reject)=>{
+                setTimeout( function cb(){resolve('ok')},3000)
+            })
+        }
+    } catch(err) {
+        console.error(err);
+    }
 
     //TODO adapt client code to webhook
-
+    //const throwIfMissing = name =>{ throw new Error(`missing parameter ${name}`) };
     // export const socialLogin = async ({
     //                                       authBy = throwIfMissing('authBy'),
     //                                       token = throwIfMissing('token'),
@@ -67,7 +80,6 @@ router.post('/socialLogin', (req,res,next)=>{
     //         }).save().then( User => User.toJSON() );
     //     }
     // }
-
     successResponse(res, req.body);
 });
 
