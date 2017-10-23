@@ -8,7 +8,7 @@ import LogIn from '../dumb/LogIn'
 import SignIn from '../dumb/SignIn'
 import ForgotPassword from '../dumb/ForgotPassword'
 import SocialEnter from '../dumb/SocialEnter'
-import config from '../../../config'
+import config from '../../config'
 
 class Authorize extends Component{
 
