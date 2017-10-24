@@ -42,7 +42,6 @@ router.post('/socialLogin', async ( req, res )=>{
             // new auth data and user
             const newAuthData = await new AuthData( Object.assign(
                 authDataPart, {
-                    swID:shajs( 'sha256' ).digest( 'hex' ),
                     username:email,
                     swToken:shajs( 'sha256' ).digest( 'hex' ),
                     swTokenExpirationDate:moment().add( 60, 'd' ).toDate()
@@ -51,7 +50,7 @@ router.post('/socialLogin', async ( req, res )=>{
                 AuthData:newAuthData,
                 displayName: name,
                 username:newAuthData.get( 'username' ),
-                password:newAuthData.get( 'swID' )
+                password:newAuthData.id
             } ).save();
             return successResponse(res, NewUser);
         }
