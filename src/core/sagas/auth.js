@@ -55,6 +55,7 @@ export function* loginWithFbSaga() {
     }
 }
 
+
 export function* loginWithVkSaga({payload:{access_token:token, email,user_id:id,expires_in:expires}} ) {
     try {
         const { first_name, last_name, photo_50:smallAvatar, photo_200:bigAvatar } = yield getUserInfo({user_ids:id, fields:"photo_50, photo_200"});
