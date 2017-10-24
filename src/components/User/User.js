@@ -10,10 +10,9 @@ class User extends Component{
     logout=()=>this.props.actions.userLogout();
 
     render(){
-        const src = 'https://react.semantic-ui.com/assets/images/avatar/small/joe.jpg';
-        const { username }= this.props;
+        const { displayName:username, smallAvatar }= this.props;
         return (
-            <Dropdown compact={true} trigger={<Label color={"blue"}><Image avatar spaced='right' src={src}/>{username}</Label>} icon={null}>
+            <Dropdown compact={true} trigger={<Label color={"blue"}><Image avatar spaced='right' src={smallAvatar}/>{username}</Label>} icon={null}>
                 <Dropdown.Menu>
                     <Modal
                         trigger={<Dropdown.Item icon="setting" text="Settings" key="setting"/>}
@@ -46,8 +45,8 @@ class User extends Component{
 }
 
 
-const mapState = ({ request: { user } }) =>({
-    user
+const mapState = ({ auth: { user } }) =>({
+    ...user
 });
 
 const mapActions = dispatch => ({ actions:{ ...bindActionCreators(actions, dispatch), } });

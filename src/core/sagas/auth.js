@@ -17,8 +17,8 @@ export function* loginLocalSaga({ payload }) {
 
 export function* signinLocalSaga({ payload }) {
     try {
-        const result = yield call(signinLocal, payload);
-        yield put({ type: types.SAVE_USER_IN_STORE, payload:result });
+        const user = yield call(signinLocal, payload);
+        yield put({ type: types.BEFORE_USER_SAVE_IN_STORE, payload:user });
     } catch ({message}) {
         yield put({ type: types.SIGNIN_LOCAL_ERR, message });
         yield put({ type: types.SAVE_AUTH_MSG, payload:{color:'red', text:message} });
@@ -27,7 +27,7 @@ export function* signinLocalSaga({ payload }) {
 
 export function* getCurrentUserSaga({ payload }) {
     const user = currentUser();
-    if (user) yield put({ type: types.SAVE_USER_IN_STORE, payload:user });
+    if (user) yield put({ type: types.BEFORE_USER_SAVE_IN_STORE, payload:user });
     else yield put({ type: types.GET_CURRENT_USER_ERR, message:'no current user save' })
 }
 
@@ -41,24 +41,25 @@ export function* logoutUserSaga({ payload }) {
     }
 }
 
-export function* loginWithFbSaga({ payload:{profile:{email,name,id},tokenDetail:{accessToken:token, expiresIn:expires}} }) {
+export function* loginWithFbSaga({ payload:{profile:{email,name,id},tokenDetail:{accessToken:token, expiresIn:expires}}, payload }) {
     try {
         const user = yield socialLogin({authBy:"fb",email,name,id,expires,token});
         const loggedUser = yield userLogin(user);
-        yield put({ type: types.SAVE_USER_IN_STORE, payload:loggedUser });
+        yield put({ type: types.BEFORE_USER_SAVE_IN_STORE, payload:loggedUser });
     } catch ({message}) {
         yield put({ type: types.LOGIN_WITH_FB_ERR, message });
         yield put({ type: types.SAVE_AUTH_MSG, payload:{color:'red', text:message} });
     }
 }
 
-
 export function* loginWithVkSaga({payload:{access_token:token, email,user_id:id,expires_in:expires}} ) {
     try {
-        const {first_name,last_name} = yield getUserInfo({user_ids:id, fields:""});
+        const { first_name, last_name, photo_50:smallAvatar, photo_200:bigAvatar } = yield getUserInfo({user_ids:id, fields:"photo_50, photo_200"});
+        console.log( smallAvatar );
+        console.log( bigAvatar );
         const user = yield socialLogin({token, email, id, expires, name:`${first_name} ${last_name}`, authBy:"vk"});
         const loggedUser = yield userLogin(user);
-        yield put({ type: types.SAVE_USER_IN_STORE, payload:loggedUser });
+        yield put({ type: types.BEFORE_USER_SAVE_IN_STORE, payload:loggedUser });
         window.location.hash='';
     } catch ({message}) {
         yield put({ type: types.LOGIN_WITH_FB_ERR, message });

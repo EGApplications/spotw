@@ -5,6 +5,7 @@ import * as request from './request';
 import * as map from './map';
 import * as ui from './ui';
 import * as auth from './auth';
+import * as inside from './inside';
 
 function* requestSagas(){
     yield takeLatest( types.GET_EVENTS_REQ, request.getEventsSaga );
@@ -34,6 +35,10 @@ function* authSagas(){
     yield takeEvery( types.RESET_PASSWORD_REQ, auth.resetPasswordSaga );
 }
 
+function* insideSagas(){
+    yield takeEvery( types.BEFORE_USER_SAVE_IN_STORE, inside.beforeUserSaveInStore );
+}
+
 function* initSaga(){
     yield takeEvery( types.INIT_APP_REQ, function*(){
         yield all( [
@@ -51,6 +56,7 @@ export default function* startForman() {
     yield fork(mapSagas);
     yield fork(uiSagas);
     yield fork(authSagas);
+    yield fork(insideSagas);
 }
 
 

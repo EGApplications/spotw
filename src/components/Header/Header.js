@@ -36,9 +36,8 @@ class Header extends Component{
                         placeholder='Filter'
                     />
                 </Menu.Item>
-
                 <Menu.Item position="right">
-                    {user ? <User username={user.displayName}/> : <Authorize/>}
+                    {user ? <User/> : <Authorize/>}
                 </Menu.Item>
             </Menu>
         )

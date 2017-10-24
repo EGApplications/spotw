@@ -2,6 +2,7 @@
 import React, {Component} from 'react';
 import {Icon, Button, List} from 'semantic-ui-react';
 import FacebookProvider, {Login} from 'react-facebook';
+import config from '../../../config'
 
 export default class SocialEnter extends Component {
 
@@ -10,9 +11,9 @@ export default class SocialEnter extends Component {
         return (
             <List relaxed>
                 <List.Item>
-                    <FacebookProvider appId="100507813877037">
+                    <FacebookProvider appId={config.fb.app_id}>
                         <Login
-                            scope="public_profile,email"
+                            scope={config.fb.scope}
                             onResponse={loginWithFb}
                             onError={({message})=>loginWithFbErr(message) }
                         >
