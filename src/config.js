@@ -6,7 +6,8 @@ export default {
         v:"5.68"
     },
     fb:{
-        scope:"public_profile,email",
+        scope:"email,public_profile",
+        userFields:"email,name",
         app_id:"100507813877037"
     },
     parse:{

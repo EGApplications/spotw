@@ -11,18 +11,9 @@ export default class SocialEnter extends Component {
         return (
             <List relaxed>
                 <List.Item>
-                    <FacebookProvider appId={config.fb.app_id}>
-                        <Login
-                            scope={config.fb.scope}
-                            onResponse={loginWithFb}
-                            onError={({message})=>loginWithFbErr(message) }
-                        >
-                            <Button fluid size="large" color='facebook'>
+                            <Button fluid size="large" color='facebook' onClick={loginWithFb}>
                                 <Icon name='facebook'/> Facebook
                             </Button>
-                        </Login>
-
-                    </FacebookProvider>
                 </List.Item>
                 <List.Item>
                     <Button fluid size="large" color='vk' onClick={redirectToVk} >

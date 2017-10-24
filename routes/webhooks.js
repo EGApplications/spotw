@@ -25,6 +25,7 @@ router.post('/socialLogin', async ( req, res )=>{
           name = missingArgument( res, 'name' )
         } = req.body.params;
         authBy = authBy.toLowerCase();
+        email = email.toLowerCase();
         const AuthData = Parse.Object.extend( "AuthData" );
         const authDataPart = {
             [authBy + 'ID']:id,

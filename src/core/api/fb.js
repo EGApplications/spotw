@@ -7,11 +7,24 @@ FB.init({
     version          : 'v2.10'
 });
 
-export const getUserInfo = (opt)=>FB.api( '/me', opt)
-
 export const getUserPicture = (id,opt)=>{
     return new Promise((resolve,reject)=>{
         FB.api( `/${id}/picture`, opt, resp=>(resp && !resp.error) ? resolve(resp) :reject(resp) );
+    })
+}
+
+export const login = ()=>{
+    return new Promise((resolve,reject)=>{
+        FB.login(
+            resp=>(resp && !resp.error) ? resolve(resp) :reject(resp),
+            {scope:config.fb.scope, return_scopes: true}
+        );
+    })
+}
+
+export const getUserInfo = (id)=>{
+    return new Promise((resolve,reject)=>{
+        FB.api(`/${id}`,{fields:config.fb.userFields}, resp=>(resp && !resp.error) ? resolve(resp) :reject(resp),);
     })
 }
 
