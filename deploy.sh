@@ -15,10 +15,6 @@ expect "#*";
 send "git pull\r";
 expect "#*";
 send "npm run build\r";
-expect "#*";
-send "forever restart app.js\r";
-expect "#*";
-send "exit\n"
 
 
 
