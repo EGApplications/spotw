@@ -53,6 +53,7 @@ export function* loginWithFbSaga() {
         yield put({ type: types.LOGIN_WITH_FB_ERR, message });
         yield put({ type: types.SAVE_AUTH_MSG, payload:{color:'red', text:message} });
     }
+
 }
 
 
