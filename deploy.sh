@@ -6,6 +6,7 @@ set PATH "/var/spotw"
 set HOST "185.98.87.26"
 set PASSWORD "epidemicpassword"
 
+
 spawn ssh $USER@$HOST;
 expect "assword:";
 send "$PASSWORD\r";
