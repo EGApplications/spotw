@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { Modal, Form } from 'semantic-ui-react'
 import './Editor.css'
 import { connect } from 'react-redux';
+import { Field, Fields, reduxForm } from 'redux-form'
 import { bindActionCreators } from 'redux';
 import * as actions from '../../core/actions'
 
@@ -13,7 +14,8 @@ class Editor extends Component{
 
     handleChange = (e, {name, value}) => this.setState({[name]: value});
 
-    handleSubmit = () => {
+    handleSubmit = (values) => {
+        console.log(values);
         const {location} = this.props;
         this.props.actions.editorSubmit({...this.state, location});
     }
@@ -30,8 +32,13 @@ class Editor extends Component{
                 <Modal.Header>Создание нового события</Modal.Header>
                 <Modal.Content>
                     <Form onSubmit={this.handleSubmit} loading={isEventUploading}>
+
                         <Form.Input label='Title' placeholder='Event name' name="title" value={title} onChange={this.handleChange} required/>
+                        <Form.Field><Field name="title" component="input" placeholder='Event name' type="text" /></Form.Field>
+
                         <Form.TextArea label='Description' name="description" value={description} onChange={this.handleChange} placeholder='Tell us more about you...' required/>
+                        <Form.Field><label>Description</label><Field name="description" component="textarea" placeholder='Tell us more about you...' /></Form.Field>
+
                         <Form.Input label='Start' placeholder='Event name' type="datetime-local" name="startTime" value={startTime} onChange={this.handleChange} required/>
                         <Form.Input label='End' placeholder='Event name' type="datetime-local" name="endTime" value={endTime} onChange={this.handleChange} required/>
                         <Form.Input type="file" onChange={this.fileInputChange}/>
@@ -52,4 +59,5 @@ const mapProps = ({ui:{editorOpen}, map:{lastClick:{latlng}}, request:{saveEvent
     isEventUploading:saveEventPending
 });
 
-export default connect( mapProps, mapActions )( Editor )
+
+export default connect( mapProps, mapActions )( reduxForm({ form: 'editor' })(Editor) )
