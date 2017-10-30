@@ -14,17 +14,16 @@ const errorResponse = (res, message=true)=>res.status(500).send({ "error" : mess
 
 const missingArgument = (res, name) =>{ errorResponse(res,`missing parameter ${name}`) };
 
-
 router.post('/socialLogin', async ( req, res )=>{
     try {
         let {
-                authBy = missingArgument( res, 'authBy' ),
-                token = missingArgument( res, 'token' ),
-                email = missingArgument( res, 'email' ),
-                expires = missingArgument( res, 'expires' ),
-                id = missingArgument( res, 'id' ),
-                name = missingArgument( res, 'name' )
-            } = req.body.params;
+          authBy = missingArgument( res, 'authBy' ),
+          token = missingArgument( res, 'token' ),
+          email = missingArgument( res, 'email' ),
+          expires = missingArgument( res, 'expires' ),
+          id = missingArgument( res, 'id' ),
+          name = missingArgument( res, 'name' )
+        } = req.body.params;
         authBy = authBy.toLowerCase();
         email = email.toLowerCase();
         const AuthData = Parse.Object.extend( "AuthData" );
@@ -37,10 +36,9 @@ router.post('/socialLogin', async ( req, res )=>{
         };
         const User = await new Parse.Query(Parse.User).include('AuthData').equalTo( 'username', email ).first();
         if ( User ){
-            //update auth data and return user
+           //update auth data and return user
             await User.get('AuthData').set( authDataPart ).save();
-            User.set('status', 'UPDATED');
-            return successResponse(res, User );
+            return successResponse(res, User)
         } else {
             // new auth data and user
             const newAuthData = await new AuthData( Object.assign(
@@ -55,7 +53,6 @@ router.post('/socialLogin', async ( req, res )=>{
                 username:newAuthData.get( 'username' ),
                 password:newAuthData.id
             } ).save();
-            User.set('status', 'CREATED');
             return successResponse(res, NewUser);
         }
     } catch ( {message} ) { errorResponse( res, message ) }
