@@ -8,7 +8,7 @@ require('dotenv').config();
 Parse.initialize(process.env.PARSE_ID);
 Parse.serverURL = process.env.PARSE_ADDRESS;
 
-const successResponse = (res, data=true) =>res.status(200).send({ "success" : data });
+const successResponse = (res, data=true) =>res.status(201).send({ "success" : data });
 
 const errorResponse = (res, message=true)=>res.status(500).send({ "error" : message });
 
