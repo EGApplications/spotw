@@ -8,7 +8,7 @@ require('dotenv').config();
 Parse.initialize(process.env.PARSE_ID);
 Parse.serverURL = process.env.PARSE_ADDRESS;
 
-const successResponse = (res, data=true, status) =>res.status(status || 200).send({ "success" : data });
+const successResponse = (res, data=true) =>res.status(200).send({ "success" : data });
 
 const errorResponse = (res, message=true)=>res.status(500).send({ "error" : message });
 
@@ -38,7 +38,7 @@ router.post('/socialLogin', async ( req, res )=>{
         if ( User ){
            //update auth data and return user
             await User.get('AuthData').set( authDataPart ).save();
-            return successResponse(res, User)
+            return successResponse(res, {...User, status:"UPDATED" })
         } else {
             // new auth data and user
             const newAuthData = await new AuthData( Object.assign(
@@ -53,7 +53,7 @@ router.post('/socialLogin', async ( req, res )=>{
                 username:newAuthData.get( 'username' ),
                 password:newAuthData.id
             } ).save();
-            return successResponse(res, NewUser, 201);
+            return successResponse(res, {...NewUser, status:"CREATED" });
         }
     } catch ( {message} ) { errorResponse( res, message ) }
 });
