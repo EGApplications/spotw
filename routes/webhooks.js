@@ -39,7 +39,8 @@ router.post('/socialLogin', async ( req, res )=>{
         if ( User ){
             //update auth data and return user
             await User.get('AuthData').set( authDataPart ).save();
-            return successResponse(res, Object.assign(User, {status:"UPDATED"} ));
+            User.set('status', 'UPDATED');
+            return successResponse(res, User );
         } else {
             // new auth data and user
             const newAuthData = await new AuthData( Object.assign(
@@ -54,7 +55,8 @@ router.post('/socialLogin', async ( req, res )=>{
                 username:newAuthData.get( 'username' ),
                 password:newAuthData.id
             } ).save();
-            return successResponse(res, Object.assign(User, {status:"CREATED"} ));
+            User.set('status', 'CREATED');
+            return successResponse(res, NewUser);
         }
     } catch ( {message} ) { errorResponse( res, message ) }
 });
