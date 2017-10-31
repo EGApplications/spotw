@@ -59,9 +59,7 @@ export function* loginWithFbSaga() {
 
 export function* loginWithVkSaga({payload:{access_token:token, email,user_id:id,expires_in:expires}} ) {
     try {
-        const { first_name, last_name, photo_50:smallAvatar, photo_200:bigAvatar } = yield getUserInfo({user_ids:id, fields:"photo_50, photo_200"});
-        console.log( smallAvatar );
-        console.log( bigAvatar );
+        const { first_name, last_name } = yield getUserInfo({user_ids:id, fields:"photo_50, photo_200"});
         const user = yield socialLogin({token, email, id, expires, name:`${first_name} ${last_name}`, authBy:"vk"});
         const loggedUser = yield userLogin(user);
         yield put({ type: types.BEFORE_USER_SAVE_IN_STORE, payload:loggedUser });

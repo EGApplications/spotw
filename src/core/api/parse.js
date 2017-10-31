@@ -11,6 +11,7 @@ const eventFilter = [
     { key: 'createdBy', method:"matchesQuery", field:"createdBy", innerQuery:val=>new Parse.Query("User").contains('username', val)}
 ]
 
+
 export const getEvents = ({bounds, filter}) =>{
     const query = new Parse.Query( "Event" );
     if ( !_.isEmpty(filter) ) addFilter( query, filter );
@@ -69,7 +70,7 @@ export const logout = () => new Promise( (resolve,reject)=>Parse.User.logOut().t
 
 export const resetPassword = (email) => Parse.User.requestPasswordReset(email);
 
-function ParseGeoPoint(coordsObj){
+function ParseGeoPoint( coordsObj ){
     const {lat,lng} = coordsObj;
     return new Parse.GeoPoint(lat, lng)
 }

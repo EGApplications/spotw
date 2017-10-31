@@ -10,7 +10,7 @@ class User extends Component{
     logout=()=>this.props.actions.userLogout();
 
     render(){
-        const { displayName:username, smallAvatar }= this.props;
+        const { displayName:username, smallAvatar, bigAvatar }= this.props;
         return (
             <Dropdown compact={true} trigger={<Label color={"blue"}><Image avatar spaced='right' src={smallAvatar}/>{username}</Label>} icon={null}>
                 <Dropdown.Menu>
@@ -22,7 +22,7 @@ class User extends Component{
                         <Modal.Header>Profile Picture</Modal.Header>
                         <Modal.Content image>
                             <Image wrapped size='medium'
-                                   src={'https://react.semantic-ui.com/assets/images/avatar/small/joe.jpg'}/>
+                                   src={bigAvatar}/>
                             <Modal.Description>
                                 <Header>User window</Header>
                                 <p>This is an example of expanded content that will cause the modal's dimmer to
