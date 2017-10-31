@@ -11,10 +11,6 @@ export function* newMarkerSaga(){
     ] )
 }
 
-export function* editorSubmitSaga({payload}){
-    yield put({ type: types.SAVE_EVENT_REQ, payload });
-}
-
 export function* filterChangedSaga({payload}){
     yield delay(1000);
     const bounds = yield getFromStore('map.bounds');

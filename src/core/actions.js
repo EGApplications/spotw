@@ -36,7 +36,7 @@ export const createMarkerClick = payload => ({
 });
 
 export const editorSubmit = payload => ({
-  type: types.EDITOR_SUBMIT,
+  type: types.SAVE_EVENT_REQ,
   payload
 });
 

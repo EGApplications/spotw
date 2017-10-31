@@ -21,7 +21,7 @@ export const getEvents = ({bounds, filter}) =>{
         .then(events=>events.map(event => event.toJSON()));
 }
 
-export const saveEvent = ({title,description,file,startTime,endTime,location}) => {
+export const saveEvent = ({title,description,image,startTime,endTime,location:{lat:latitude,lng:longitude}}) => {
     const Event = Parse.Object.extend("Event");
     const newEvent = new Event({
         title,
@@ -29,9 +29,9 @@ export const saveEvent = ({title,description,file,startTime,endTime,location}) =
         startTime:new Date(startTime),
         endTime:new Date(endTime),
         createdBy: Parse.User.current(),
-        location: new Parse.GeoPoint({latitude: location.lat, longitude: location.lng})
+        location: new Parse.GeoPoint({latitude, longitude})
     });
-    return getBase64(file).then( fileBase64=>{
+    return getBase64(image).then( fileBase64=>{
         if ( fileBase64 ) newEvent.set("mainImage", new Parse.File("Image.png", { base64: fileBase64 }));
         return newEvent.save();
     });

@@ -8,7 +8,7 @@ export default ( state, action )=>{
 
         case types.GET_EVENTS_OK:{
             const events = action.payload
-                .filter( ( { createdBy } )=>!!createdBy )
+                .filter( ( { createdBy, mainImage } )=>!!(createdBy && mainImage) )
                 .map( ( {
                             location:{ latitude, longitude },
                             mainImage:{ url:src },
