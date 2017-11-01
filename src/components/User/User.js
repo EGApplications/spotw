@@ -21,8 +21,7 @@ class User extends Component{
                     >
                         <Modal.Header>Profile Picture</Modal.Header>
                         <Modal.Content image>
-                            <Image wrapped size='medium'
-                                   src={bigAvatar}/>
+                            <Image wrapped size='medium' src={bigAvatar}/>
                             <Modal.Description>
                                 <Header>User window</Header>
                                 <p>This is an example of expanded content that will cause the modal's dimmer to

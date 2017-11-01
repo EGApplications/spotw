@@ -14,13 +14,15 @@ export function* getEventsSaga( { payload:{ bounds } } ){
     }
 }
 
-export function* saveEventSaga({ payload }) {
-  try {
-    const result = yield call(saveEvent, payload);
-    yield put({ type: types.SAVE_EVENT_OK, payload:result });
-  } catch ({message}) {
-    yield put({ type: types.SAVE_EVENT_ERR, message });
-  }
+export function* saveEventSaga(){
+    try {
+        const { latlng:location } = yield getFromStore( 'map.lastClick' );
+        const values = yield getFromStore( 'form.editor.values' );
+        const result = yield call( saveEvent, { ...values, location } );
+        yield put( { type:types.SAVE_EVENT_OK, payload:result } );
+    } catch ( { message } ){
+        yield put( { type:types.SAVE_EVENT_ERR, message } );
+    }
 }
 
 export function* saveEventOkSaga({ payload }) {

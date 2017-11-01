@@ -1,42 +1,23 @@
 import React, {Component} from 'react'
-import { Modal, Form } from 'semantic-ui-react'
-import './Editor.css'
+import { Modal  } from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../core/actions'
+import EditorForm from '../dumb/EditorForm'
 
 class Editor extends Component{
 
-    state = {title: '', description: '', file: null, startTime:new Date(), endTime:new Date()};
+    submit = (values) => this.props.actions.editorSubmit();
 
-    fileInputChange = ({target: {files:[file]}}) => this.setState({file:file});
-
-    handleChange = (e, {name, value}) => this.setState({[name]: value});
-
-    handleSubmit = () => {
-        const {location} = this.props;
-        this.props.actions.editorSubmit({...this.state, location});
-    }
-    onClose = () =>{
-        console.log('close  editor');
-        this.props.actions.editorToggle();
-    }
+    close = () =>this.props.actions.editorToggle();
 
     render(){
-        const { title, description, startTime, endTime } = this.state;
         const { isOpen, isEventUploading } = this.props;
         return (
-            <Modal open={ isOpen } onClose={this.onClose}>
+            <Modal open={ isOpen } onClose={this.close}>
                 <Modal.Header>Создание нового события</Modal.Header>
                 <Modal.Content>
-                    <Form onSubmit={this.handleSubmit} loading={isEventUploading}>
-                        <Form.Input label='Title' placeholder='Event name' name="title" value={title} onChange={this.handleChange} required/>
-                        <Form.TextArea label='Description' name="description" value={description} onChange={this.handleChange} placeholder='Tell us more about you...' required/>
-                        <Form.Input label='Start' placeholder='Event name' type="datetime-local" name="startTime" value={startTime} onChange={this.handleChange} required/>
-                        <Form.Input label='End' placeholder='Event name' type="datetime-local" name="endTime" value={endTime} onChange={this.handleChange} required/>
-                        <Form.Input type="file" onChange={this.fileInputChange}/>
-                        <Form.Button content='Submit' label="Create"/>
-                    </Form>
+                    <EditorForm onSubmit={this.submit} loading={isEventUploading}/>
                 </Modal.Content>
             </Modal>
         )
@@ -51,5 +32,6 @@ const mapProps = ({ui:{editorOpen}, map:{lastClick:{latlng}}, request:{saveEvent
     location:latlng,
     isEventUploading:saveEventPending
 });
+
 
 export default connect( mapProps, mapActions )( Editor )
