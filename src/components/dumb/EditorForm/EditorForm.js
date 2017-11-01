@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Form, Message } from 'semantic-ui-react'
+import { Form } from 'semantic-ui-react'
 import { Field, Fields, reduxForm } from 'redux-form'
 
 class Editor extends Component{
@@ -7,16 +7,16 @@ class Editor extends Component{
         const { loading, onSubmit, valid, pristine  } = this.props;
         return (
                     <Form onSubmit={onSubmit} loading={loading}>
-                        <Form.Field><Field name="title" component="input" placeholder='Title' type="text"  /></Form.Field>
-                        <Form.Field><Field name="description" component="textarea" placeholder='Description' /></Form.Field>
-                        <Form.Field><Field name="startTime" component="input"  type="datetime-local" /></Form.Field>
-                        <Form.Field><Field name="endTime" component="input"  type="datetime-local" /></Form.Field>
+                        <Form.Field required><Field name="title" component="input" placeholder='Title' type="text" required /></Form.Field>
+                        <Form.Field required><Field name="description" component="textarea" placeholder='Description' /></Form.Field>
+                        <Form.Field required><Field name="startTime" component="input"  type="datetime-local" /></Form.Field>
+                        <Form.Field required><Field name="endTime" component="input"  type="datetime-local" /></Form.Field>
                         <Field
                             component={FileInput}
                             name="image"
+                            required
                         />
-                        <Form.Button content='Create' disabled={!valid}/>
-                        <Message color="red" content="Requried"/>
+                        <Form.Button content='Create'/>
                     </Form>
 
         )
