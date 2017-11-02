@@ -20,11 +20,6 @@ export const initApp = payload => ({
   payload
 });
 
-export const newsHover = payload => ({
-  type: types.NEWS_HOVER,
-  payload
-});
-
 export const boundsChanged = payload => ({
   type: types.BOUNDS_CHANGED,
   payload

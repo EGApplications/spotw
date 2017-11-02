@@ -7,7 +7,6 @@ const asyncActionNames = name =>({
 
 export default {
     MAP_VIEW:"MAP_VIEW",
-    NEWS_HOVER:"NEWS_HOVER",
     BOUNDS_CHANGED:"BOUNDS_CHANGED",
     CREATE_MARKER_CLICK:"CREATE_MARKER_CLICK",
     CURSOR_CHANGE:"CURSOR_CHANGE",

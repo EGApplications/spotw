@@ -19,7 +19,6 @@ export default {
         cursor: "default" //"url(/img/marker-pointer.png), auto"
     },
     ui:{
-        newsHoveredItem:null,
         editorOpen:false,
         filterEvents:{}
     }

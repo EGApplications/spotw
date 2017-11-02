@@ -6,8 +6,6 @@ import _ from 'lodash'
 export default (state, action)=> {
     switch (action.type) {
 
-        case types.NEWS_HOVER: return { ...state, newsHoveredItem: state.newsHoveredItem?null:action.payload };
-
         case types.EDITOR_TOGGLE: return { ...state, editorOpen: !state.editorOpen};
 
         case types.SAVE_FILTER: {

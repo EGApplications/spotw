@@ -1,6 +1,7 @@
 import { Map, Marker, TileLayer, Tooltip, ZoomControl } from 'react-leaflet';
 import { Card, Icon, Image } from 'semantic-ui-react'
 import React, {Component} from 'react';
+import L from 'leaflet'
 import Popup from '../Popup'
 import moment from 'moment'
 import _ from 'lodash'
@@ -38,7 +39,12 @@ export default class MapLeaf extends Component {
 
     renderMarker = marker =>
         <Popup key={marker.id} {...marker} trigger={
-            <Marker  position={marker.coords}>
+            <Marker position={marker.coords} icon={L.icon({
+                iconUrl: 'img/marker-icon.png',
+                iconSize: [25, 41],
+                className: marker.id
+            })
+            }>
                 <Tooltip direction="top">{this.renderTooltip(marker)}</Tooltip>
             </Marker>
         }/>
