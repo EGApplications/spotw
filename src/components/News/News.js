@@ -10,7 +10,7 @@ import * as actions from '../../core/actions'
 class News extends Component {
 
     renderItem = ({id,src,title,description,tags,startTime,endTime,coords, user})=>
-        <Item key={id}>
+        <Item key={id} onMouseEnter={this.props.actions.newsHover.bind(null, id)}  onMouseLeave={this.props.actions.newsHover.bind(null, id)}>
             <Item.Image  src={src} />
             <Item.Content>
                 <Item.Header>

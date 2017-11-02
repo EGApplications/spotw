@@ -28,19 +28,19 @@ export const getUserInfo = (id)=>{
     })
 }
 
-const ExtendAccessTokenTime = ()=>{
-    FB.api('oauth/access_token', {
-        client_id: 'client_id',
-        client_secret: 'client_secret',
-        grant_type: 'fb_exchange_token',
-        fb_exchange_token: 'existing_access_token'
-    }, function (res) {
-        if(!res || res.error) {
-            console.log(!res ? 'error occurred' : res.error);
-            return;
-        }
-
-        var accessToken = res.access_token;
-        var expires = res.expires ? res.expires : 0;
-    });
-}
+//const ExtendAccessTokenTime = ()=>{
+//    FB.api('oauth/access_token', {
+//        client_id: 'client_id',
+//        client_secret: 'client_secret',
+//        grant_type: 'fb_exchange_token',
+//        fb_exchange_token: 'existing_access_token'
+//    }, function (res) {
+//        if(!res || res.error) {
+//            console.log(!res ? 'error occurred' : res.error);
+//            return;
+//        }
+//
+//        var accessToken = res.access_token;
+//        var expires = res.expires ? res.expires : 0;
+//    });
+//}

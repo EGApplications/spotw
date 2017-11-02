@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
 import { Form } from 'semantic-ui-react'
-import { Field, Fields, reduxForm } from 'redux-form'
+import { Field, reduxForm } from 'redux-form'
 
 class Editor extends Component{
     render(){
-        const { loading, onSubmit, valid, pristine  } = this.props;
+        const { loading, onSubmit } = this.props;
         return (
                     <Form onSubmit={onSubmit} loading={loading}>
                         <Form.Field required><Field name="title" component="input" placeholder='Title' type="text" required /></Form.Field>

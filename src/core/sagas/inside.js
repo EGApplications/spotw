@@ -1,5 +1,5 @@
 //@flow
-import { put, call } from 'redux-saga/effects';
+import { put } from 'redux-saga/effects';
 import { getUserInfo as getUserInfoVk } from '../api/vk'
 //import {  getUserInfo as getUserInfoFb  } from '../api/fb'
 import { getUserPicture } from '../api/fb'
@@ -24,7 +24,6 @@ export function* beforeUserSaveInStore({ payload:user }) {
             }
             default:
                 throw new Error('unknown social, to get additional data to user');
-                break;
         }
     } catch ({message}) {
         console.error(message);
