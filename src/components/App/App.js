@@ -25,6 +25,8 @@ class App extends Component {
                 <Header/>
                 { !!user && <Footbar/> }
                 <Editor/>
+
+                <img src="img/map-marker.png" className="jumpEffect"/>
             </div>
         )
     }

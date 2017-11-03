@@ -4,10 +4,9 @@ body {
   font-family: sans-serif;
 }
 
-.jumpEffect{
+.jumpEffect {
     transition: 1s ease-in-out;
-    border-radius:50%;
-    border: 14px solid red;
+    animation: jump 1.5s ease 0s infinite normal ;
 }
 
 
@@ -22,3 +21,5 @@ body {
         transform: translateY(0px);
     }
 }
+
+
