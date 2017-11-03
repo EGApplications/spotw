@@ -1,10 +1,7 @@
-import React, {Component} from 'react'
+import React from 'react'
 import { Button, Modal, Form } from 'semantic-ui-react'
 
-export default class Popup extends Component{
-    render(){
-        const {resetPassword} = this.props;
-        return (
+export default ({resetPassword})=>(
             <Modal trigger={<p>Forgot your password?</p>} dimmer="blurring" size="tiny" closeIcon>
                 <Modal.Header>Forgot password?</Modal.Header>
                 <Modal.Content>
@@ -15,6 +12,5 @@ export default class Popup extends Component{
                 </Modal.Content>
             </Modal>
         )
-    }
-}
+
 

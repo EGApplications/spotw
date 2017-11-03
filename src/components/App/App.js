@@ -5,10 +5,14 @@ import { connect } from 'react-redux';
 import './App.css';
 import * as actions from '../../core/actions'
 import Map from '../MapWrap'
-import Header from '../Header'
+import Header from '../dumb/Header'
 import News from '../News'
 import Footbar from '../Footbar'
 import Editor from '../Editor'
+import FriendsList from '../FriendsList'
+import Search from '../Search'
+import User from '../User'
+import Authorize from '../Authorize'
 
 class App extends Component {
 
@@ -22,10 +26,17 @@ class App extends Component {
             <div className="App">
                 <Map/>
                 <News/>
-                <Header/>
+                <Header>
+                    <Search/>
+                    {
+                        user ?
+                            <User/> :
+                            <Authorize/>
+                    }
+                </Header>
                 { !!user && <Footbar/> }
                 <Editor/>
-
+                <FriendsList/>
                 <img src="img/map-marker.png" className="jumpEffect"/>
             </div>
         )

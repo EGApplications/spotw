@@ -1,11 +1,13 @@
 import config from '../../config'
 const FB = window.FB;
+console.time('fb init');
 FB.init({
     appId            : config.fb.app_id,
     autoLogAppEvents : true,
     xfbml            : true,
     version          : 'v2.10'
 });
+console.timeEnd('fb init');
 
 export const getUserPicture = (id,opt)=>{
     return new Promise((resolve,reject)=>{

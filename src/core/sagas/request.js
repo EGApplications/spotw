@@ -1,6 +1,7 @@
 //@flow
 import { put, call } from 'redux-saga/effects';
 import { getEvents, saveEvent } from '../api/parse';
+import { getUserFriends } from '../api/vk';
 import types from '../actionTypes'
 import { getFromStore } from "./selectors"
 
@@ -11,6 +12,15 @@ export function* getEventsSaga( { payload:{ bounds } } ){
         yield put( { type:types.GET_EVENTS_OK, payload:result } );
     } catch ( { message } ){
         yield put( { type:types.GET_EVENTS_ERR, message } );
+    }
+}
+
+export function* getFriendsSaga(){
+    try {
+        const result = yield call( getUserFriends, {fields:"photo_50, photo_200", order:"hints"});
+        yield put( { type:types.GET_FRIENDS_OK, payload:result } );
+    } catch ( { message } ){
+        yield put( { type:types.GET_FRIENDS_ERR, message } );
     }
 }
 

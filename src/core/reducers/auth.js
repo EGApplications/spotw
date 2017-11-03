@@ -11,6 +11,11 @@ export default (state, action)=> {
 
         case types.SAVE_AUTH_MSG:{ return { ...state, msg:action.payload} }
 
+        case types.GET_FRIENDS_OK:{
+            state.user.friends = action.payload;
+            return { ...state }
+        }
+
 
         default:
             return {...state}

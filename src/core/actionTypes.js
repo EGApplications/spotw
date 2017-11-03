@@ -32,6 +32,7 @@ export default {
     ...asyncActionNames("SIGNIN_LOCAL"),
     ...asyncActionNames("LOGIN_WITH_FB"),
     ...asyncActionNames("LOGIN_WITH_VK"),
+    ...asyncActionNames("GET_FRIENDS"),
 };
 
 

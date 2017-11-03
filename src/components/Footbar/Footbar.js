@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { Icon, Menu } from 'semantic-ui-react'
 import './Footbar.css'
 import * as actions from '../../core/actions'
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
 class Footbar extends Component {
 

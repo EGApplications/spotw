@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import './News.css'
 import moment from 'moment'
 import {  Item, Label, Rating} from 'semantic-ui-react'
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import * as actions from '../../core/actions'
 

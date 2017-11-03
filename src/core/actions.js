@@ -76,6 +76,10 @@ export const loginWithFbErr = payload => ({
   type: types.LOGIN_WITH_FB_ERR,
   payload
 });
+export const getFriends = payload => ({
+  type: types.GET_FRIENDS_REQ,
+  payload
+});
 
 
 
