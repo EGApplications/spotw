@@ -3,6 +3,7 @@ export default {
     request:{
         events:[],
         saveEventPending:false,
+        userFriends:[]
     },
     auth:{
         user:null,

@@ -1,8 +1,9 @@
 
 import React, {Component} from 'react'
 import { Button, Header, Icon, Image, Modal, Label, Dropdown } from 'semantic-ui-react'
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import FriendsList from '../FriendsList'
 import * as actions from '../../core/actions'
 
 class User extends Component{
@@ -28,6 +29,21 @@ class User extends Component{
                                     scroll</p>
                                 <Image src='https://react.semantic-ui.com/assets/images/wireframe/paragraph.png'/>
                             </Modal.Description>
+                        </Modal.Content>
+                        <Modal.Actions>
+                            <Button primary>
+                                Proceed <Icon name='right chevron'/>
+                            </Button>
+                        </Modal.Actions>
+                    </Modal>
+                    <Modal
+                        trigger={<Dropdown.Item icon="users" text="friends" key="friends"/>}
+                        dimmer="blurring"
+                        closeIcon
+                    >
+                        <Modal.Header>Profile Picture</Modal.Header>
+                        <Modal.Content>
+                            <FriendsList/>
                         </Modal.Content>
                         <Modal.Actions>
                             <Button primary>

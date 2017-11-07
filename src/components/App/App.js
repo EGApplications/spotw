@@ -9,9 +9,8 @@ import Header from '../dumb/Header'
 import News from '../News'
 import Footbar from '../Footbar'
 import Editor from '../Editor'
-import FriendsList from '../FriendsList'
 import Search from '../Search'
-import User from '../User'
+import User from '../UserMenu'
 import Authorize from '../Authorize'
 
 class App extends Component {
@@ -36,8 +35,6 @@ class App extends Component {
                 </Header>
                 { !!user && <Footbar/> }
                 <Editor/>
-                <FriendsList/>
-                <img src="img/map-marker.png" className="jumpEffect"/>
             </div>
         )
     }

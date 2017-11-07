@@ -30,6 +30,10 @@ export default ( state, action )=>{
         case types.SAVE_EVENT_REQ:{ return {...state, saveEventPending:true} }
         case types.SAVE_EVENT_ERR:{ return {...state, saveEventPending:false} }
 
+        case types.GET_FRIENDS_OK:{
+            return { ...state, userFriends:action.payload }
+        }
+
 
         default:
             return {...state}

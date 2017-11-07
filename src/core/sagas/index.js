@@ -10,6 +10,7 @@ import * as inside from './inside';
 function* requestSagas(){
     yield takeLatest( types.GET_EVENTS_REQ, request.getEventsSaga );
     yield takeEvery( types.SAVE_EVENT_REQ, request.saveEventSaga );
+    yield takeEvery( types.GET_FRIENDS_REQ, request.getFriendsSaga );
     yield takeEvery( types.SAVE_EVENT_OK, request.saveEventOkSaga );
 }
 

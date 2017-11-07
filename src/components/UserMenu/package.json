@@ -1,0 +1,5 @@
+{
+  "name": "UserMenu",
+  "version": "0.0.1",
+  "main":"./UserMenu.js"
+}

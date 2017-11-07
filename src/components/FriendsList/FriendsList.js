@@ -11,44 +11,25 @@ class FriendsList extends Component {
     }
 
     render() {
-        console.log(this.props.user);
+        const {userFriends} = this.props;
         return (
             <List>
-                <List.Item>
-                    <Image avatar src='/assets/images/avatar/small/rachel.png' />
-                    <List.Content>
-                        <List.Header as='a'>Rachel</List.Header>
-                        <List.Description>Last seen watching <a><b>Arrested Development</b></a> just now.</List.Description>
-                    </List.Content>
-                </List.Item>
-                <List.Item>
-                    <Image avatar src='/assets/images/avatar/small/rachel.png' />
-                    <List.Content>
-                        <List.Header as='a'>Rachel</List.Header>
-                        <List.Description>Last seen watching <a><b>Arrested Development</b></a> just now.</List.Description>
-                    </List.Content>
-                </List.Item>
-                <List.Item>
-                    <Image avatar src='/assets/images/avatar/small/rachel.png' />
-                    <List.Content>
-                        <List.Header as='a'>Rachel</List.Header>
-                        <List.Description>Last seen watching <a><b>Arrested Development</b></a> just now.</List.Description>
-                    </List.Content>
-                </List.Item>
-                <List.Item>
-                    <Image avatar src='/assets/images/avatar/small/rachel.png' />
-                    <List.Content>
-                        <List.Header as='a'>Rachel</List.Header>
-                        <List.Description>Last seen watching <a><b>Arrested Development</b></a> just now.</List.Description>
-                    </List.Content>
-                </List.Item>
+                {userFriends.map(({photo_200, first_name, last_name, online, uid},i)=>(
+                    <List.Item key={i}>
+                        <Image avatar src={photo_200} />
+                        <List.Content>
+                            <List.Header as='a' src={`https://vk.com/${uid}`}>{`${first_name} ${last_name}`}</List.Header>
+                            <List.Description><a><b>online: {online}</b></a></List.Description>
+                        </List.Content>
+                    </List.Item>
+                ))}
             </List>
         )
     }
 }
 
-const mapState = ( ({auth:{user}})=>({user}) );
+const mapState = ( ({request:{userFriends}})=>({userFriends}) );
 
-const mapActions = dispatch => ({ actions:{ ...bindActionCreators(actions, dispatch), } });
+const mapActions = dispatch => ({ actions:{ ...bindActionCreators(actions, dispatch) } });
 
 export default connect(mapState, mapActions)(FriendsList)

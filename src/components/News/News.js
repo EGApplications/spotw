@@ -5,13 +5,16 @@ import moment from 'moment'
 import {  Item, Label, Rating} from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
+import _ from 'lodash'
 import * as actions from '../../core/actions'
 
 class News extends Component {
 
     hover = (id) => {
+        const jumpingElements = document.getElementsByClassName('jumpEffect');
+        _.forEach(jumpingElements, elem=>elem.classList.remove('jumpEffect'));
         const relatedMarker = document.getElementsByClassName(id)[0];
-        relatedMarker.classList.toggle('jumpEffect')
+        relatedMarker.classList.add('jumpEffect')
     }
 
     renderItem = ({id,src,title,description,tags,startTime,endTime,coords, user})=>
