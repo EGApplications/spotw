@@ -14,7 +14,11 @@ class News extends Component {
         const jumpingElements = document.getElementsByClassName('jumpEffect');
         _.forEach(jumpingElements, elem=>elem.classList.remove('jumpEffect'));
         const relatedMarker = document.getElementsByClassName(id)[0];
-        relatedMarker.classList.add('jumpEffect')
+        if (relatedMarker) relatedMarker.classList.add('jumpEffect')
+    }
+
+    tagClick = tag =>{
+        this.props.actions.tagClick({tags:tag});
     }
 
     renderItem = ({id,src,title,description,tags,startTime,endTime,coords, user})=>
@@ -31,7 +35,7 @@ class News extends Component {
                     {description}
                 </Item.Description>
                 <Item.Extra>
-                    {tags && tags.map((tag,i)=><Label key={i} size="small">{tag}</Label>)}
+                    {tags && tags.map((tag,i)=><Label key={i} as="a" size="small" onClick={this.tagClick.bind(this,tag)}>{tag}</Label>)}
                 </Item.Extra>
                 <Item.Extra>
                     Created by {user && user.displayName}

@@ -80,6 +80,10 @@ export const getFriends = payload => ({
   type: types.GET_FRIENDS_REQ,
   payload
 });
+export const tagClick = payload => ({
+  type: types.TAG_CLICK,
+  payload
+});
 
 
 

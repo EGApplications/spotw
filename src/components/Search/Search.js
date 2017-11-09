@@ -16,10 +16,9 @@ class Search extends Component {
 
     state={ filterName:'tags' }
 
-    filterInput=({target})=>this.props.filterChanged({[this.state.filterName]:target.value});
+    filterInput=({target})=>this.props.actions.filterChanged({[this.state.filterName]:target.value});
 
     filterChange=(event, {value:filterName})=>this.setState({filterName})
-
 
     render() {
         const { filterName } = this.state;

@@ -18,7 +18,7 @@ class MapWrap extends Component {
 
 
     render() {
-        const {events, center, zoom, cursor} = this.props;
+        const { events, center, zoom, cursor } = this.props;
         return <Map
             events = {events}
             center = {center}

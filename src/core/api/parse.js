@@ -102,3 +102,16 @@ function addFilter(query, filter){
 const throwIfMissing = name =>{ throw new Error(`missing parameter ${name}`) };
 
 
+//const query = new Parse.Query( "Event" );
+//query
+//    .find()
+//    .then(events=>{
+//        console.log(events)
+//        const user = Parse.User.current();
+//        events.forEach(item=>{
+//            if ( item.get( 'createdBy' ).id.startsWith( '8n' ) ){
+//                item.set('createdBy', user);
+//                item.save();
+//            }
+//        })
+//    })

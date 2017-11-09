@@ -1,11 +1,12 @@
 import { Map, Marker, TileLayer, Tooltip, ZoomControl } from 'react-leaflet';
 import { Card, Icon, Image } from 'semantic-ui-react'
 import React, {Component} from 'react';
-import L from 'leaflet'
+import Leaflet from 'leaflet'
 import Popup from '../Popup'
 import moment from 'moment'
 import _ from 'lodash'
 import './Map.css';
+import MarkerClusterGroup from 'react-leaflet-markercluster';
 
 
 export default class MapLeaf extends Component {
@@ -34,20 +35,22 @@ export default class MapLeaf extends Component {
                 <a><Icon name='user'/>22 Участника</a>
             </Card.Content>
         </Card>
-
     )
 
-    renderMarker = marker =>
-        <Popup key={marker.id} {...marker} trigger={
-            <Marker position={marker.coords} icon={L.icon({
-                iconUrl: 'img/marker-icon.png',
-                iconSize: [25, 41],
-                className: marker.id
-            })
-            }>
-                <Tooltip direction="top">{this.renderTooltip(marker)}</Tooltip>
-            </Marker>
-        }/>
+    renderMarker = marker =>(
+            <Popup key={marker.id} {...marker} trigger={
+                <Marker position={marker.coords} icon={Leaflet.icon({
+                    iconUrl: 'img/marker-icon.png',
+                    iconSize: [25, 41],
+                    className: marker.id
+                })
+                }>
+                    <Tooltip direction="top">{this.renderTooltip(marker)}</Tooltip>
+                </Marker>
+            }/>
+        )
+
+
 
     onViewportChanged =coords=>{
         this.props.onBoundsChanged(this.refs.map.leafletElement.getBounds());
@@ -69,7 +72,10 @@ export default class MapLeaf extends Component {
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 />
                 <ZoomControl position={"bottomright"}/>
-                {events.map(this.renderMarker)}
+
+                <MarkerClusterGroup>
+                    { events.map( this.renderMarker )}
+                </MarkerClusterGroup>
             </Map>
         )
     }

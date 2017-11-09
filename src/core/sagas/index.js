@@ -23,6 +23,7 @@ function* mapSagas(){
 function* uiSagas(){
     yield takeEvery( types.CREATE_MARKER_CLICK, ui.newMarkerSaga );
     yield takeLatest( types.FILTER_CHANGED, ui.filterChangedSaga );
+    yield takeLatest( types.TAG_CLICK, ui.filterChangedSaga );
 }
 
 function* authSagas(){

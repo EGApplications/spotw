@@ -3,7 +3,7 @@ import { put } from 'redux-saga/effects';
 import { getUserInfo as getUserInfoVk } from '../api/vk'
 //import {  getUserInfo as getUserInfoFb  } from '../api/fb'
 import { getUserPicture } from '../api/fb'
-import types from '../actionTypes';
+import types from '../actionTypes'
 
 
 export function* beforeUserSaveInStore({ payload:user }) {
