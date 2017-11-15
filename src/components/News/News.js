@@ -21,8 +21,12 @@ class News extends Component {
         this.props.actions.tagClick({tags:tag});
     }
 
+    itemClick = id =>{
+        this.props.actions.newsClick({id});
+    }
+
     renderItem = ({id,src,title,description,tags,startTime,endTime,coords, user})=>
-        <Item key={id} onMouseEnter={this.hover.bind(null, id)}  onMouseLeave={this.hover.bind(null, id)}>
+        <Item key={id} onMouseEnter={this.hover.bind(null, id)}  onMouseLeave={this.hover.bind(null, id)} onClick={this.itemClick.bind(this, id)}>
             <Item.Image  src={src} />
             <Item.Content>
                 <Item.Header>

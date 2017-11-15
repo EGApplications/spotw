@@ -15,7 +15,7 @@ function* requestSagas(){
 }
 
 function* mapSagas(){
-    yield takeLatest( types.BOUNDS_CHANGED, map.boundsChangeSaga );
+    yield takeLatest( types.VIEWPORT_CHANGED, map.viewportChangeSaga );
     yield takeEvery( types.GET_USER_COORDS_REQ, map.userCoordsSaga );
     yield takeEvery( types.MAP_CLICK, map.mapClickSaga );
 }
@@ -24,6 +24,7 @@ function* uiSagas(){
     yield takeEvery( types.CREATE_MARKER_CLICK, ui.newMarkerSaga );
     yield takeLatest( types.FILTER_CHANGED, ui.filterChangedSaga );
     yield takeLatest( types.TAG_CLICK, ui.filterChangedSaga );
+    yield takeLatest( types.NEWS_CLICK, ui.newsClickSaga );
 }
 
 function* authSagas(){

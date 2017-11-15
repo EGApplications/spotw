@@ -20,8 +20,8 @@ export const initApp = payload => ({
   payload
 });
 
-export const boundsChanged = payload => ({
-  type: types.BOUNDS_CHANGED,
+export const viewportChanged = payload => ({
+  type: types.VIEWPORT_CHANGED,
   payload
 });
 
@@ -82,6 +82,10 @@ export const getFriends = payload => ({
 });
 export const tagClick = payload => ({
   type: types.TAG_CLICK,
+  payload
+});
+export const newsClick = payload => ({
+  type: types.NEWS_CLICK,
   payload
 });
 

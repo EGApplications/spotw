@@ -13,5 +13,8 @@ export default {
     parse:{
         id:"spotwolrdappid",
         address:"https://spotworld.dimkk.ru/parse"
+    },
+    main:{
+        distance:250
     }
 }

@@ -5,10 +5,10 @@ import { getUserFriends } from '../api/vk';
 import types from '../actionTypes'
 import { getFromStore } from "./selectors"
 
-export function* getEventsSaga( { payload:{ bounds } } ){
+export function* getEventsSaga( { payload:{ point } } ){
     try {
         const filter = yield getFromStore( 'ui.filterEvents' );
-        const result = yield call( getEvents, { bounds, filter } );
+        const result = yield call( getEvents, { point, filter } );
         yield put( { type:types.GET_EVENTS_OK, payload:result } );
     } catch ( { message } ){
         yield put( { type:types.GET_EVENTS_ERR, message } );

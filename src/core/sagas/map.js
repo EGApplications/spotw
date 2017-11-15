@@ -3,8 +3,11 @@ import { put, call, all } from 'redux-saga/effects';
 import types from '../actionTypes';
 import { getFromStore } from './selectors'
 
-export function* boundsChangeSaga( { payload } ){
-    yield put( { type:types.GET_EVENTS_REQ, payload } )
+export function* viewportChangeSaga( { center, zoom, bounds } ){
+    console.log('viewport changed')
+    //TODO if distance from user point change much? get new events
+    //TODO or if zoom change
+    //yield put( { type:types.GET_EVENTS_REQ, payload } )
 }
 
 export function* userCoordsSaga({ payload }) {
@@ -12,6 +15,7 @@ export function* userCoordsSaga({ payload }) {
         const {coords:{latitude,longitude}} = yield call(getUserPosition, payload);
         yield put({ type: types.GET_USER_COORDS_OK, payload:{latitude,longitude} });
         yield put({ type: types.MAP_VIEW, payload:{ center:{latitude,longitude:longitude-0.165}, zoom:11 } });
+        yield put({ type: types.GET_EVENTS_REQ, payload:{ point:{lat:latitude, lng:longitude} } });
 
     } catch ({message}) {
         yield put({ type: types.GET_USER_COORDS_ERR, message });

@@ -12,12 +12,12 @@ const eventFilter = [
 ]
 
 
-export const getEvents = ({bounds, filter}) =>{
+export const getEvents = ({point, filter}) =>{
     const query = new Parse.Query( "Event" );
     if ( !_.isEmpty(filter) ) addFilter( query, filter );
     return query
         .include("createdBy")
-        .withinGeoBox( "location", ParseGeoPoint( bounds._southWest ), ParseGeoPoint( bounds._northEast ) )
+        .withinKilometers( "location", ParseGeoPoint(point), config.main.distance )
         .find()
         .then(events=>events.map(event => event.toJSON()));
 }

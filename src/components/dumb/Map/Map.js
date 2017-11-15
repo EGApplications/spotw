@@ -50,10 +50,11 @@ export default class MapLeaf extends Component {
             }/>
         )
 
-
-
-    onViewportChanged =coords=>{
-        this.props.onBoundsChanged(this.refs.map.leafletElement.getBounds());
+    onViewportChanged = viewport=>{
+        this.props.onViewportChanged( {
+            ...viewport
+            , bounds:this.refs.map.leafletElement.getBounds()
+        } );
     }
 
     render() {

@@ -16,6 +16,7 @@ class MapWrap extends Component {
         this.props.actions.mapClick({latlng,layerPoint});
     }
 
+    onViewportChanged=(viewport)=>this.props.actions.viewportChanged(viewport);
 
     render() {
         const { events, center, zoom, cursor } = this.props;
@@ -27,6 +28,7 @@ class MapWrap extends Component {
             onClick={this.mapClick}
             isUpdateRequired={true}
             onBoundsChanged={this.onBoundsChanged.bind(this)}
+            onViewportChanged={this.onViewportChanged.bind(this)}
         />
     }
 }
