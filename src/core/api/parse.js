@@ -12,15 +12,21 @@ const eventFilter = [
 ]
 
 
-export const getEvents = ({point, filter}) =>{
+export const getEvents =  ({point, filter}) =>{
     const query = new Parse.Query( "Event" );
     if ( !_.isEmpty(filter) ) addFilter( query, filter );
     return query
         .include("createdBy")
         .withinKilometers( "location", ParseGeoPoint(point), config.main.distance )
         .find()
-        .then(events=>events.map(event => event.toJSON()));
-}
+        .then( events=>Promise.all( events.map( async event=>{
+                const likes = await event.get( 'likes' ).query().find();
+                const JsonEvent = event.toJSON();
+                JsonEvent.likes = likes.map( user=>user.toJSON() );
+                return JsonEvent;
+            } ) )
+        );
+};
 
 export const saveEvent = ({title,description,image,startTime,endTime,location:{lat:latitude,lng:longitude}}) => {
     const Event = Parse.Object.extend("Event");
@@ -44,6 +50,16 @@ export const signinLocal = ({username, password, email}) => {
         password: password,
         email: email
     }).signUp().then(user=>resolve(user.toJSON()),reject) );
+}
+
+export const like = async (eventId) => {
+    const Event = Parse.Object.extend("Event");
+    const event = new Event();
+    event.id = eventId;
+    const isAlreadyLiked = await event.relation("likes").query().equalTo("objectId",Parse.User.current().id).find();
+    if( isAlreadyLiked.length ) event.relation("likes").remove(Parse.User.current());
+    else event.relation("likes").add(Parse.User.current());
+    event.save();
 }
 
 export const loginLocal = ({username, password}) => {

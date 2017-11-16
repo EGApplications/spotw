@@ -3,7 +3,7 @@ import { put, call, all } from 'redux-saga/effects';
 import types from '../actionTypes';
 import { getFromStore } from './selectors'
 
-export function* viewportChangeSaga( { center, zoom, bounds } ){
+export function* viewportChangeSaga( paylaod ){
     console.log('viewport changed')
     //TODO if distance from user point change much? get new events
     //TODO or if zoom change

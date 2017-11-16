@@ -14,6 +14,7 @@ const options = [
 
 class Search extends Component {
 
+
     state={ filterName:'tags' }
 
     filterInput=({target})=>this.props.actions.filterChanged({[this.state.filterName]:target.value});

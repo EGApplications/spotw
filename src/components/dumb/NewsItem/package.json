@@ -1,0 +1,6 @@
+{
+  "name": "NewsItem",
+  "version": "0.0.1",
+  "main": "./NewsItem.js"
+  
+}

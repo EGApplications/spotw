@@ -13,16 +13,32 @@ export default ( state, action )=>{
                             location:{ latitude, longitude },
                             mainImage:{ url:src} ,
                             createdBy:user,
-                            title, tags, description, objectId:id, startTime, endTime
+                            objectId:id,
+                            startTime, endTime,
+                            ...rest
                         } )=>{
                     return ({
-                        user, title, tags, src, description, id,
+                        user,  src,  id,
                         coords:[latitude, longitude],
                         startTime:moment( startTime ).format(),
-                        endTime:moment( endTime ).format()
+                        endTime:moment( endTime ).format(),
+                        ...rest
                     })
                 } );
-            return { ...state, events:events }
+
+            function multiplyEvents(events, i){
+                let moreEvents = events.map( ( { coords:[latitude, longitude], id, ...rest } )=>({
+                        coords:[latitude + Math.random()*0.1,longitude + Math.random()*0.1],
+                        id:id + Math.random(),
+                        ...rest
+                    })
+                ).concat(events);
+                return moreEvents.length > i ? moreEvents : multiplyEvents(moreEvents, i);
+            }
+            console.time('multiply events');
+            //const multipledEvents = multiplyEvents(events,50);
+            console.timeEnd('multiply events');
+            return { ...state, events }
         }
 
         //TODO more semantic refact this

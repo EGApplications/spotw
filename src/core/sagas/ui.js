@@ -20,10 +20,12 @@ export function* filterChangedSaga({payload}){
 }
 
 export function* newsClickSaga({payload:{id}}){
+
     const events = yield getFromStore('request.events');
     const {coords:[latitude, longitude]} =_.find(events, {id});
 
     yield put({ type: types.MAP_VIEW, payload:{ center:{latitude,longitude:longitude-0.02}, zoom:14 } });
+
 }
 
 

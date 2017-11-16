@@ -52,11 +52,11 @@ export default class MapLeaf extends Component {
 
     onViewportChanged = viewport=>{
         this.props.onViewportChanged( {
-            ...viewport
-            , bounds:this.refs.map.leafletElement.getBounds()
+            ...viewport,
+            // bounds:this.refs.map.leafletElement.getBounds()
         } );
     }
-
+    
     render() {
         console.log('rerender map');
         const { events, center, zoom, onClick, cursor } = this.props;
@@ -66,6 +66,7 @@ export default class MapLeaf extends Component {
                 style={{cursor:cursor}}
                 zoom={zoom}
                 center={center}
+                inertiaDeceleration={4500}
                 onViewportChanged={this.onViewportChanged}
                 onClick={onClick}>
                 <TileLayer

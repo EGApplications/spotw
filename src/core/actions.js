@@ -89,5 +89,10 @@ export const newsClick = payload => ({
   payload
 });
 
+export const likeClick = payload => ({
+  type: types.LIKE_CLICK,
+  payload
+});
+
 
 
