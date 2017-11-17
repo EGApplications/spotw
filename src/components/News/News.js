@@ -20,18 +20,20 @@ class News extends Component{
     tabs = [
         { menuItem: 'Все', render: () =>{
             const { events } = this.props;
-            return(<Tab.Pane attached={false}>
-                <Item.Group divided  relaxed={true} className="news">
-                    {events.map(item=><NewsItem {...{
-                        key:item.id,
-                        item,
-                        hover:this.hoverEffect,
-                        tagClick:this.props.actions.tagClick,
-                        itemClick:this.props.actions.newsClick,
-                        likeClick:this.props.actions.likeClick,
-                    }}/>)}
-                </Item.Group>
-            </Tab.Pane>)
+            return (
+                <Tab.Pane>
+                    <Item.Group divided relaxed={true} className="news">
+                        {events.map( item=><NewsItem {...{
+                            key:item.id,
+                            item,
+                            hover:this.hoverEffect,
+                            tagClick:this.props.actions.tagClick,
+                            itemClick:this.props.actions.newsClick,
+                            likeClick:this.props.actions.likeClick
+                        }}/> )}
+                    </Item.Group>
+                </Tab.Pane>
+            )
         }  },
         { menuItem: 'Tab 2', render: () => <Tab.Pane attached={false}>Tab 2 Content</Tab.Pane> },
         { menuItem: 'Tab 3', render: () => <Tab.Pane attached={false}>Tab 3 Content</Tab.Pane> },

@@ -1,33 +1,11 @@
 .ui.news{
     text-align: left ;
     border-radius: 5px;
-    width:37vw;
     position:absolute;
     left:20px;
     top:45px;
     min-width:400px;
+    max-width:500px;
     background-color:rgba(250,250,250,0.9);
-}
-
-.news .item:hover{
-    background-color: rgba(59, 127, 206, 0.3);
-    box-shadow: 3px 0 10px rgba(0,0,0,0.5);
-}
-
-.section:hover img { border:2px solid #333; }
-.section:hover .layer { border:2px solid #F90; }
-
-.content{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.extra-like{
-    text-align: end;
-}
-.like{
-    display:flex;
-    justify-content:space-between;
 }
 
