@@ -24,8 +24,8 @@ class App extends Component {
         return(
             <div className="App">
                 <Map/>
-                <News/>
                 <Header>
+                    <News/>
                     <Search/>
                     {
                         user ?

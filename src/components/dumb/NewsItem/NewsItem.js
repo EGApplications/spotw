@@ -30,7 +30,7 @@ export default ({item:{id,src,title,description,tags,startTime,endTime,coords, u
                 </Label>
                 <Button.Group floated="right" size='tiny'>
                     <Button content={likes.length} icon="eye" circular/>
-                    <Button.Or />
+                    <Button.Or text=" "/>
                     <Button content={likes.length} icon="user plus" circular/>
                 </Button.Group>
             </Item.Extra>

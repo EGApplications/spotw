@@ -21,7 +21,7 @@ class News extends Component{
         { menuItem: 'Все', render: () =>{
             const { events } = this.props;
             return (
-                <Tab.Pane>
+                <Tab.Pane attached={false}>
                     <Item.Group divided relaxed={true} className="news">
                         {events.map( item=><NewsItem {...{
                             key:item.id,
@@ -35,8 +35,8 @@ class News extends Component{
                 </Tab.Pane>
             )
         }  },
-        { menuItem: 'Tab 2', render: () => <Tab.Pane attached={false}>Tab 2 Content</Tab.Pane> },
-        { menuItem: 'Tab 3', render: () => <Tab.Pane attached={false}>Tab 3 Content</Tab.Pane> },
+        { menuItem: 'Рекомендации', render: () => <Tab.Pane attached={false}>Tab 2 Content</Tab.Pane> },
+        { menuItem: 'Подписки', render: () => <Tab.Pane attached={false}>Tab 3 Content</Tab.Pane> },
     ]
 
     render=()=> <Tab menu={{ secondary: true, pointing: true }} panes={this.tabs} className="tabs" />
