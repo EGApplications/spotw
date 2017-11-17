@@ -12,7 +12,7 @@ send "$PASSWORD\r";
 expect "#*";
 send "cd $PATH\r";
 expect "#*";
-send "yarn install\r";
+send "npm install\r";
 expect "#*";
 send "git pull\r";
 expect "#*";
