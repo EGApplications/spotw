@@ -1,11 +1,11 @@
-//@flow
+ //@flow
 import React, {Component} from 'react'
 import {  Item, Tab } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import * as actions from '../../core/actions'
 import './News.css'
-import NewsItem from '../dumb/NewsItem'
+import NewsItems from '../dumb/NewsItems'
 import _ from 'lodash'
 
 class News extends Component{
@@ -18,28 +18,24 @@ class News extends Component{
     }
 
     tabs = [
-        { menuItem: 'Все', render: () =>{
-            const { events } = this.props;
-            return (
+        { menuItem: 'Все', render: () =>
                 <Tab.Pane attached={false}>
-                    <Item.Group divided relaxed={true} className="news">
-                        {events.map( item=><NewsItem {...{
-                            key:item.id,
-                            item,
-                            hover:this.hoverEffect,
-                            tagClick:this.props.actions.tagClick,
-                            itemClick:this.props.actions.newsClick,
-                            likeClick:this.props.actions.likeClick
-                        }}/> )}
-                    </Item.Group>
+                    <NewsItems {...{
+                        items:this.props.events,
+                        hover:this.hoverEffect,
+                        tagClick:this.props.actions.tagClick,
+                        itemClick:this.props.actions.newsClick,
+                        watchClick:this.props.actions.watchClick,
+                        memberClick:this.props.actions.memberClick,
+                    }}/>
                 </Tab.Pane>
-            )
-        }  },
+        },
         { menuItem: 'Рекомендации', render: () => <Tab.Pane attached={false}>Tab 2 Content</Tab.Pane> },
         { menuItem: 'Подписки', render: () => <Tab.Pane attached={false}>Tab 3 Content</Tab.Pane> },
     ]
 
-    render=()=> <Tab menu={{ secondary: true, pointing: true }} panes={this.tabs} className="tabs" />
+
+    render=()=> <Tab menu={{ secondary: true }} panes={this.tabs} className="tabs" />
 
 }
 

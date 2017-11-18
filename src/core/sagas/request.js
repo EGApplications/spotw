@@ -1,6 +1,6 @@
 //@flow
 import { put, call } from 'redux-saga/effects';
-import { getEvents, saveEvent, like } from '../api/parse';
+import { getEvents, saveEvent, watchEvent, memberEvent } from '../api/parse';
 import { getUserFriends } from '../api/vk';
 import types from '../actionTypes'
 import { getFromStore } from "./selectors"
@@ -24,9 +24,16 @@ export function* getFriendsSaga(){
     }
 }
 
-export function* likeSaga({payload:{id}}){
+export function* watchSaga({payload:{id}}){
     try {
-         yield call( like, id);
+         yield call( watchEvent, id);
+    } catch ( { message } ){
+        console.error(message);
+    }
+}
+export function* memberSaga({payload:{id}}){
+    try {
+         yield call( memberEvent, id);
     } catch ( { message } ){
         console.error(message);
     }

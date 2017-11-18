@@ -12,7 +12,8 @@ function* requestSagas(){
     yield takeEvery( types.SAVE_EVENT_REQ, request.saveEventSaga );
     yield takeEvery( types.GET_FRIENDS_REQ, request.getFriendsSaga );
     yield takeEvery( types.SAVE_EVENT_OK, request.saveEventOkSaga );
-    yield takeLatest( types.LIKE_CLICK, request.likeSaga );
+    yield takeLatest( types.WATCH_CLICK, request.watchSaga );
+    yield takeLatest( types.MEMBER_CLICK, request.memberSaga );
 }
 
 function* mapSagas(){

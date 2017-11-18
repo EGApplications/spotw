@@ -89,8 +89,12 @@ export const newsClick = payload => ({
   payload
 });
 
-export const likeClick = payload => ({
-  type: types.LIKE_CLICK,
+export const watchClick = payload => ({
+  type: types.WATCH_CLICK,
+  payload
+});
+export const memberClick = payload => ({
+  type: types.MEMBER_CLICK,
   payload
 });
 

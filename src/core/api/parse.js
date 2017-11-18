@@ -20,9 +20,12 @@ export const getEvents =  ({point, filter}) =>{
         .withinKilometers( "location", ParseGeoPoint(point), config.main.distance )
         .find()
         .then( events=>Promise.all( events.map( async event=>{
-                const likes = await event.get( 'likes' ).query().find();
+            //TODO to many requests
+                const watchers = await event.get( 'watchers' ).query().find();
+                const members = await event.get( 'members' ).query().find();
                 const JsonEvent = event.toJSON();
-                JsonEvent.likes = likes.map( user=>user.toJSON() );
+                JsonEvent.watchers = watchers.map( user=>user.toJSON() );
+                JsonEvent.members = members.map( user=>user.toJSON() );
                 return JsonEvent;
             } ) )
         );
@@ -52,15 +55,21 @@ export const signinLocal = ({username, password, email}) => {
     }).signUp().then(user=>resolve(user.toJSON()),reject) );
 }
 
-export const like = async (eventId) => {
+async function createRelation (fieldName, eventId) {
+    console.log(fieldName);
+    console.log(eventId);
     const Event = Parse.Object.extend("Event");
     const event = new Event();
     event.id = eventId;
-    const isAlreadyLiked = await event.relation("likes").query().equalTo("objectId",Parse.User.current().id).find();
-    if( isAlreadyLiked.length ) event.relation("likes").remove(Parse.User.current());
-    else event.relation("likes").add(Parse.User.current());
+    const isAlreadyRelated = await event.relation(fieldName).query().equalTo("objectId",Parse.User.current().id).find();
+    if( isAlreadyRelated.length ) event.relation(fieldName).remove(Parse.User.current());
+    else event.relation(fieldName).add(Parse.User.current());
     event.save();
 }
+
+export const memberEvent = eventId=>createRelation.apply(this,['members', eventId]);
+export const watchEvent = eventId=>createRelation.apply(this,['watchers', eventId]);
+
 
 export const loginLocal = ({username, password}) => {
     return new Promise( (resolve,reject)=>Parse.User.logIn(username, password).then(user=>resolve(user.toJSON()),reject) );
