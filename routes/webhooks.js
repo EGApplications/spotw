@@ -53,7 +53,7 @@ router.post('/socialLogin', async ( req, res )=>{
                 username:newAuthData.get( 'username' ),
                 password:newAuthData.id
             } ).save();
-            return successResponse(res, {...NewUser, status:"CREATED" });
+            return successResponse(res, Object.assign(NewUser,{status:"CREATED" }));
         }
     } catch ( {message} ) { errorResponse( res, message ) }
 });
