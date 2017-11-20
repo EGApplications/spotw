@@ -38,7 +38,7 @@ router.post('/socialLogin', async ( req, res )=>{
         if ( User ){
            //update auth data and return user
             await User.get('AuthData').set( authDataPart ).save();
-            return successResponse(res, {...User, status:"UPDATED" })
+            return successResponse(res, Object.assign(User,{status:"UPDATED"}));
         } else {
             // new auth data and user
             const newAuthData = await new AuthData( Object.assign(

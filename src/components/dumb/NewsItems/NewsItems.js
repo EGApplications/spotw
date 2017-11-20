@@ -1,27 +1,26 @@
 import React from 'react'
-import {Item, Label, Icon, Button} from 'semantic-ui-react'
+import { Item, Label, Button } from 'semantic-ui-react'
 import './NewsItems.css'
 import moment from 'moment'
+import twix from 'twix'
 
-
-export default ({items, hover, itemClick, tagClick, watchClick, memberClick}) =>
-   <Item.Group divided relaxed={true} className="news">
-        {items.map( ({id, src, title, description, tags, startTime, endTime, coords, user, watchers, members}) =>
-            <Item key={id}
+export default ( { items, hover, itemClick, tagClick, watchClick, memberClick } )=><Item.Group divided relaxed={true} className="news">
+    {items.map( ( { id, src, title, description, tags, startTime, endTime, coords, user, watchers, members } )=>{
+           const isDifferentDays = moment( startTime ).day() !== moment( endTime ).day();
+            const interval = moment( startTime ).twix( endTime ).format({hideTime: isDifferentDays, hourFormat: "HH"});
+            return <Item key={id}
                          className="newsItem"
-                         onMouseEnter={() => {
-                             hover(id)
-                         }}
-                         onMouseLeave={() => hover(id)}
-                         onClick={() => itemClick({id})}
+                         onMouseEnter={ hover.bind( this, id ) }
+                         onMouseLeave={ hover.bind( this, id ) }
+                         onClick={ itemClick.bind( this, { id } ) }
             >
-                <Item.Image src={src} size="small" label={{
-                    color: 'blue',
-                    icon: 'time',
-                    ribbon: true,
-                    content: `${moment(startTime).format("DD.MM HH:mm")}`
+                <Item.Image src={src} size="small" alt={title} label={{
+                    color:'blue',
+                    icon:'time',
+                    ribbon:true,
+                    content:`${interval}`
                 }}/>
-                <Item.Content className="content">
+                <Item.Content className="newsContent">
                     <Item.Header>
                         <span floated="left">{title}</span>
                     </Item.Header>
@@ -29,7 +28,9 @@ export default ({items, hover, itemClick, tagClick, watchClick, memberClick}) =>
                         {description}
                     </Item.Description>
                     <Item.Extra>
-                        {tags && tags.map((tag, i) => <Label key={i} as="a" size="small" onClick={() => tagClick({id})}>{tag}</Label>)}
+                        {tags && tags.map( ( tag, i )=>
+                            <Label key={i} as="a" size="small" onClick={tagClick.bind(this, { id } )}>{tag}</Label>
+                        )}
                     </Item.Extra>
                     <Item.Extra>
                         <Label as='a' image>
@@ -37,14 +38,13 @@ export default ({items, hover, itemClick, tagClick, watchClick, memberClick}) =>
                             {user && user.displayName}
                         </Label>
                         <Button.Group floated="right" size='tiny'>
-                            <Button content={watchers.length} icon="eye" onClick={()=>watchClick({id})} circular/>
-                            <Button content={members.length} icon="user plus" onClick={()=>memberClick({id})} circular/>
-
-
+                            <Button content={watchers.length} icon="eye" onClick={watchClick.bind(this, { id } )} circular/>
+                            <Button content={members.length} icon="user plus" onClick={memberClick.bind(this, { id } )} circular/>
                         </Button.Group>
                     </Item.Extra>
                 </Item.Content>
             </Item>
-        )}
-    </Item.Group>
+        }
+    )}
+</Item.Group>
 

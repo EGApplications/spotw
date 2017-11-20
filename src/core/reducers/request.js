@@ -20,8 +20,8 @@ export default ( state, action )=>{
                     return ({
                         user,  src,  id,
                         coords:[latitude, longitude],
-                        startTime:moment( startTime ).format(),
-                        endTime:moment( endTime ).format(),
+                        startTime:moment( startTime.iso ).format(),
+                        endTime:moment( endTime.iso ).format(),
                         ...rest
                     })
                 } );

@@ -6,8 +6,12 @@
 .ui.divided.items>.item.newsItem {
     padding:10px 20px 10px 0;
 }
-.ui.divided.items>.item:first-child.newsItem {
+.ui.divided.items>.item.newsItem:first-child {
     padding-top:10px !important;
+}
+
+.item.newsItem .content.newsContent{
+    padding-left:30px!important;
 }
 
 .section:hover img { border:2px solid #333; }

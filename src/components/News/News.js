@@ -19,7 +19,7 @@ class News extends Component{
 
     tabs = [
         { menuItem: 'Все', render: () =>
-                <Tab.Pane attached={false}>
+                <Tab.Pane attached={false} className="newsAllTab">
                     <NewsItems {...{
                         items:this.props.events,
                         hover:this.hoverEffect,
