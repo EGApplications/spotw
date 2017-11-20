@@ -8,6 +8,8 @@ export default (state, action)=> {
 
         case types.EDITOR_TOGGLE: return { ...state, editorOpen: !state.editorOpen};
 
+        case types.FILTER_SAVE: return { ...state, filter: action.payload};
+
         case types.SAVE_FILTER: {
             //clear empty fields
             _.forEach( action.payload, (value,key)=>{

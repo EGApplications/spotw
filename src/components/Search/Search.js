@@ -8,37 +8,33 @@ import { bindActionCreators } from 'redux'
 
 const options = [
     { key: 'tags', text: 'by tags', value:'tags' },
-    { key: 'description', text: 'by description', value:'description' },
-    { key: 'createdBy', text: 'by users', value:'createdBy'}
+    { key: 'description', text: 'by description', value:'description' }
 ]
 
 class Search extends Component {
 
+    filterInput=({target:{value}})=>this.props.actions.filterChanged({value, field:this.props.filter.field});
 
-    state={ filterName:'tags' }
-
-    filterInput=({target})=>this.props.actions.filterChanged({[this.state.filterName]:target.value});
-
-    filterChange=(event, {value:filterName})=>this.setState({filterName})
+    filterChange=(event, {value:field})=>this.props.actions.filterChanged({value:"", field});
 
     render() {
-        const { filterName } = this.state;
+        const { filter: {value, field} } = this.props;
         const opt = options.map(opt=>_.pick(opt,['key', 'text', 'value']))
         return (
             <Input
-                action={<Dropdown onChange={this.filterChange} button basic floating options={opt} value={filterName} />}
+                action={<Dropdown onChange={this.filterChange} button basic floating options={opt} value={field} />}
                 icon='search'
+                value={value}
                 onChange={this.filterInput}
                 iconPosition='left'
-                placeholder='Filter'
+                placeholder='filter'
             />
         )
     }
 }
 
-
-
 const mapActions = dispatch => ({ actions:{ ...bindActionCreators(actions, dispatch), } });
+const mapProps = ({ui:{filter}}) => ({filter});
 
-export default connect( undefined, mapActions )( Search )
+export default connect( mapProps, mapActions )( Search )
 

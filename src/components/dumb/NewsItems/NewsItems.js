@@ -29,7 +29,7 @@ export default ( { items, hover, itemClick, tagClick, watchClick, memberClick } 
                     </Item.Description>
                     <Item.Extra>
                         {tags && tags.map( ( tag, i )=>
-                            <Label key={i} as="a" size="small" onClick={tagClick.bind(this, { id } )}>{tag}</Label>
+                            <Label key={i} as="a" size="small" onClick={tagClick.bind(this, { field:'tags',value:tag } )}>{tag}</Label>
                         )}
                     </Item.Extra>
                     <Item.Extra>
@@ -37,10 +37,10 @@ export default ( { items, hover, itemClick, tagClick, watchClick, memberClick } 
                             <img src='/favicon.ico'/>
                             {user && user.displayName}
                         </Label>
-                        <Button.Group floated="right" size='tiny'>
-                            <Button content={watchers.length} icon="eye" onClick={watchClick.bind(this, { id } )} circular/>
-                            <Button content={members.length} icon="user plus" onClick={memberClick.bind(this, { id } )} circular/>
-                        </Button.Group>
+                            <Button.Group floated="right" size='tiny'>
+                                <Button content={watchers.length} icon="eye" onClick={watchClick &&watchClick.bind(this, { id } )} circular/>
+                                <Button content={members.length} icon="user plus" onClick={memberClick &&memberClick.bind(this, { id } )} circular/>
+                            </Button.Group>
                     </Item.Extra>
                 </Item.Content>
             </Item>

@@ -5,13 +5,6 @@ import config from '../../config';
 Parse.initialize(config.parse.id);
 Parse.serverURL = config.parse.address;
 
-const eventFilter = [
-    { key: 'tags', method:"equalTo", field:'tags' },
-    { key: 'description',  method:"contains", field:"description" },
-    { key: 'createdBy', method:"matchesQuery", field:"createdBy", innerQuery:val=>new Parse.Query("User").contains('username', val)}
-]
-
-
 export const getEvents =  ({point, filter}) =>{
     const query = new Parse.Query( "Event" );
     if ( !_.isEmpty(filter) ) addFilter( query, filter );
@@ -111,16 +104,9 @@ function getBase64(file) {
 
 }
 
-function addFilter(query, filter){
-    if ( _.isEmpty( filter ) ) return query;
-
-    //add filters from eventFilter const
-    _.forEach( filter, ( value, key )=>{
-        if (!value) return;
-        const { method, field, innerQuery } = _.find( eventFilter, ['key', key] );
-        query[method]( field, innerQuery ? innerQuery( value ) : value )
-    } );
-
+function addFilter(query, {value, field}){
+    if (!value) return;
+    query.contains(field,value);
     return query
 }
 

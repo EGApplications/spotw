@@ -16,22 +16,30 @@ class News extends Component{
         const relatedMarker = document.getElementsByClassName( id )[0];
         if ( relatedMarker ) relatedMarker.classList.add( 'jumpEffect' )
     }
+    tabChange = (event, data)=>{
+        debugger;
+    }
 
     tabs = [
-        { menuItem: 'Все', render: () =>
-                <Tab.Pane attached={false} className="newsAllTab">
+        { menuItem: 'Все', render: () =>{
+            const {actions, user, events}= this.props;
+            return (
+                <Tab.Pane attached={false} className="newsAllTab" onTabChange={()=>console.log('ok')} onChange={()=>console.log('ok')}>
                     <NewsItems {...{
-                        items:this.props.events,
+                        items:events,
                         hover:this.hoverEffect,
-                        tagClick:this.props.actions.tagClick,
-                        itemClick:this.props.actions.newsClick,
-                        watchClick:this.props.actions.watchClick,
-                        memberClick:this.props.actions.memberClick,
+                        tagClick:actions.tagClick,
+                        itemClick:actions.newsClick,
+                        watchClick:user && actions.watchClick,
+                        memberClick:user && actions.memberClick,
                     }}/>
                 </Tab.Pane>
+            )
+        }
+
         },
-        { menuItem: 'Рекомендации', render: () => <Tab.Pane attached={false}>Tab 2 Content</Tab.Pane> },
-        { menuItem: 'Подписки', render: () => <Tab.Pane attached={false}>Tab 3 Content</Tab.Pane> },
+        { menuItem: 'Рекомендации', render: () => <Tab.Pane className="newsAllTab" attached={false}>Tab 2 Content</Tab.Pane> },
+        { menuItem: 'Подписки', render: () => <Tab.Pane className="newsAllTab" attached={false}>Tab 3 Content</Tab.Pane> },
     ]
 
 
@@ -39,8 +47,8 @@ class News extends Component{
 
 }
 
-const mapState = ({ request: { events } }) =>({
-    events
+const mapState = ({ request: { events }, auth:{user} }) =>({
+    events, user
 });
 
 const mapActions = dispatch => ({ actions:{ ...bindActionCreators(actions, dispatch), } });

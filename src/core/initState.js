@@ -20,6 +20,9 @@ export default {
     },
     ui:{
         editorOpen:false,
-        filterEvents:{}
+        filter:{
+            value:'',
+            field:'tags'
+        }
     }
 }

@@ -13,10 +13,10 @@ export function* newMarkerSaga(){
 }
 
 export function* filterChangedSaga({payload}){
-    yield delay(1000);
-    const bounds = yield getFromStore('map.bounds');
-    yield put( { type:types.SAVE_FILTER, payload } );
-    yield put( { type:types.GET_EVENTS_REQ, payload:{bounds} } );
+    yield put( { type:types.FILTER_SAVE, payload } );
+    delay(1000);
+    const {latitude, longitude} = yield getFromStore('map.center');
+    yield put( { type:types.GET_EVENTS_REQ, payload:{filter:payload, point:{lat:latitude,lng:longitude}} } );
 }
 
 export function* newsClickSaga({payload:{id}}){
