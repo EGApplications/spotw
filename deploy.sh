@@ -12,7 +12,6 @@ send "$PASSWORD\r";
 expect "#*";
 send "cd $PATH\r";
 expect "#*";
-interact;
 send "git pull\r";
 expect "#*";
 send "forever restart app.js\r";
