@@ -11,7 +11,6 @@ expect "assword:";
 send "$PASSWORD\r";
 expect "#*";
 send "cd $PATH\r";
-interact;
 expect "#*";
 send "git pull\r";
 expect "#*";
