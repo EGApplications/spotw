@@ -3,10 +3,10 @@ const router = express.Router();
 const moment = require('moment');
 const shajs = require('sha.js');
 const Parse = require('parse/node');
-require('dotenv').config();
+const config = require('../config');
 
-Parse.initialize(process.env.PARSE_ID);
-Parse.serverURL = process.env.PARSE_ADDRESS;
+Parse.initialize(config.parse.id);
+Parse.serverURL = config.parse.address;
 
 const successResponse = (res, data=true) =>res.status(200).send({ "success" : data });
 

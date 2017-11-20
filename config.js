@@ -16,5 +16,6 @@ export default {
     },
     main:{
         distance:250
-    }
+    },
+    port:3000
 }

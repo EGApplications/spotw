@@ -1,4 +1,4 @@
-import config from '../../config'
+import config from '../../../config'
 const FB = window.FB;
 console.time('fb init');
 FB.init({

@@ -3,7 +3,7 @@ const path = require('path');
 const app = express();
 const router = require('./routes');
 const bodyParser = require('body-parser');
-const port = 3000;
+const config = require('./config');
 
 
 app.use(bodyParser.json());
@@ -14,4 +14,4 @@ app.get('/', function (req, res) {
     res.sendFile( path.join(__dirname, 'build', 'index.html') );
 });
 
-app.listen( port, ()=>console.log(`server start on port ${port}`) );
+app.listen( config.port, ()=>console.log(`server start on port ${config.port}`) );

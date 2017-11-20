@@ -1,6 +1,6 @@
 import Parse from "parse";
 import _ from "lodash";
-import config from '../../config';
+import config from '../../../config';
 
 Parse.initialize(config.parse.id);
 Parse.serverURL = config.parse.address;
