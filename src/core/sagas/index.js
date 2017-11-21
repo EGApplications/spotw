@@ -27,6 +27,7 @@ function* uiSagas(){
     yield takeLatest( types.FILTER_CHANGED, ui.filterChangedSaga );
     yield takeLatest( types.TAG_CLICK, ui.filterChangedSaga );
     yield takeLatest( types.NEWS_CLICK, ui.newsClickSaga );
+    yield takeLatest( types.NEWS_TAB_CHANGE, ui.newsTabChangeSaga );
 }
 
 function* authSagas(){

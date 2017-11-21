@@ -9,6 +9,7 @@ export default (state, action)=> {
         case types.EDITOR_TOGGLE: return { ...state, editorOpen: !state.editorOpen};
 
         case types.FILTER_SAVE: return { ...state, filter: action.payload};
+        case types.TAB_CHANGE_SAVE: return { ...state, tabs: action.payload};
 
         case types.SAVE_FILTER: {
             //clear empty fields

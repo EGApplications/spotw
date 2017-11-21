@@ -29,7 +29,7 @@ export default ( { items, hover, itemClick, tagClick, watchClick, memberClick } 
                     </Item.Description>
                     <Item.Extra>
                         {tags && tags.map( ( tag, i )=>
-                            <Label key={i} as="a" size="small" onClick={tagClick.bind(this, { field:'tags',value:tag } )}>{tag}</Label>
+                            <Label key={i} as="a" size="small" onClick={e=>{e.stopPropagation();tagClick({field:'tags',value:tag})}}>{tag}</Label>
                         )}
                     </Item.Extra>
                     <Item.Extra>

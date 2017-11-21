@@ -97,6 +97,10 @@ export const memberClick = payload => ({
   type: types.MEMBER_CLICK,
   payload
 });
+export const newsTabChange = payload => ({
+  type: types.NEWS_TAB_CHANGE,
+  payload
+});
 
 
 

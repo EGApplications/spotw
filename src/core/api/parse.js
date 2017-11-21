@@ -5,9 +5,29 @@ import config from '../../config';
 Parse.initialize(config.parse.id);
 Parse.serverURL = config.parse.address;
 
+export const filters = {
+    contains:(query, {field,value})=>{
+        if (!value) return query;
+        query.contains(field,value);
+        return query
+    },
+    containedIn:(query, {field,value})=>{
+        console.log(field);
+        console.log(value);
+        if (!value) return query;
+        query.containedIn(field,value);
+        return query
+    },
+    subscribes:query=>{
+        const isWatcherExits = new Parse.Query("Event").equalTo("watchers", Parse.User.current());
+        const isMembersExits = new Parse.Query("Event").equalTo("members", Parse.User.current());
+        return Parse.Query.or(isWatcherExits, isMembersExits);
+    }
+}
+
 export const getEvents =  ({point, filter}) =>{
-    const query = new Parse.Query( "Event" );
-    if ( !_.isEmpty(filter) ) addFilter( query, filter );
+    let query = new Parse.Query( "Event" );
+    if ( filter ) query = filters[filter.name]( query, filter.data );
     return query
         .include("createdBy")
         .withinKilometers( "location", ParseGeoPoint(point), config.main.distance )

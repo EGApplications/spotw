@@ -44,7 +44,10 @@ export default ( state, action )=>{
         //TODO more semantic refact this
         case types.SAVE_EVENT_OK:{ return {...state, saveEventPending:false} }
         case types.SAVE_EVENT_REQ:{ return {...state, saveEventPending:true} }
-        case types.SAVE_EVENT_ERR:{ return {...state, saveEventPending:false} }
+        case types.SAVE_EVENT_ERR:{
+            console.error(action.paylaod)
+            return {...state, saveEventPending:false}
+        }
 
         case types.GET_FRIENDS_OK:{
             return { ...state, userFriends:action.payload }

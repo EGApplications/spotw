@@ -23,6 +23,12 @@ export default {
         filter:{
             value:'',
             field:'tags'
+        },
+        userSettings:{
+            tags:["#радуга", "#гринатом"]
+        },
+        tabs:{
+            activeIndex:0,
         }
     }
 }

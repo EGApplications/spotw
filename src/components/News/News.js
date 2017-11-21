@@ -16,39 +16,37 @@ class News extends Component{
         const relatedMarker = document.getElementsByClassName( id )[0];
         if ( relatedMarker ) relatedMarker.classList.add( 'jumpEffect' )
     }
-    tabChange = (event, data)=>{
-        debugger;
+    tabChange = (event, {activeIndex, panes})=>this.props.actions.newsTabChange({name:panes[activeIndex].menuItem, activeIndex});
+
+    renderTab = ()=>{
+        const {actions, user, events}= this.props;
+        return (
+            <Tab.Pane attached={false} className="newsAllTab"  >
+                <NewsItems {...{
+                    items:events,
+                    hover:this.hoverEffect,
+                    tagClick:actions.tagClick,
+                    itemClick:actions.newsClick,
+                    watchClick:user && actions.watchClick,
+                    memberClick:user && actions.memberClick,
+                }}/>
+            </Tab.Pane>
+        )
     }
 
     tabs = [
-        { menuItem: 'Все', render: () =>{
-            const {actions, user, events}= this.props;
-            return (
-                <Tab.Pane attached={false} className="newsAllTab" onTabChange={()=>console.log('ok')} onChange={()=>console.log('ok')}>
-                    <NewsItems {...{
-                        items:events,
-                        hover:this.hoverEffect,
-                        tagClick:actions.tagClick,
-                        itemClick:actions.newsClick,
-                        watchClick:user && actions.watchClick,
-                        memberClick:user && actions.memberClick,
-                    }}/>
-                </Tab.Pane>
-            )
-        }
-
-        },
-        { menuItem: 'Рекомендации', render: () => <Tab.Pane className="newsAllTab" attached={false}>Tab 2 Content</Tab.Pane> },
-        { menuItem: 'Подписки', render: () => <Tab.Pane className="newsAllTab" attached={false}>Tab 3 Content</Tab.Pane> },
+        { menuItem: 'Все', render: this.renderTab},
+        { menuItem: 'Рекомендации', render: this.renderTab },
+        { menuItem: 'Подписки', render: this.renderTab },
     ]
 
 
-    render=()=> <Tab menu={{ secondary: true }} panes={this.tabs} className="tabs" />
+    render=()=> <Tab menu={{ secondary: true }} panes={this.tabs}  className="tabs" activeIndex={this.props.activeIndex} onTabChange={this.tabChange}/>
 
 }
 
-const mapState = ({ request: { events }, auth:{user} }) =>({
-    events, user
+const mapState = ({ request: { events }, auth:{user}, ui:{tabs:{activeIndex}} }) =>({
+    events, user, activeIndex
 });
 
 const mapActions = dispatch => ({ actions:{ ...bindActionCreators(actions, dispatch), } });
