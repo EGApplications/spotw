@@ -41,7 +41,7 @@ class News extends Component{
     ]
 
 
-    render=()=> <Tab menu={{ secondary: true }} panes={this.tabs}  className="tabs" activeIndex={this.props.activeIndex} onTabChange={this.tabChange}/>
+    render=()=> <Tab menu={{ color:"blue",inverted: true,secondary: true }} panes={this.tabs}  className="tabs" activeIndex={this.props.activeIndex} onTabChange={this.tabChange}/>
 
 }
 
