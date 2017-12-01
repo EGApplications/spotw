@@ -4,8 +4,8 @@ import './NewsItems.css'
 import moment from 'moment'
 import twix from 'twix'
 
-export default ( { items, hover, itemClick, tagClick, watchClick, memberClick } )=><Item.Group divided relaxed={true} className="news">
-    {items.map( ( { id, src, title, description, tags, startTime, endTime, coords, user, watchers, members } )=>{
+export default ( { items, hover, itemClick, tagClick, subscribeClick, memberClick } )=><Item.Group divided relaxed={true} className="news">
+    {items.map( ( { id, src, title, description, tags, startTime, endTime, coords, user, subscribers, members } )=>{
            const isDifferentDays = moment( startTime ).day() !== moment( endTime ).day();
             const interval = moment( startTime ).twix( endTime ).format({hideTime: isDifferentDays, hourFormat: "HH"});
             return <Item key={id}
@@ -38,7 +38,7 @@ export default ( { items, hover, itemClick, tagClick, watchClick, memberClick } 
                             {user && user.displayName}
                         </Label>
                             <Button.Group floated="right" size='tiny'>
-                                <Button content={watchers.length} icon="eye" onClick={watchClick &&watchClick.bind(this, { id } )} circular/>
+                                <Button content={subscribers.length} icon="eye" onClick={subscribeClick &&subscribeClick.bind(this, { id } )} circular/>
                                 <Button content={members.length} icon="user plus" onClick={memberClick &&memberClick.bind(this, { id } )} circular/>
                             </Button.Group>
                     </Item.Extra>

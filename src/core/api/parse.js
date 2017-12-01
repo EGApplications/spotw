@@ -19,9 +19,9 @@ export const filters = {
         return query
     },
     subscribes:query=>{
-        const isWatcherExits = new Parse.Query("Event").equalTo("watchers", Parse.User.current());
+        const isSubscribersExits = new Parse.Query("Event").equalTo("subscribers", Parse.User.current());
         const isMembersExits = new Parse.Query("Event").equalTo("members", Parse.User.current());
-        return Parse.Query.or(isWatcherExits, isMembersExits);
+        return Parse.Query.or(isSubscribersExits, isMembersExits);
     }
 }
 
@@ -30,14 +30,16 @@ export const getEvents =  ({point, filter}) =>{
     if ( filter ) query = filters[filter.name]( query, filter.data );
     return query
         .include("createdBy")
+        .include("subscribers")
+        .include("members")
         .withinKilometers( "location", ParseGeoPoint(point), config.main.distance )
         .find()
         .then( events=>Promise.all( events.map( async event=>{
             //TODO to many requests
-                const watchers = await event.get( 'watchers' ).query().find();
+                const subscribers = await event.get( 'subscribers' ).query().find();
                 const members = await event.get( 'members' ).query().find();
                 const JsonEvent = event.toJSON();
-                JsonEvent.watchers = watchers.map( user=>user.toJSON() );
+                JsonEvent.subscribers = subscribers.map( user=>user.toJSON() );
                 JsonEvent.members = members.map( user=>user.toJSON() );
                 return JsonEvent;
             } ) )
@@ -68,20 +70,20 @@ export const signinLocal = ({username, password, email}) => {
     }).signUp().then(user=>resolve(user.toJSON()),reject) );
 }
 
-async function createRelation (fieldName, eventId) {
-    console.log(fieldName);
-    console.log(eventId);
+async function createRelation ( fieldName, eventId ) {
+    console.log( fieldName );
+    console.log( eventId );
     const Event = Parse.Object.extend("Event");
     const event = new Event();
     event.id = eventId;
-    const isAlreadyRelated = await event.relation(fieldName).query().equalTo("objectId",Parse.User.current().id).find();
-    if( isAlreadyRelated.length ) event.relation(fieldName).remove(Parse.User.current());
-    else event.relation(fieldName).add(Parse.User.current());
+    const isAlreadyRelated = await event.relation( fieldName ).query().equalTo( "objectId", Parse.User.current().id ).find();
+    if( isAlreadyRelated.length ) event.relation( fieldName ).remove( Parse.User.current() );
+    else event.relation( fieldName ).add( Parse.User.current() );
     event.save();
 }
 
 export const memberEvent = eventId=>createRelation.apply(this,['members', eventId]);
-export const watchEvent = eventId=>createRelation.apply(this,['watchers', eventId]);
+export const subscriberEvent = eventId=>createRelation.apply(this,['subscribers', eventId]);
 
 
 export const loginLocal = ({username, password}) => {

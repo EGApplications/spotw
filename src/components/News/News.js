@@ -27,7 +27,7 @@ class News extends Component{
                     hover:this.hoverEffect,
                     tagClick:actions.tagClick,
                     itemClick:actions.newsClick,
-                    watchClick:user && actions.watchClick,
+                    subscribeClick:user && actions.subscribeClick,
                     memberClick:user && actions.memberClick,
                 }}/>
             </Tab.Pane>

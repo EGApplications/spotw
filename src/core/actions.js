@@ -89,8 +89,8 @@ export const newsClick = payload => ({
   payload
 });
 
-export const watchClick = payload => ({
-  type: types.WATCH_CLICK,
+export const subscribeClick = payload => ({
+  type: types.SUBSCRIBE_CLICK,
   payload
 });
 export const memberClick = payload => ({
