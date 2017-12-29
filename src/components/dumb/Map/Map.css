@@ -4,6 +4,18 @@
     top:0px;
     position:fixed;
 }
+
+.leaflet-tooltip{
+    padding:0px;
+    border:none;
+    box-shadow:none;
+    white-space: normal;
+}
+
+.leaflet-tooltip .content{
+    display:block;
+}
+
 .marker-cluster-small {
     background-color: rgba(181, 226, 140, 0.6); }
 

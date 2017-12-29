@@ -1,5 +1,4 @@
 import Parse from "parse";
-import _ from "lodash";
 import config from '../../config';
 
 Parse.initialize(config.parse.id);
@@ -126,11 +125,11 @@ function getBase64(file) {
 
 }
 
-function addFilter(query, {value, field}){
-    if (!value) return;
-    query.contains(field,value);
-    return query
-}
+// function addFilter(query, {value, field}){
+//     if (!value) return;
+//     query.contains(field,value);
+//     return query
+// }
 
 const throwIfMissing = name =>{ throw new Error(`missing parameter ${name}`) };
 

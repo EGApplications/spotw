@@ -26,16 +26,16 @@ export default ( state, action )=>{
                     })
                 } );
 
-            function multiplyEvents(events, i){
-                let moreEvents = events.map( ( { coords:[latitude, longitude], id, ...rest } )=>({
-                        coords:[latitude + Math.random()*0.1,longitude + Math.random()*0.1],
-                        id:id + Math.random(),
-                        ...rest
-                    })
-                ).concat(events);
-                return moreEvents.length > i ? moreEvents : multiplyEvents(moreEvents, i);
-            }
-            console.time('multiply events');
+            // function multiplyEvents(events, i){
+            //     let moreEvents = events.map( ( { coords:[latitude, longitude], id, ...rest } )=>({
+            //             coords:[latitude + Math.random()*0.1,longitude + Math.random()*0.1],
+            //             id:id + Math.random(),
+            //             ...rest
+            //         })
+            //     ).concat(events);
+            //     return moreEvents.length > i ? moreEvents : multiplyEvents(moreEvents, i);
+            // }
+            // console.time('multiply events');
             //const multipledEvents = multiplyEvents(events,50);
             console.timeEnd('multiply events');
             return { ...state, events }

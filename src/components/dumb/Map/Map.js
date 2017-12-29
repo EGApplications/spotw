@@ -3,10 +3,13 @@ import { Card, Icon, Image } from 'semantic-ui-react'
 import React, {Component} from 'react';
 import Leaflet from 'leaflet'
 import Popup from '../Popup'
-import moment from 'moment'
+import moment from 'moment'// eslint-disable-next-line
+import twix from 'twix'
 import _ from 'lodash'
 import './Map.css';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
+
+
 
 
 export default class MapLeaf extends Component {
@@ -14,28 +17,37 @@ export default class MapLeaf extends Component {
     //if the same props, no render (functions can't be compare)
     shouldComponentUpdate = prevProps => !_.isEqual(_.omitBy(prevProps, _.isFunction),_.omitBy(this.props, _.isFunction));
 
-    renderTooltip = ( {id,coords,src,title,description,startTime,endTime} )=>(
-        <Card>
-            {src && <Image src={src}/>}
-            <Card.Content>
-                <Card.Header>
-                    {title}
-                </Card.Header>
-                <Card.Meta>
-                <span className='date'>
-                    {`${moment(startTime).format("DD.MM HH:mm")} -
-                    ${moment(endTime).format("DD.MM HH:mm")}`}
-                </span>
-                </Card.Meta>
-                <Card.Description>
-                    {description}
-                </Card.Description>
-            </Card.Content>
-            <Card.Content extra>
-                <a><Icon name='user'/>22 Участника</a>
-            </Card.Content>
-        </Card>
-    )
+
+    renderTooltip = marker =>{
+        console.log(marker);
+        const {src,title,description,startTime,endTime, user, members=[], subscribers=[]} = marker;
+        const isDifferentDays = moment(startTime).day() !== moment(endTime).day();
+        const interval = moment(startTime).twix(endTime).format({hideTime: isDifferentDays, hourFormat: "HH"});
+
+
+        return(
+            <Card>
+                { src && <Image src={src} alt={title} label={{
+                    color: 'blue',
+                    icon: 'time',
+                    ribbon: true,
+                    content: `${interval}`
+                }}/> }
+                <Card.Content>
+                    <Card.Header content={title} />
+                    {user && <Card.Meta сontent={user.displayName}/>}
+                    <Card.Description content={description} />
+                </Card.Content>
+                <Card.Content extra>
+                        <Icon name='user' />
+                        {members.length}
+                        <span>&nbsp;</span>
+                        <Icon name='eye' />
+                        {subscribers.length}
+                </Card.Content>
+            </Card>
+        )
+    }
 
     renderMarker = marker =>(
             <Popup key={marker.id} {...marker} trigger={
@@ -45,7 +57,7 @@ export default class MapLeaf extends Component {
                     className: marker.id
                 })
                 }>
-                    <Tooltip direction="top">{this.renderTooltip(marker)}</Tooltip>
+                    <Tooltip direction="top" opacity="1">{this.renderTooltip(marker)}</Tooltip>
                 </Marker>
             }/>
         )

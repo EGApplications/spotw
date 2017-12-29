@@ -1,8 +1,8 @@
  //@flow
 import React, {Component} from 'react'
-import {  Item, Tab } from 'semantic-ui-react'
+import { Tab } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux'
 import * as actions from '../../core/actions'
 import './News.css'
 import NewsItems from '../dumb/NewsItems'

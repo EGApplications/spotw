@@ -27,11 +27,9 @@ class App extends Component {
                 <Header>
                     <News/>
                     <Search/>
-                    {
-                        user ?
-                            <User/> :
-                            <Authorize/>
-                    }
+                    { user ?
+                        <User/> :
+                        <Authorize/> }
                 </Header>
                 { !!user && <Footbar/> }
                 <Editor/>

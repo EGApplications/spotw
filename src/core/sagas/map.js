@@ -7,6 +7,7 @@ export function* viewportChangeSaga( paylaod ){
     console.log('viewport changed')
     //TODO if distance from user point change much? get new events
     //TODO or if zoom change
+    yield Promise.resolve();
     //yield put( { type:types.GET_EVENTS_REQ, payload } )
 }
 
