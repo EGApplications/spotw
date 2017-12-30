@@ -3,39 +3,29 @@ import { Card, Icon, Image } from 'semantic-ui-react'
 import React, {Component} from 'react';
 import Leaflet from 'leaflet'
 import Popup from '../Popup'
-import moment from 'moment'// eslint-disable-next-line
-import twix from 'twix'
 import _ from 'lodash'
 import './Map.css';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
-
-
 
 
 export default class MapLeaf extends Component {
 
     //if the same props, no render (functions can't be compare)
     shouldComponentUpdate = prevProps => !_.isEqual(_.omitBy(prevProps, _.isFunction),_.omitBy(this.props, _.isFunction));
-
-
+    
     renderTooltip = marker =>{
-        console.log(marker);
-        const {src,title,description,startTime,endTime, user, members=[], subscribers=[]} = marker;
-        const isDifferentDays = moment(startTime).day() !== moment(endTime).day();
-        const interval = moment(startTime).twix(endTime).format({hideTime: isDifferentDays, hourFormat: "HH"});
-
-
+        const {src, title, description, user, members=[], subscribers=[], displayTime} = marker;
         return(
             <Card>
                 { src && <Image src={src} alt={title} label={{
                     color: 'blue',
                     icon: 'time',
                     ribbon: true,
-                    content: `${interval}`
+                    content: `${displayTime}`
                 }}/> }
                 <Card.Content>
                     <Card.Header content={title} />
-                    {user && <Card.Meta сontent={user.displayName}/>}
+                    <Card.Meta>{<span>{user.displayName}</span>}</Card.Meta>
                     <Card.Description content={description} />
                 </Card.Content>
                 <Card.Content extra>

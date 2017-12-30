@@ -2,6 +2,8 @@
 
 import types from '../actionTypes'
 import moment from 'moment'
+// eslint-disable-next-line
+import twix from 'twix'
 
 export default ( state, action )=>{
     switch ( action.type ){
@@ -17,9 +19,12 @@ export default ( state, action )=>{
                             startTime, endTime,
                             ...rest
                         } )=>{
+                    const isDifferentDays = moment(startTime.iso).day() !== moment(endTime.iso).day();
+                    const displayTime = moment(startTime.iso).twix(endTime.iso).format({hideTime: isDifferentDays, hourFormat: "HH"});
                     return ({
                         user,  src,  id,
                         coords:[latitude, longitude],
+                        displayTime,
                         startTime:moment( startTime.iso ).format(),
                         endTime:moment( endTime.iso ).format(),
                         ...rest

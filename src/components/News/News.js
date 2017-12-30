@@ -40,8 +40,7 @@ class News extends Component{
         { menuItem: 'Подписки', render: this.renderTab },
     ]
 
-
-    render=()=> <Tab menu={{ color:"blue",inverted: true,secondary: true }} panes={this.tabs}  className="tabs" activeIndex={this.props.activeIndex} onTabChange={this.tabChange}/>
+    render=()=> <Tab menu={{ color:"blue",inverted: true, attached: false, tabular: false  }} panes={this.tabs}  className="tabs" activeIndex={this.props.activeIndex} onTabChange={this.tabChange}/>
 
 }
 

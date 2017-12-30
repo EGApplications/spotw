@@ -2,22 +2,31 @@ import React from 'react'
 import { Button, Header, Icon, Image, Modal } from 'semantic-ui-react'
 
 
-export default ({src, trigger} )=>(
-    <Modal trigger={trigger} dimmer="blurring" closeIcon>
-        <Modal.Header>Profile Picture</Modal.Header>
-        <Modal.Content image>
-            <Image wrapped size='medium' src={src}/>
-            <Modal.Description>
-                <Header>Modal Header</Header>
-                <p>This is an example of expanded content that will cause the modal's dimmer to scroll</p>
-                <Image src='https://react.semantic-ui.com/assets/images/wireframe/paragraph.png'/>
-            </Modal.Description>
-        </Modal.Content>
-        <Modal.Actions>
-            <Button primary>
-                Proceed <Icon name='right chevron'/>
-            </Button>
-        </Modal.Actions>
-    </Modal>
-)
+export default (item )=>{
+    const {src, trigger, displayTime, title, description} = item;
+    console.log(item);
+
+    return(
+        <Modal trigger={trigger} dimmer="blurring" closeIcon>
+            <Modal.Header>{title}</Modal.Header>
+            <Modal.Content image>
+                <Image src={src} size='medium' alt={title} label={{
+                    color: 'blue',
+                    icon: 'time',
+                    ribbon: true,
+                    content: `${displayTime}`
+                }}/>
+                <Modal.Description>
+                    <Header content={title}/>
+                    {description}
+                </Modal.Description>
+            </Modal.Content>
+            <Modal.Actions>
+                <Button primary>
+                    Proceed <Icon name='right chevron'/>
+                </Button>
+            </Modal.Actions>
+        </Modal>
+    )
+}
 

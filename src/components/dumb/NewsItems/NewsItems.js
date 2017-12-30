@@ -1,16 +1,11 @@
 import React from 'react'
 import { Item, Label, Button } from 'semantic-ui-react'
 import './NewsItems.css'
-import moment from 'moment'
-// eslint-disable-next-line
-import twix from 'twix'
 
 export default ({items, hover, itemClick, tagClick, subscribeClick, memberClick}) =>
     <Item.Group divided relaxed={true} className="news">
         {items.map(
-            ({id, src, title, description, tags, startTime, endTime, coords, user, subscribers, members}) => {
-                const isDifferentDays = moment(startTime).day() !== moment(endTime).day();
-                const interval = moment(startTime).twix(endTime).format({hideTime: isDifferentDays, hourFormat: "HH"});
+            ({id, src, title, description, tags, displayTime, coords, user, subscribers, members}) => {
                 return <Item key={id}
                              className="newsItem"
                              onMouseEnter={hover.bind(this, id)}
@@ -20,7 +15,7 @@ export default ({items, hover, itemClick, tagClick, subscribeClick, memberClick}
                         color: 'blue',
                         icon: 'time',
                         ribbon: true,
-                        content: `${interval}`
+                        content: `${displayTime}`
                     }}/>
                     <Item.Content className="newsContent">
                         <Item.Header>
